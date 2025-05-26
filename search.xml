@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>CentOS更换yum源</title>
+      <link href="/2025/05/09/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/"/>
+      <url>/2025/05/09/CentOS%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Yum简介"><a href="#Yum简介" class="headerlink" title="Yum简介"></a>Yum简介</h1><p>Yum是一个Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包。</p><p>更换yum源是为了使用yum下载软件速度变快，默认的yum源为国外，下载速度较慢，使用国内镜像源可以解决这一问题。</p><h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><blockquote><p>下述操作均要以root权限执行</p></blockquote><ol><li>进入yum配置文件路径</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719019664179-b4c68478-d742-44ee-99dd-007b7ca6be33.png"></p><p>yum 的配置文件在 <code>/etc/yum.repos.d</code>目录下, 其中有多个配置文件，每一个配置文件中都可以配置一个或多个repository，但是最终会被合并为一个交给系统，所以多个文件只是为了方便管理。</p><ol start="2"><li><font style="color:rgb(34, 34, 34);">备份系统自带的yum源</font></li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mv CentOS-Base.repo CentOS-Base.repo.bk</span><br><span class="line">//mv重命名文件</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719019788953-c9cf55c0-3538-4a27-a262-e3f6f37d6dcc.png"></p><ol start="3"><li>下载阿里云的yum源配置文件到&#x2F;etc&#x2F;yum.repos.d&#x2F;</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">//使用wget下载镜像文件</span><br></pre></td></tr></table></figure><blockquote><p>-O参数介绍</p><p>方便以不同的文件名保存</p><p>wget默认会以最后一个符合”&#x2F;”的后面的字符来命名，对于动态链接的下载通常文件名会不正确</p><p>wget <a href="http://www.minjieren.com/download?id=1">http://www.minjieren.com/download?id=1</a><br>下面的例子会下载一个文件并以名称download.aspx?id&#x3D;1080保存，即使下载的文件是zip格式，它仍然以download.php?id&#x3D;1080命名</p><p>为了解决这个问题，我们可以使用参数-O来指定一个文件名：</p><p>wget -O wordpress.zip <a href="http://www.minjieren.com/download.aspx?id=1080">http://www.minjieren.com/download.aspx?id=1080</a></p><p>此时我们就可以将下载后的文件以wordpress.zip命名</p></blockquote><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719019923122-20ad2f0c-aefe-433b-b333-333293846da2.png"></p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719020227899-42ba0588-457c-468e-9bd4-466023991ed3.png"></p><ol start="4"><li>清理yum缓存</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719020262207-08575e3d-35f7-44f0-830a-52ff8e3f5e38.png"></p><ol start="5"><li>生成新的缓存</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum makecache</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719020589273-13cd6650-c538-4bce-a00a-d6b34d13db9a.png"></p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719020610591-db36af55-11f1-4cff-94e0-eb128f5df806.png"></p><blockquote><p>在更改Linux的yum源后，清除和更新yum缓存是为了确保系统使用新的源信息进行软件包管理。具体原因如下：</p><ol><li>确保最新的软件包信息：Yum缓存存储了软件包的信息，包括可用的软件包列表和依赖关系。当你更改yum源后，缓存中可能仍然存在旧源的信息。如果不清除缓存，yum可能会继续使用这些过期的数据，从而导致安装或更新软件包时出现问题。</li><li>避免冲突和错误：如果不清除缓存，旧的缓存信息可能与新的源中的信息不一致，导致包依赖关系不正确或冲突，从而引发错误。</li><li>同步软件包索引：新的源可能包含不同的软件包版本或额外的软件包。通过更新缓存，确保你的系统能够识别和使用这些新的软件包。</li></ol></blockquote><ol start="6"><li>更新yum源检查是否生效</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719020690670-928ff6fa-326d-42f4-8f06-f77e01534f2f.png"></p><p>已生效，更新成功</p><p>查看yum源列表</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum repolist</span><br></pre></td></tr></table></figure><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719021695154-a7f8570c-096a-48d1-bcf2-81d54008e146.png"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2025/05/09/hello-world/"/>
+      <url>/2025/05/09/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
