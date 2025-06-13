@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>帮朋友解决cpp小问题</title>
+      <link href="/2025/06/13/%E5%B8%AE%E6%9C%8B%E5%8F%8B%E8%A7%A3%E5%86%B3cpp%E5%B0%8F%E9%97%AE%E9%A2%98/"/>
+      <url>/2025/06/13/%E5%B8%AE%E6%9C%8B%E5%8F%8B%E8%A7%A3%E5%86%B3cpp%E5%B0%8F%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>非常惬意的周五晚上，吃完饭寻思看会剧，突然微信收到了个消息</p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20250613203621263.png" alt="image-20250613203621263"></p><p>？C++？根本没学过啊，不管了，发来看看</p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20250613203751547.png" alt="image-20250613203751547"></p><p>力扣？上次写力扣题还是大一了，还是写的其他语言（具体什么语言我都忘了..）</p><blockquote><p>看了看发给我的图片，先看报错（一个string未声明，一个是少标点），寻思着Leetcode题解不可能出这种错误啊</p></blockquote><p>不管了，要到链接看看</p><p><a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">https://leetcode.cn/problems/longest-substring-without-repeating-characters/</a></p><p>这个题解贴上去确实没毛病</p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20250613210254631.png" alt="image-20250613210254631"></p><p>放到编辑器里一看，不对啊，头文件和mian哪去了</p><blockquote><p>没怎么刷过Leetcode，不知道它写题的处理逻辑，我还以为要交完整的代码</p></blockquote><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20250613210455289.png" alt="image-20250613210455289"></p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/d2f08970bfe20ac40fc0f470b6cf0dd.png" alt="d2f08970bfe20ac40fc0f470b6cf0dd"></p><p>简单来说就是，Leetcode的逻辑是，你的代码只需要满足算法即可，并且Leetcode刚开始默认会给你封装一个函数，你写的代码往该函数填充，不需要考虑其他东西，只需要考虑算法本身；而当把题解cv到编辑器里，会因为没有头文件和main函数报错</p><p>想在编辑器运行也很简单，引用对应头文件，创建main函数，并且在main函数里实例化这个类并且调用其中包含我们算法函数的这一方法</p><p>验证一下没毛病</p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/d81f65bc6a4ccb7f9fc91f3bf382cdb.png" alt="d81f65bc6a4ccb7f9fc91f3bf382cdb"></p><p><img src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20250613210546250.png" alt="image-20250613210546250"></p><p>舒舒服服啊~</p><blockquote><p><del>又感慨上了</del></p></blockquote><p>学习的最大收获就是 逐渐具备解决问题的逻辑与能力，即使对于未知问题也能摸索去解决</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tips </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 日常生活 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>流量特征</title>
       <link href="/2025/05/27/%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/"/>
       <url>/2025/05/27/%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/</url>
